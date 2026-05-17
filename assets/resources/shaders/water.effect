@@ -1,0 +1,111 @@
+// Copyright (c) 2017-2020 Xiamen Yaji Software Co., Ltd.
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: sprite-vs:vert
+      frag: sprite-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        # 画布尺寸
+        canvas_size: { value: [ 1280.0, 720.0 ] }
+        # 中心点
+        center: { value: [ 0.5, 0.5 ] }
+        # 波纹圆心
+        wave_radius: {  value: 0.18 }
+        # 波纹偏移量
+        wave_offset: { value: 2.0 }
+}%
+
+CCProgram sprite-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+  #if SAMPLE_FROM_RT
+    #include <common/common-define>
+  #endif
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 color;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1);
+
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+
+    #if USE_PIXEL_ALIGNMENT
+      pos = cc_matView * pos;
+      pos.xyz = floor(pos.xyz);
+      pos = cc_matProj * pos;
+    #else
+      pos = cc_matViewProj * pos;
+    #endif
+
+    uv0 = a_texCoord;
+    #if SAMPLE_FROM_RT
+      CC_HANDLE_RT_SAMPLE_FLIP(uv0);
+    #endif
+    color = a_color;
+
+    return pos;
+  }
+}%
+
+CCProgram sprite-fs %{
+  precision highp float;
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+  #include <builtin/uniforms/cc-global>
+
+  in vec4 color;
+
+  in vec2 uv0;
+  #pragma builtin(local)
+  layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
+
+  uniform ARGS{
+    vec2 center;
+    vec2 canvas_size;
+    float wave_radius;
+    float wave_offset;
+  };
+
+  vec4 frag () {
+    vec4 o = vec4(1, 1, 1, 1);
+    // 计算 uv 到起点的向量
+		vec2 dis_v = center - uv0;
+		dis_v = dis_v * vec2(canvas_size.x / canvas_size.y, 1.0);
+    // 计算向量的长度
+		float dis = sqrt(dis_v.x * dis_v.x + dis_v.y * dis_v.y);
+
+		// dis小于1，但是我们希望能有多个波峰波谷，所以在sin的内部乘上一个比较大的倍数
+		float sin_factor = sin(dis * 100.0 + cc_time.x) * 0.05;
+    // sin函数的值在-1到1之间，我们希望偏移值很小，所以输出的时候需要缩小一定的倍数倍
+		float discard_factor = clamp(wave_radius - abs(wave_offset - dis), 0.0, 1.0);
+
+    // 归一化
+    vec2 dis_v1 = normalize(dis_v);
+		// 计算总的 uv 的偏移值
+		vec2 offset = dis_v1 * sin_factor * discard_factor;
+    // 偏移
+		vec2 uv = offset + uv0;
+    o *= CCSampleWithAlphaSeparated(cc_spriteTexture, uv);
+    return o;
+  }
+}%

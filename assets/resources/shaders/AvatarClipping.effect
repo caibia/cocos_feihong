@@ -1,0 +1,79 @@
+// 头像圆角裁剪， 支持裁剪为圆形 或 圆角正方形
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: sprite-vs:vert
+      frag: sprite-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        center: { value: [0.5,0.5], editor: { tooltip: '光圈中心（0-1）' } }
+        isGray: { value: 0.0, editor: { tooltip: '是否变灰（0不变灰1变灰）' } }
+        blur: { value: 0.35, editor: { tooltip: '光圈模糊程度（0-1）' } }
+        wh_ratio: { value: 1.0, editor: { tooltip: '宽高比（0-1）' } }
+        radius: { value: 0.5, editor: { tooltip: '圆角半径（0-1）' } }
+}%
+
+CCProgram sprite-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 color;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1);
+    pos = cc_matViewProj * pos;
+    uv0 = a_texCoord;
+    color = a_color;
+    return pos;
+  }
+}%
+
+CCProgram sprite-fs %{
+  precision highp float;
+  #include <builtin/internal/embedded-alpha>
+  #include <builtin/internal/alpha-test>
+
+  in vec4 color;
+  in vec2 uv0;
+  #pragma builtin(local)
+  layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
+
+  uniform Properties {
+    vec2 center;
+    float isGray;
+    float blur;
+    float wh_ratio;
+    float radius;
+  };
+
+  vec4 frag () {
+    vec4 o = vec4(1, 1, 1, 1);
+
+    o *= CCSampleWithAlphaSeparated(cc_spriteTexture, uv0);
+    o *= color;
+    float circle = radius * radius;
+    float rx = center.x * wh_ratio;
+    float ry = center.y;
+    float dis = (uv0.x * wh_ratio - rx) * (uv0.x * wh_ratio - rx) + (uv0.y  - ry) * (uv0.y - ry);
+    o.a *= smoothstep(circle, circle - blur, dis);
+    if (isGray > 0.5) {
+      float gray  = 0.2126 * o.r + 0.7152 * o.g + 0.0722 * o.b;
+      o.r = o.g = o.b = gray;
+    }
+    return o;
+  }
+}%

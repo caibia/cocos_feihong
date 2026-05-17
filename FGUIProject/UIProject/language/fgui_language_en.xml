@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- 0Common/view/DialogView.xml -->
+  <string name="sno3nq7bgi96v2c-n4_gi96" mz="labTitle">Title</string>
+  <string name="sno3nq7bgi96v2c-n5_gi96" mz="labContent">asdaj loves watching for a very, very long time</string>
+  <string name="sno3nq7bgi96v2c-n1_gi96" mz="btnOk">Confirm</string>
+  <string name="sno3nq7bgi96v2c-n2_gi96" mz="btnCancel">Cancel</string>
+  <!-- 0Common/widget/AlertLabelTip.xml -->
+  <string name="sno3nq7bmj2wfb-n0_mj2w" mz="labDesc">Sample Text</string>
+  <!-- 0Common/widget/BtnIcon2.xml -->
+  <string name="sno3nq7bja84h7-n1_ht5g" mz="title">Shop</string>
+  <!-- HotUpdate/view/HotUpdateView.xml -->
+  <string name="ihqqwu6uorft3-n2_lt4s" mz="labBar">Loading....(1/11)</string>
+  <string name="ihqqwu6uorft3-n4_orft" mz="labTip">Loading....(1/11)</string>
+  <!-- Loading/view/LoadingView.xml -->
+  <string name="1e5ivyhrbgjc0-n2_lt4s" mz="labBar">Loading....(1/11)</string>
+  <!-- Login/view/LoginView.xml -->
+  <string name="sv91i1z6ht5g6-n13_8fh1" mz="labServerTitle">Server</string>
+  <string name="sv91i1z6ht5g6-n22_iiba" mz="labInputTitle">Account</string>
+  <string name="sv91i1z6ht5g6-n23_iiba-prompt" mz="inputAccount">[color=#999999]Enter account[/color]</string>
+  <string name="sv91i1z6ht5g6-n4_ht5g" mz="btnNotice">Notice</string>
+  <string name="sv91i1z6ht5g6-n24_j1jz" mz="btnDebug">Test Battle</string>
+  <!-- NetLoading/view/NetLoadingView.xml -->
+  <string name="imfjxhkeiibagb-n6_iiba" mz="labText">Waiting...</string>
+</resources>
