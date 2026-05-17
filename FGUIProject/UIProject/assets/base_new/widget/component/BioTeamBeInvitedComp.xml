@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="328,96" pivot="1,0" remark="app.view.base.component.BaseTeamBeInvitedComp" margin="0,16783363,16779264,184555010">
+  <controller name="isCrossServer" pages="0,,1," selected="0"/>
+  <displayList>
+    <image id="n6_q6eu" name="n6" src="q6eukk2u0" fileName="img/pic_haoyouyaoqingbg.png" xy="-3,-6"/>
+    <component id="n8_q6eu" name="userIocn" src="r7qviboo" fileName="img/icon/BaseUserIcon.xml" xy="3,5" scale="0.5,0.5"/>
+    <image id="n9_q6eu" name="n9" src="hps0ibnr" fileName="img/bg_black_02.png" xy="-5,7" size="60,18"/>
+    <text id="n3_b1a0" name="level" xy="0,4" pivot="0.5,0.5" size="53,22" font="Novecento wide" fontSize="14" color="#f2f2f2" text=""/>
+    <text id="n7_q6eu" name="playerName" xy="72,1" pivot="0,0.5" size="142,29" font="Source Han Serif CN" fontSize="20" color="#323232" letterSpacing="-1" vAlign="middle" autoSize="shrink" text="玩家名称"/>
+    <text id="n4_b1a0" name="chapternName" xy="98,48" pivot="0,0.5" size="111,29" font="Source Han Sans CN" fontSize="16" color="#323232" letterSpacing="-1" vAlign="middle" autoSize="shrink" text=""/>
+    <component id="n10_q6eu" name="agreeBtn" src="f83tibme" fileName="widget/button/Base9GridBtn.xml" xy="279,28" size="40,40">
+      <Button icon="ui://kvb3znepq6eukk2u2"/>
+    </component>
+    <component id="n11_q6eu" name="cancelBtn" src="f83tibme" fileName="widget/button/Base9GridBtn.xml" xy="216,28" size="40,40">
+      <Button icon="ui://kvb3znepq6eukk2u1"/>
+    </component>
+    <text id="n12_hteg" name="n10" xy="7,72" pivot="0,0.5" size="80,24" font="Source Han Sans CN" fontSize="16" color="#f2f2f2" letterSpacing="-1" text="推荐效能："/>
+    <text id="n13_hteg" name="fightText" xy="88,84" pivot="0,0.5" anchor="true" size="52,24" font="Source Han Sans CN" fontSize="16" color="#f2f2f2" text="">
+      <relation target="n12_hteg" sidePair="left-right"/>
+    </text>
+    <component id="n14_qtk9" name="serverNameTxt" src="p3iv1emigd1" fileName="widget/text/BaseRaceText.xml" xy="72,41" size="138,29">
+      <Label titleColor="#808080" titleFontSize="16"/>
+    </component>
+  </displayList>
+  <transition name="open">
+    <item time="0" type="Alpha" tween="true" startValue="0" endValue="1" duration="10" ease="Quint.Out"/>
+  </transition>
+  <transition name="close">
+    <item time="0" type="Alpha" tween="true" startValue="1" endValue="0" duration="5" ease="Quint.Out"/>
+  </transition>
+</component>

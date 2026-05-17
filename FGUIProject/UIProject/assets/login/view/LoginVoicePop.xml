@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="980,410" pivot="0.5,0.5" margin="0,16783363,16779264,184555009">
+  <controller name="voice" pages="0,,1," selected="0"/>
+  <displayList>
+    <component id="n7_ohfx" name="popPanel" src="mdfj1a" pkg="kvb3znep" xy="0,0"/>
+    <component id="n2_eypq" name="n2" src="uyzogibwn" pkg="kvb3znep" xy="150,207" size="102,22" group="n4_eypq"/>
+    <component id="n3_eypq" name="n3" src="uyzogibwn" pkg="kvb3znep" xy="454,206" size="270,22" touchable="false" grayed="true" group="n4_eypq"/>
+    <group id="n4_eypq" name="n4" xy="150,206" size="574,23" group="n6_eypq" advanced="true" layout="1" colGap="202" excludeInvisibles="true"/>
+    <loader id="n5_eypq" name="chinaVoiceArea" xy="469,218" pivot="0,0.5" anchor="true" size="419,88" group="n6_eypq"/>
+    <group id="n6_eypq" name="content" xy="150,174" size="738,88" advanced="true"/>
+  </displayList>
+</component>

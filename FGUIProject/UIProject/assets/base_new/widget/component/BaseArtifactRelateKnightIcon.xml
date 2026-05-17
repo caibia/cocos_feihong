@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="100,100">
+  <controller name="lineDirection" pages="0,左,1,右" selected="0"/>
+  <controller name="isShowBg" pages="0,,1," selected="0"/>
+  <controller name="isLink" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n1_kgs6" name="n1" xy="-119,4" pivot="0.5,0.5" size="220,92" scale="-1,1" url="ui://kvb3zneprjct1emigez">
+      <gearDisplay controller="lineDirection" pages="0"/>
+      <gearIcon controller="isLink" pages="1" values="ui://kvb3zneprjct1emigez" default="ui://kvb3znepkgs6gic2s"/>
+      <gearDisplay2 controller="isShowBg" pages="0" condition="0"/>
+    </loader>
+    <image id="n2_tnrv" name="n2" src="kgs6gic2s" fileName="img/pic_gmwz_touxiang.png" xy="3,4">
+      <gearDisplay controller="lineDirection" pages="1"/>
+      <gearDisplay2 controller="isShowBg" pages="0" condition="0"/>
+    </image>
+    <component id="n0_kgs6" name="maskKnightIcon" src="kgs6gic2q" fileName="widget/component/BaseArtifactRelateKnightMask.xml" xy="27,25"/>
+  </displayList>
+</component>

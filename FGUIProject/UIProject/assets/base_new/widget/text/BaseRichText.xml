@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="10,29" pivot="0.5,0.5" margin="0,512,1627848960,268453376" extention="Label">
+  <displayList>
+    <loader id="n4_dtc2" name="n4" xy="-14,15" pivot="0,0.5" anchor="true" size="40,49" url="ui://kvb3znepc14agibvo" fill="scaleFree">
+      <relation target="n2_v0sc" sidePair="width-width"/>
+    </loader>
+    <richtext id="n2_v0sc" name="title" xy="0,0" size="10,29" fontSize="20" ubb="true" singleLine="true" text=""/>
+  </displayList>
+  <relation target="n2_v0sc" sidePair="rightext-right,bottomext-bottom"/>
+</component>

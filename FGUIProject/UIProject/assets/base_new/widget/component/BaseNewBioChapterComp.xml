@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="228,24" overflow="hidden" extention="Button">
+  <displayList>
+    <image id="n40_pzz9" name="n40" src="mq135ibmv" fileName="img/bg_zjm_liezhuantishi2.png" xy="0,0" size="228,24"/>
+    <component id="n41_kfg2" name="eff" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="114,12" size="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <loader id="n37_arzd" name="icon" xy="0,0" size="228,24" url="ui://kvb3znepmq135ibmu" fill="scaleFree">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <text id="n33_arzd" name="title" xy="24,-1" pivot="0.5,0.5" size="180,26" font="Source Han Serif CN" fontSize="18" color="#323232" letterSpacing="-1" align="center" vAlign="middle" autoSize="shrink" text="">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+  </displayList>
+  <Button/>
+  <transition name="enter" options="4">
+    <item time="0" type="Alpha" target="n33_arzd" value="0"/>
+    <item time="0" type="Alpha" target="n37_arzd" value="0"/>
+    <item time="0" type="Alpha" target="n40_pzz9" value="0"/>
+    <item time="8" type="Alpha" target="n33_arzd" tween="true" startValue="0" endValue="1" duration="8"/>
+    <item time="8" type="Alpha" target="n37_arzd" tween="true" startValue="0" endValue="1" duration="8"/>
+    <item time="8" type="Alpha" target="n40_pzz9" tween="true" startValue="0" endValue="1" duration="8"/>
+    <item time="32" type="Alpha" target="n37_arzd" value="1"/>
+  </transition>
+</component>

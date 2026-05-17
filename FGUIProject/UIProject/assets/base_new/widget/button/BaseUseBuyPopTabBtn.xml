@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="198,44" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <image id="n18_ofg6" name="n18" src="ofg6kk2o0" fileName="img/btn_goumaiqiehuan.png" xy="99,20" pivot="0.5,0.5" anchor="true" group="n22_ofg6"/>
+    <image id="n20_ofg6" name="n20" src="qhdlgibt2" fileName="img/pic_line_11.png" xy="99,42" pivot="0.5,0.5" anchor="true" size="198,4" group="n22_ofg6"/>
+    <group id="n22_ofg6" name="n22" xy="0,0" size="198,44" advanced="true">
+      <gearDisplay controller="button" pages="1"/>
+    </group>
+    <text id="n19_ofg6" name="title" xy="99,22" pivot="0.5,0.5" anchor="true" size="100,34" font="Source Han Sans CN" fontSize="24" color="#f2f2f2" align="center" vAlign="middle" text="使用道具">
+      <gearColor controller="button" pages="0" values="#323232" default="#f2f2f2"/>
+    </text>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

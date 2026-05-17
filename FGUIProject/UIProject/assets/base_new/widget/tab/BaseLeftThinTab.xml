@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="200,46" remark="app.view.base.tab.BaseLeftThinTab" extention="Button">
+  <controller name="button" pages="2,up,3,down" selected="0"/>
+  <controller name="style" pages="0,,1," selected="0"/>
+  <displayList>
+    <graph id="n8_tips" name="n8" xy="-2,-20" size="201,87"/>
+    <loader id="n0_ke2z" name="loader" xy="0,10" size="200,36" url="ui://kvb3znepku6zibk3">
+      <gearLook controller="button" pages="2,3" values="1.00,0,0,1|0.00,0,0,1"/>
+      <gearIcon controller="button" pages="2,3" values="ui://kvb3znepku6zibk3|ui://kvb3znepku6zibk2"/>
+      <relation target="" sidePair="bottom-bottom"/>
+    </loader>
+    <loader id="n4_ku6z" name="icon" xy="30,25" pivot="0.5,0.5" anchor="true" size="30,31">
+      <gearLook controller="button" pages="2,3" values="1.00,0,0,1|0.00,0,0,1"/>
+    </loader>
+    <loader id="n5_b8iw" name="iconDown" xy="117,25" pivot="0.5,0.5" anchor="true" size="30,31">
+      <gearDisplay controller="button" pages="3"/>
+      <gearLook controller="button" pages="2,3" values="1.00,0,0,1|0.00,0,0,1"/>
+    </loader>
+    <text id="n1_ke2z" name="title" xy="47,25" pivot="0,0.5" anchor="true" size="124,36" font="Source Han Serif CN" fontSize="18" color="#808080" leading="-5" letterSpacing="-1" vAlign="middle" autoSize="shrink" text="">
+      <gearXY controller="style" pages="0,1" values="47,25|28,25"/>
+      <gearSize controller="style" pages="0,1" values="124,36,1,1|143,36,1,1"/>
+      <gearLook controller="button" pages="2,3" values="1.00,0,0,0|0.00,0,0,0"/>
+      <gearColor controller="button" pages="2,3" values="#808080|#f2f2f2"/>
+    </text>
+    <component id="n6_t5kt" name="effectComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="92,25" size="0,0" alpha="0"/>
+    <component id="n7_iez3" name="redPointComp" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="170,10"/>
+  </displayList>
+  <Button mode="Radio" sound="UI_Click_Large"/>
+  <transition name="up_enter">
+    <item time="0" type="Alpha" target="n0_ke2z" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="0" type="Alpha" target="n1_ke2z" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="0" type="XY" target="n0_ke2z" tween="true" startValue="-10,-" endValue="0,-" duration="12"/>
+    <item time="0" type="XY" target="n1_ke2z" tween="true" startValue="27,-" endValue="47,-" duration="12"/>
+    <item time="0" type="XY" target="n4_ku6z" tween="true" startValue="10,-" endValue="30,-" duration="12"/>
+  </transition>
+  <transition name="down_enter">
+    <item time="0" type="Alpha" target="n0_ke2z" tween="true" startValue="0" endValue="1" duration="10" ease="Quint.Out"/>
+    <item time="0" type="Alpha" target="n1_ke2z" tween="true" startValue="0" endValue="1" duration="10"/>
+    <item time="0" type="Alpha" target="n4_ku6z" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="0" type="Alpha" target="n5_b8iw" tween="true" startValue="0" endValue="1" duration="10"/>
+    <item time="0" type="Alpha" target="n6_t5kt" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="0" type="XY" target="n0_ke2z" tween="true" startValue="-20,-" endValue="0,-" duration="10" ease="Quint.Out"/>
+    <item time="0" type="XY" target="n1_ke2z" tween="true" startValue="27,-" endValue="47,-" duration="10"/>
+    <item time="0" type="XY" target="n4_ku6z" tween="true" startValue="10,-" endValue="30,-" duration="12"/>
+    <item time="0" type="XY" target="n6_t5kt" tween="true" startValue="87,-" endValue="92,-" duration="8"/>
+  </transition>
+  <transition name="up_enter1">
+    <item time="0" type="Alpha" target="n0_ke2z" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="0" type="Alpha" target="n1_ke2z" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="0" type="XY" target="n0_ke2z" tween="true" startValue="-10,-" endValue="0,-" duration="12"/>
+    <item time="0" type="XY" target="n1_ke2z" tween="true" startValue="8,-" endValue="28,-" duration="12"/>
+  </transition>
+  <transition name="down_enter1">
+    <item time="0" type="Alpha" target="n0_ke2z" tween="true" startValue="0" endValue="1" duration="10" ease="Quint.Out"/>
+    <item time="0" type="Alpha" target="n1_ke2z" tween="true" startValue="0" endValue="1" duration="10"/>
+    <item time="0" type="Alpha" target="n6_t5kt" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="0" type="XY" target="n0_ke2z" tween="true" startValue="-20,-" endValue="0,-" duration="10" ease="Quint.Out"/>
+    <item time="0" type="XY" target="n1_ke2z" tween="true" startValue="6,-" endValue="28,-" duration="10"/>
+    <item time="0" type="XY" target="n6_t5kt" tween="true" startValue="87,-" endValue="92,-" duration="8"/>
+  </transition>
+</component>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="96,90" remark="app.view.base.button.BaseGoldSavingBtn">
+  <controller name="progStatus" pages="0,,1," selected="0"/>
+  <displayList>
+    <component id="n2_fulz" name="goldSavingBtn" src="qx0j5iblg" fileName="widget/button/BaseTimerBtn.xml" xy="3,-1">
+      <Button title="数据兑换" icon="ui://kvb3znepfulzwkk33h"/>
+    </component>
+    <component id="n4_s0mt" name="effComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="48,43" size="0,0"/>
+    <text id="n5_l0r9" name="upNumText" xy="32,17" pivot="0.5,0.5" size="37,26" font="Source Han Serif CN" fontSize="18" color="#ffffff" align="center" strokeColor="#d7234f" text=""/>
+    <component id="n6_l0r9" name="redPointComp" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="77,21"/>
+    <image id="n3_tkyr" name="n3" src="fulzwkk33j" fileName="img/pic_progress_bg_4.png" xy="11,63" size="76,12" group="n7_u4uu">
+      <gearDisplay controller="progStatus" pages="0"/>
+    </image>
+    <component id="n1_ixw1" name="progComp" src="ke2z1d" fileName="widget/progress/BaseProgBar.xml" xy="16,67" size="66,4" group="n7_u4uu" visible="false">
+      <gearDisplay controller="progStatus" pages="0"/>
+      <ProgressBar value="50" max="100"/>
+    </component>
+    <group id="n7_u4uu" name="n7" xy="11,63" size="76,12" visible="false" advanced="true"/>
+  </displayList>
+  <transition name="textup">
+    <item time="0" type="Alpha" target="n5_l0r9" tween="true" startValue="0" endValue="1" duration="5"/>
+    <item time="0" type="Scale" target="n5_l0r9" tween="true" startValue="0.10000000149011612,0.10000000149011612" endValue="1.2000000476837158,1.2000000476837158" duration="7" ease="Back.Out"/>
+    <item time="0" type="XY" target="n5_l0r9" tween="true" startValue="-,56" endValue="-,17" duration="7" ease="Back.Out"/>
+    <item time="14" type="Alpha" target="n5_l0r9" tween="true" startValue="1" endValue="0" duration="10"/>
+    <item time="14" type="XY" target="n5_l0r9" tween="true" startValue="-,17" endValue="-,6" duration="10"/>
+  </transition>
+</component>

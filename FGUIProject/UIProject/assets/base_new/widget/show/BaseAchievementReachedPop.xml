@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="542,72" pivot="0.5,0.5" margin="0,16783363,16779264,184555013">
+  <controller name="achievementType" pages="0,,1," selected="0"/>
+  <displayList>
+    <image id="n8_itc3" name="n8" src="itc3wkk31b" fileName="img/achievement/bg_chengjiudi.png" xy="0,0" pivot="0.5,0.5"/>
+    <image id="n5_itc3" name="n5" src="itc3wkk31c" fileName="img/achievement/line_06.png" xy="256,30" pivot="0.5,0.5" anchor="true"/>
+    <image id="n6_itc3" name="n6" src="itc3wkk31a" fileName="img/achievement/pic_cj_jiantou.png" xy="140,36" pivot="0.5,0.5" anchor="true" group="n12_itc3"/>
+    <image id="n11_itc3" name="n11" src="itc3wkk31a" fileName="img/achievement/pic_cj_jiantou.png" xy="367,36" pivot="0.5,0.5" anchor="true" group="n12_itc3" flip="hz"/>
+    <image id="n7_itc3" name="n7" src="itc3wkk319" fileName="img/achievement/pic_guangxiao_red.png" xy="256,55" pivot="0.5,0.5" anchor="true" group="n12_itc3"/>
+    <group id="n12_itc3" name="n10" xy="51,0" size="410,84" advanced="true">
+      <gearDisplay controller="achievementType" pages="1"/>
+    </group>
+    <image id="n3_itc3" name="n3" src="j3e6kk2rn" fileName="img/bg_white_03.png" xy="185,15" pivot="0,0.5" anchor="true" size="14,2" skew="1,0" group="n9_itc3"/>
+    <text id="n2_itc3" name="n1" xy="203,14" pivot="0,0.5" anchor="true" size="104,29" group="n9_itc3" fontSize="20" color="#f2f2f2" leading="0" align="center" vAlign="middle" text="荣誉已达成">
+      <gearText controller="achievementType" pages="0" values="荣誉已达成" default="隐藏荣誉已达成"/>
+    </text>
+    <image id="n4_itc3" name="n4" src="j3e6kk2rn" fileName="img/bg_white_03.png" xy="311,15" pivot="0,0.5" anchor="true" size="14,2" group="n9_itc3"/>
+    <group id="n9_itc3" name="n9" xy="185,0" size="140,29" advanced="true" layout="1" colGap="4" excludeInvisibles="true">
+      <relation target="" sidePair="center-center"/>
+    </group>
+    <text id="n1_itc3" name="name" xy="256,51" pivot="0.5,0.5" anchor="true" size="425,48" font="Source Han Serif CN" fontSize="32" color="#f2f2f2" leading="0" letterSpacing="-1" align="center" vAlign="middle" autoSize="shrink" text=""/>
+    <component id="n13_btxw" name="effComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="271,36" size="0,0"/>
+  </displayList>
+  <transition name="enter_0">
+    <item time="0" type="Alpha" target="n1_itc3" value="0"/>
+    <item time="0" type="Alpha" target="n5_itc3" value="0"/>
+    <item time="0" type="Alpha" target="n8_itc3" value="0"/>
+    <item time="0" type="Alpha" target="n9_itc3" value="0"/>
+    <item time="0" type="Scale" target="n5_itc3" value="0.10000000149011612,1"/>
+    <item time="2" type="Alpha" target="n1_itc3" tween="true" startValue="0" endValue="1" duration="6" ease="Quint.Out"/>
+    <item time="2" type="Alpha" target="n5_itc3" tween="true" startValue="0" endValue="1" duration="6" ease="Quint.Out"/>
+    <item time="2" type="Alpha" target="n8_itc3" tween="true" startValue="0" endValue="1" duration="6" ease="Quint.Out"/>
+    <item time="2" type="Alpha" target="n9_itc3" tween="true" startValue="0" endValue="1" duration="6" ease="Quint.Out"/>
+    <item time="2" type="Scale" target="n5_itc3" tween="true" startValue="0.10000000149011612,1" endValue="1,1" duration="6" ease="Quint.Out"/>
+    <item time="34" type="Alpha" target="n1_itc3" tween="true" startValue="1" endValue="0" duration="3" ease="Quint.Out"/>
+    <item time="34" type="Alpha" target="n5_itc3" tween="true" startValue="1" endValue="0" duration="3" ease="Quint.Out"/>
+    <item time="34" type="Alpha" target="n8_itc3" tween="true" startValue="1" endValue="0" duration="6" ease="Quint.Out"/>
+    <item time="34" type="Alpha" target="n9_itc3" tween="true" startValue="1" endValue="0" duration="3" ease="Quint.Out"/>
+    <item time="34" type="Scale" target="n5_itc3" tween="true" startValue="1,1" endValue="1,1" duration="3" ease="Quint.Out"/>
+    <item time="34" type="Scale" target="n8_itc3" tween="true" startValue="1,1" endValue="1,0.019999999552965164" duration="5" ease="Quint.Out"/>
+  </transition>
+  <transition name="enter_1">
+    <item time="0" type="Alpha" target="n11_itc3" value="0"/>
+    <item time="0" type="Alpha" target="n1_itc3" value="0"/>
+    <item time="0" type="Alpha" target="n5_itc3" value="0"/>
+    <item time="0" type="Alpha" target="n6_itc3" value="0"/>
+    <item time="0" type="Alpha" target="n7_itc3" value="0"/>
+    <item time="0" type="Alpha" target="n8_itc3" value="0"/>
+    <item time="0" type="Alpha" target="n9_itc3" value="0"/>
+    <item time="0" type="Scale" target="n5_itc3" value="0.10000000149011612,1"/>
+    <item time="0" type="XY" target="n6_itc3" value="140,36"/>
+    <item time="2" type="Alpha" target="n11_itc3" tween="true" startValue="0" endValue="1" duration="10" ease="Quint.Out"/>
+    <item time="2" type="Alpha" target="n1_itc3" tween="true" startValue="0" endValue="1" duration="6" ease="Quint.Out"/>
+    <item time="2" type="Alpha" target="n5_itc3" tween="true" startValue="0" endValue="1" duration="6" ease="Quint.Out"/>
+    <item time="2" type="Alpha" target="n6_itc3" tween="true" startValue="0" endValue="1" duration="10" ease="Quint.Out"/>
+    <item time="2" type="Alpha" target="n7_itc3" tween="true" startValue="0" endValue="1" duration="10" ease="Quint.Out"/>
+    <item time="2" type="Alpha" target="n8_itc3" tween="true" startValue="0" endValue="1" duration="6" ease="Quint.Out"/>
+    <item time="2" type="Alpha" target="n9_itc3" tween="true" startValue="0" endValue="1" duration="6" ease="Quint.Out"/>
+    <item time="2" type="Scale" target="n5_itc3" tween="true" startValue="0.10000000149011612,1" endValue="1,1" duration="6" ease="Quint.Out"/>
+    <item time="2" type="Scale" target="n7_itc3" tween="true" startValue="0.10000000149011612,1" endValue="1,1" duration="10" ease="Quint.Out"/>
+    <item time="2" type="XY" target="n11_itc3" tween="true" startValue="293,36" endValue="367,36" duration="10" ease="Quint.Out"/>
+    <item time="2" type="XY" target="n6_itc3" tween="true" startValue="249,36" endValue="140,36" duration="10" ease="Quint.Out"/>
+    <item time="38" type="Alpha" target="n11_itc3" tween="true" startValue="1" endValue="0" duration="3" ease="Quint.Out"/>
+    <item time="38" type="Alpha" target="n1_itc3" tween="true" startValue="1" endValue="0" duration="3" ease="Quint.Out"/>
+    <item time="38" type="Alpha" target="n5_itc3" tween="true" startValue="1" endValue="0" duration="3" ease="Quint.Out"/>
+    <item time="38" type="Alpha" target="n6_itc3" tween="true" startValue="1" endValue="0" duration="3" ease="Quint.Out"/>
+    <item time="38" type="Alpha" target="n7_itc3" tween="true" startValue="1" endValue="0" duration="3" ease="Quint.Out"/>
+    <item time="38" type="Alpha" target="n8_itc3" tween="true" startValue="1" endValue="0" duration="6" ease="Quint.Out"/>
+    <item time="38" type="Alpha" target="n9_itc3" tween="true" startValue="1" endValue="0" duration="3" ease="Quint.Out"/>
+    <item time="38" type="Scale" target="n5_itc3" tween="true" startValue="1,1" endValue="1,1" duration="3" ease="Quint.Out"/>
+    <item time="38" type="Scale" target="n7_itc3" tween="true" startValue="1,1" endValue="1,1" duration="3" ease="Quint.Out"/>
+    <item time="38" type="Scale" target="n8_itc3" tween="true" startValue="1,1" endValue="1,0.029999999329447746" duration="5" ease="Quint.Out"/>
+    <item time="38" type="XY" target="n11_itc3" tween="true" startValue="367,36" endValue="367,36" duration="3" ease="Quint.Out"/>
+    <item time="38" type="XY" target="n6_itc3" tween="true" startValue="140,36" endValue="140,36" duration="3" ease="Quint.Out"/>
+  </transition>
+</component>

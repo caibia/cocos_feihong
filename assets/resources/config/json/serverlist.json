@@ -1,0 +1,24 @@
+{
+    "myServerIds": [101, 102, 103],
+    "groups": [
+        { "id": "g6170", "name": "61-70區", "isRecommend": true,  "range": [61, 70] },
+        { "id": "g5160", "name": "51-60區", "isRecommend": false, "range": [51, 60] },
+        { "id": "g4150", "name": "41-50區", "isRecommend": false, "range": [41, 50] },
+        { "id": "g3140", "name": "31-40區", "isRecommend": false, "range": [31, 40] },
+        { "id": "g2130", "name": "21-30區", "isRecommend": false, "range": [21, 30] }
+    ],
+    "servers": [
+        { "id": 101, "groupId": "g6170", "name": "ASIA63-巴爾之冠",   "state": 0, "openTime": 0, "playerName": "正直的表演家", "level": 1, "iconId": 510060 },
+        { "id": 102, "groupId": "g6170", "name": "ASIA-水晶工廠",      "state": 1, "openTime": 0, "playerName": "殷滿",         "level": 1, "iconId": 510061 },
+        { "id": 103, "groupId": "g5160", "name": "ASIA-千墟山",        "state": 2, "openTime": 0, "playerName": "安茹雪",       "level": 7, "iconId": 510062 },
+        { "id": 104, "groupId": "g6170", "name": "ASIA62-但他林之書",  "state": 0, "openTime": 0 },
+        { "id": 105, "groupId": "g5160", "name": "ASIA-列拉金殘弓",    "state": 1, "openTime": 0 },
+        { "id": 106, "groupId": "g6170", "name": "ASIA64-夜霜之穹",    "state": 2, "openTime": 0 },
+        { "id": 107, "groupId": "g4150", "name": "ASIA45-蒼風之地",    "state": 0, "openTime": 0 },
+        { "id": 108, "groupId": "g4150", "name": "ASIA42-雷霆殘響",    "state": 3, "openTime": 0 },
+        { "id": 109, "groupId": "g3140", "name": "ASIA38-星辰之路",    "state": 0, "openTime": 0 },
+        { "id": 110, "groupId": "g3140", "name": "ASIA32-鏡淵祭壇",    "state": 1, "openTime": 0 },
+        { "id": 111, "groupId": "g2130", "name": "ASIA25-黎明海岸",    "state": 0, "openTime": 0 },
+        { "id": 112, "groupId": "g2130", "name": "ASIA21-輝石迴廊",    "state": 2, "openTime": 0 }
+    ]
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="316,88" remark="app.view.base.component.BaseNameComp">
+  <controller name="hideStar" pages="1,show,0,hide" selected="0"/>
+  <displayList>
+    <loader id="n2_scpe" name="quality" xy="0,68" size="310,14" fill="scaleFree">
+      <gearDisplay controller="hideStar" pages="1"/>
+    </loader>
+    <text id="n0_scpe" name="nameTxt" xy="5,56" pivot="0,0.5" anchor="true" size="196,64" font="Source Han Serif CN" fontSize="48" color="#f2f2f2" strokeColor="#323232" text="">
+      <gearXY controller="hideStar" pages="0" values="5,56" default="5,26"/>
+    </text>
+    <component id="n1_scpe" name="starComp" src="v6znibjq" fileName="widget/component/BaseStarComp.xml" xy="5,50" size="30,28">
+      <gearDisplay controller="hideStar" pages="1"/>
+      <Label icon="ui://kvb3znepnf6uv"/>
+    </component>
+    <loader id="n3_scpe" name="qualityIcon" xy="35,54" size="50,30" scale="0.8,0.8" url="ui://kw1l1k0dj8jz2v">
+      <gearDisplay controller="hideStar" pages="1"/>
+      <relation target="n1_scpe" sidePair="left-right"/>
+    </loader>
+    <loader id="n7_j534" name="elementLoader" xy="103,69" pivot="0.5,0.5" anchor="true" size="52,52">
+      <gearDisplay controller="hideStar" pages="1"/>
+      <relation target="n3_scpe" sidePair="left-right"/>
+    </loader>
+    <text id="n4_muw9" name="addTxt" xy="203,13" pivot="0,0.5" size="52,36" font="Source Han Serif CN" fontSize="26" color="#f2f2f2" strokeColor="#323232" text="">
+      <relation target="n0_scpe" sidePair="left-right"/>
+    </text>
+    <text id="n5_muw9" name="levelTxt" xy="36,64" pivot="0,0.5" anchor="true" size="93,36" font="Source Han Serif CN" fontSize="26" color="#f2f2f2" strokeColor="#323232" text="">
+      <relation target="n1_scpe" sidePair="left-right"/>
+    </text>
+    <loader id="n6_gdps" name="otherQualityIcon" xy="203,43" size="50,30" scale="0.8,0.8" url="ui://kw1l1k0dj8jz2v">
+      <gearDisplay controller="hideStar" pages="0"/>
+      <relation target="n0_scpe" sidePair="left-right"/>
+    </loader>
+    <loader id="n8_j534" name="otherElementLoader" xy="270,58" pivot="0.5,0.5" anchor="true" size="52,52">
+      <gearDisplay controller="hideStar" pages="0"/>
+      <relation target="n6_gdps" sidePair="left-right"/>
+    </loader>
+  </displayList>
+</component>

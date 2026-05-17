@@ -1,9 +1,12 @@
-import { BlockView } from "../../app/module/Alert/BlockView";
-import HotUpdateView from "../../app/module/HotUpdate/HotUpdateView";
-import LoginView from "../../app/module/Login/LoginView";
-import NetLoadingView from "../../app/module/NetLoading/NetLoadingView";
+import { BlockView } from "../../app/module/alert/BlockView";
+// 0Common 公共包移除后暂不用：待 HotUpdateView / DialogView 源就绪后取消注释
+// import HotUpdateView from "../../app/module/hotUpdate/HotUpdateView";
+// import DialogView from "../module/dialog/DialogView";
+import LoginView from "../../app/module/login/LoginView";
+import LoginServerListPopView from "../../app/module/login/LoginServerListPopView";
+import PvPlayView from "../../app/module/login/PvPlayView";
+import NetLoadingView from "../../app/module/netLoading/NetLoadingView";
 import XComponent from "../../base/ui/XComponent";
-import DialogView from "../module/Dialog/DialogView";
 
 /** UI layer order */
 export const enum LAYER_CONST {
@@ -18,8 +21,10 @@ export const enum LAYER_CONST {
 
 export const UINAME = {
     LoginView: "LoginView",
-    HotUpdateView: "HotUpdateView",
-    DialogView: "DialogView",
+    LoginServerListPopView: "LoginServerListPopView",
+    PvPlayView: "PvPlayView",
+    // HotUpdateView: "HotUpdateView",
+    // DialogView: "DialogView",
     NetLoadingView: "NetLoadingView",
     BlockView: "BlockView",
     // GameMainView: "GameMainView",
@@ -46,20 +51,23 @@ export type UIDefineMap = { [name: string]: UIDefineType } & Record<UINameType, 
 /** UI实例类型映射：用于 UIMgr.getUI(name) 按 name 推导具体返回类型 */
 export type UIInstanceMap = {
     [UINAME.LoginView]: LoginView;
-    [UINAME.HotUpdateView]: HotUpdateView;
-    [UINAME.DialogView]: DialogView;
+    [UINAME.LoginServerListPopView]: LoginServerListPopView;
+    [UINAME.PvPlayView]: PvPlayView;
+    // [UINAME.HotUpdateView]: HotUpdateView;
+    // [UINAME.DialogView]: DialogView;
     [UINAME.NetLoadingView]: NetLoadingView;
     [UINAME.BlockView]: BlockView;
 };
 
 /**
  * 按需强约束的 UI 参数
- * 只需要把“想强类型校验”的 UI 写在这里；
+ * 只需要把"想强类型校验"的 UI 写在这里；
  * 没写到的 UI 会在 UIArgMap 里自动回退为 any。
  */
 type UISpecificArgMap = {
     [UINAME.BlockView]: IUIArg.IBlockViewArg;
-    [UINAME.DialogView]: IUIArg.IDialogViewArg;
+    // [UINAME.DialogView]: IUIArg.IDialogViewArg;
+    [UINAME.PvPlayView]: IUIArg.IPvPlayViewArg;
 };
 
 /**
@@ -79,8 +87,10 @@ export default class UIDefine {
     public static initUI() {
         let define: UIDefineMap = {} as UIDefineMap;
         define[UINAME.LoginView] = { ctrl: LoginView, fullscreen: true, layer: LAYER_CONST.BOTTOM, cache: CACHETYPE_ENUM.TIME1, };
-        define[UINAME.HotUpdateView] = { ctrl: HotUpdateView, fullscreen: true, layer: LAYER_CONST.TOP, cache: CACHETYPE_ENUM.NONE, };
-        define[UINAME.DialogView] = { ctrl: DialogView, fullscreen: false, layer: LAYER_CONST.WINDOW, cache: CACHETYPE_ENUM.NONE, };
+        define[UINAME.LoginServerListPopView] = { ctrl: LoginServerListPopView, fullscreen: false, layer: LAYER_CONST.WINDOW, cache: CACHETYPE_ENUM.NONE, };
+        define[UINAME.PvPlayView] = { ctrl: PvPlayView, fullscreen: true, layer: LAYER_CONST.TOP, cache: CACHETYPE_ENUM.NONE, };
+        // define[UINAME.HotUpdateView] = { ctrl: HotUpdateView, fullscreen: true, layer: LAYER_CONST.TOP, cache: CACHETYPE_ENUM.NONE, };
+        // define[UINAME.DialogView] = { ctrl: DialogView, fullscreen: false, layer: LAYER_CONST.WINDOW, cache: CACHETYPE_ENUM.NONE, };
         define[UINAME.NetLoadingView] = { ctrl: NetLoadingView, fullscreen: false, layer: LAYER_CONST.TOP, cache: CACHETYPE_ENUM.NONE, };
         define[UINAME.BlockView] = { ctrl: BlockView, fullscreen: false, layer: LAYER_CONST.TOP, cache: CACHETYPE_ENUM.NONE, };
         UIDefine.ALL_UI = define;

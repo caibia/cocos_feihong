@@ -1,10 +1,8 @@
 import XScene from "../../base/ui/XScene";
-import GameMainScene from "../module/GameMain/GameMainScene";
 import { UINAME, UINameType } from "./UIDefine";
 
 export const SceneName = {
     LoginScene: "LoginScene",
-    GameMainScene: "GameMainScene",
 } as const;
 
 export type SceneNameType = typeof SceneName[keyof typeof SceneName];
@@ -30,7 +28,6 @@ export default class SceneDefine {
     public static init(): void {
         const define: SceneDefineMap = {
             [SceneName.LoginScene]: { ctrl: XScene, uiArr: [UINAME.LoginView] },
-            [SceneName.GameMainScene]: { ctrl: GameMainScene, uiArr: [] },
         };
         SceneDefine.ALL_SCENE = define;
     }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="276,99" pivot="1,0.5" margin="0,256,1392967936,268453376">
+  <displayList>
+    <component id="n1_t8nb" name="placeHolderComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="276,49" pivot="1,0.5" anchor="true" size="0,0"/>
+  </displayList>
+</component>

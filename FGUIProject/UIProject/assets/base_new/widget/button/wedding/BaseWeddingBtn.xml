@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="112,152" pivot="0.5,0.5" remark="app.view.base.button.BaseWeddingBtn" margin="0,16783363,16779264,184555010" opaque="false" extention="Button">
+  <controller name="isWedding" pages="1,,0," selected="0"/>
+  <displayList>
+    <loader id="n0_hob8" name="n0" xy="57,73" pivot="0.5,0.5" anchor="true" size="176,220" url="ui://kvb3znepktcs1emiggf">
+      <gearIcon controller="isWedding" pages="1,0" values="ui://kvb3znepktcs1emiggf|ui://kvb3znepktcs1emiggj"/>
+    </loader>
+    <component id="n2_iu93" name="effectNode" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="56,72" size="1,1"/>
+    <text id="n1_hob8" name="n1" xy="57,121" pivot="0.5,0.5" anchor="true" size="48,32" font="Source Han Serif CN" fontSize="22" color="#323232" strokeColor="#f2f2f2" strokeSize="1" text="誓约">
+      <gearDisplay controller="isWedding" pages="1"/>
+    </text>
+    <component id="n4_ktcs" name="weddingKnight" src="f68q1emiggp" fileName="widget/button/wedding/BaseWeddingKnightIcon.xml" xy="-31,-42">
+      <gearDisplay controller="isWedding" pages="1"/>
+    </component>
+    <component id="n9_ktcs" name="redPointComp" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="107,2"/>
+  </displayList>
+  <Button downEffect="scale" downEffectValue="1.01"/>
+</component>

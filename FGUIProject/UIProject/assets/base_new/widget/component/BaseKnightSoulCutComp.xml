@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="368,528" mask="n2">
+  <controller name="type" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n1_amy9" name="knightIcon" xy="164,264" pivot="0.5,0.5" anchor="true" size="1000,998" scale="0.7,0.7">
+      <gearXY controller="type" pages="0,1" values="164,264|234,264"/>
+      <gearLook controller="type" pages="0,1" values="1.00,0,0,1|0.20,0,0,1"/>
+    </loader>
+    <loader id="n4_lw08" name="artifactIcon" xy="164,264" pivot="0.5,0.5" anchor="true" size="512,512" scale="0.8,0.8">
+      <gearDisplay controller="type" pages="1"/>
+    </loader>
+    <image id="n2_lw08" name="n2" src="ed0j1emigfl" fileName="img/bg_mx_card_0.png" xy="184,264" pivot="0.5,0.5" anchor="true"/>
+  </displayList>
+</component>

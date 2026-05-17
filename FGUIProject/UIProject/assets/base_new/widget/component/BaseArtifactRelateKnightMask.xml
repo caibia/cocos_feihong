@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="50,50" pivot="0.5,0.5" remark="app.view.base.component.BaseArtifactRelateKnightMask">
+  <displayList>
+    <image id="n0_kgs6" name="n0" src="kgs6gic2r" fileName="img/pic_gmwz_mask.png" xy="26,24" pivot="0.5,0.5" anchor="true" scale="0.8,0.8"/>
+    <loader id="n3_lt12" name="iconLoader" xy="26,23" pivot="0.5,0.5" anchor="true" size="128,128" scale="0.4,0.4"/>
+  </displayList>
+</component>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1334,750" pivot="0.5,0.5" remark="app.view.base.pop.BaseCommonBreakUpPop" margin="0,1536,1460076800,268453376">
+  <displayList>
+    <image id="n24_xler" name="n24" src="nf6u4" fileName="img/bg_black_01.png" xy="667,375" pivot="0.5,0.5" anchor="true" size="1334,750" alpha="0.70">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n25_hk2j" name="itemPlaceHolder" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="667,370" size="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n28_hk2j" name="effPlaceHolder" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="667,750" size="0,0">
+      <relation target="" sidePair="center-center,top-bottom"/>
+    </component>
+    <text id="n22_xler" name="englishTitle" xy="1284,108" pivot="1,0.5" anchor="true" size="618,116" alpha="0.05" font="Source Han Serif CN" fontSize="90" color="#f2f2f2" text="STAR BREAK">
+      <relation target="" sidePair="middle-middle,left-right"/>
+    </text>
+    <text id="n23_xler" name="title" xy="1250,118" pivot="1,0.5" anchor="true" size="204,66" font="Source Han Serif CN" fontSize="50" color="#f2f2f2" text="">
+      <relation target="" sidePair="middle-middle,left-right"/>
+    </text>
+    <component id="n30_f9xm" name="effTitle" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="1148,118" size="0,0">
+      <relation target="" sidePair="middle-middle,left-right"/>
+    </component>
+  </displayList>
+  <transition name="enter_1">
+    <item time="0" type="Alpha" target="n22_xler" value="0"/>
+    <item time="0" type="Alpha" target="n23_xler" value="0"/>
+    <item time="0" type="Alpha" target="n30_f9xm" label="titlePlay" value="1"/>
+    <item time="0" type="XY" target="n23_xler" tween="true" startValue="1080,118" endValue="1250,118" duration="14" ease="Custom"/>
+    <item time="0" type="XY" target="n25_hk2j" tween="true" startValue="667,-" endValue="396,-" duration="19" ease="Quint.Out"/>
+    <item time="2" type="Alpha" target="n22_xler" tween="true" startValue="0" endValue="0.1" duration="12"/>
+    <item time="2" type="XY" target="n22_xler" tween="true" startValue="1371,-" endValue="1284,-" duration="26"/>
+    <item time="7" type="Alpha" target="n23_xler" tween="true" startValue="0.0" endValue="1" duration="2" ease="Custom"/>
+  </transition>
+  <transition name="enter_0">
+    <item time="0" type="Alpha" target="n22_xler" label="upGrade" value="0"/>
+    <item time="0" type="Alpha" target="n23_xler" value="0"/>
+    <item time="0" type="Alpha" target="n24_xler" tween="true" startValue="0" endValue="0.1" duration="7"/>
+    <item time="0" type="Alpha" target="n25_hk2j" tween="true" startValue="0" endValue="1" duration="19" ease="Quint.Out"/>
+    <item time="0" type="Alpha" target="n28_hk2j" tween="true" startValue="1" endValue="1" duration="7"/>
+    <item time="0" type="Scale" target="n25_hk2j" tween="true" startValue="0.75,0.75" endValue="1,1" duration="19" ease="Quint.Out"/>
+    <item time="0" type="XY" target="n25_hk2j" value="667,370"/>
+  </transition>
+</component>

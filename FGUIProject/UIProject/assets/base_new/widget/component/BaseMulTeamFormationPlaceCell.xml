@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="310,120" remark="app.view.base.component.BaseMulTeamFormationPlaceCell">
+  <controller name="isLock" pages="0,normal,1,lock" selected="0"/>
+  <displayList>
+    <component id="n5_hjpc" name="knightComp" src="hjpc1emigaz" fileName="widget/component/BaseMulTeamFormationKnightComp.xml" xy="0,0"/>
+    <component id="n6_hjpc" name="artifactComp" src="hjpc1emigb0" fileName="widget/component/BaseMulTeamFormationArtifactComp.xml" xy="216,0"/>
+    <component id="n7_gti8" name="effDadComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="155,60" size="0,0"/>
+  </displayList>
+</component>

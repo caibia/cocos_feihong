@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1334,84" pivot="0.5,0.5" margin="0,4608,1661403392,268453376">
+  <displayList>
+    <loader id="n0_wgeb" name="bgIcon" xy="0,0" pivot="0.5,0.5" size="1334,84" alpha="0.90" url="ui://kvb3znepnf6u4" fill="scaleFree">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <image id="n4_wgeb" name="n4" src="wgebibpo" fileName="img/pic_zhuangshi_tishi.png" xy="671,42" pivot="0.5,0.5" anchor="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <text id="n1_wgeb" name="title" xy="667,39" pivot="0.5,0.5" anchor="true" size="184,60" font="Source Han Serif CN" fontSize="45" color="#f2f2f2" text="任务完成">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+    <loader id="n3_wgeb" name="tagIcon" xy="667,77" pivot="0.5,0.5" anchor="true" size="1334,4" url="ui://kvb3znepwgebibpp" fill="scaleFree">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <text id="n5_wgeb" name="englishTitle" xy="666,3" pivot="0.5,0.5" anchor="true" size="729,16" font="Source Han Serif CN" fontSize="10" color="#a6a6a6" letterSpacing="38" text="MISSION COMPLETED"/>
+    <graph id="n6_ml1i" name="n6" xy="667,42" pivot="0.5,0.5" anchor="true" size="100,100" type="rect" lineSize="0" lineColor="#00000000" fillColor="#fff44e4e"/>
+    <graph id="n7_ml1i" name="n7" xy="667,42" pivot="0.5,0.5" anchor="true" size="100,100" touchable="false" type="rect" lineSize="0" lineColor="#00000000" fillColor="#fff44e4e"/>
+    <graph id="n17_f62y" name="n17" xy="769,16" pivot="0.5,0.5" size="45,27" alpha="0.30" touchable="false" group="n15_f62y" type="polygon" lineSize="0" points="0,0,45,14,9,27"/>
+    <graph id="n27_f62y" name="n27" xy="826,45" pivot="0.5,0.5" size="26,27" alpha="0.30" touchable="false" group="n15_f62y" type="polygon" lineSize="0" points="0,0,26,10,9,27"/>
+    <graph id="n28_f62y" name="n28" xy="833,15" pivot="0.5,0.5" size="21,15" alpha="0.30" touchable="false" group="n15_f62y" type="polygon" lineSize="0" points="0,0,21,7,9,15"/>
+    <graph id="n29_f62y" name="n29" xy="864,35" pivot="0.5,0.5" size="13,14" alpha="0.30" touchable="false" group="n15_f62y" type="polygon" lineSize="0" points="1,7,12,3,13,14"/>
+    <group id="n15_f62y" name="n15" xy="769,15" size="108,57" advanced="true"/>
+    <graph id="n30_f62y" name="n30" xy="512,25" pivot="0.5,0.5" size="45,27" alpha="0.30" touchable="false" group="n34_f62y" type="polygon" lineSize="0" points="0,0,45,14,9,27"/>
+    <graph id="n31_f62y" name="n31" xy="470,38" pivot="0.5,0.5" size="26,27" alpha="0.30" touchable="false" group="n34_f62y" type="polygon" lineSize="0" points="0,0,26,10,9,27"/>
+    <graph id="n32_f62y" name="n32" xy="492,8" pivot="0.5,0.5" size="21,15" alpha="0.30" touchable="false" group="n34_f62y" type="polygon" lineSize="0" points="0,0,21,7,9,15"/>
+    <graph id="n33_f62y" name="n33" xy="436,25" pivot="0.5,0.5" size="13,14" alpha="0.30" touchable="false" group="n34_f62y" type="polygon" lineSize="0" points="1,7,12,3,13,14"/>
+    <group id="n34_f62y" name="n34" xy="436,8" size="121,57" advanced="true"/>
+    <graph id="n35_f62y" name="n35" xy="595,0" size="227,84" touchable="false" type="polygon" lineSize="0" points="-68,0,82,0,227.56649780273438,28.339099884033203,110,84,3,84"/>
+  </displayList>
+  <transition name="in">
+    <item time="0" type="Alpha" target="n0_wgeb" value="0"/>
+    <item time="0" type="Alpha" target="n17_f62y" value="0"/>
+    <item time="0" type="Alpha" target="n1_wgeb" value="0"/>
+    <item time="0" type="Alpha" target="n27_f62y" value="0"/>
+    <item time="0" type="Alpha" target="n28_f62y" value="0"/>
+    <item time="0" type="Alpha" target="n29_f62y" value="0"/>
+    <item time="0" type="Alpha" target="n30_f62y" value="0"/>
+    <item time="0" type="Alpha" target="n31_f62y" value="0"/>
+    <item time="0" type="Alpha" target="n32_f62y" value="0"/>
+    <item time="0" type="Alpha" target="n33_f62y" value="0"/>
+    <item time="0" type="Alpha" target="n35_f62y" value="0"/>
+    <item time="0" type="Alpha" target="n3_wgeb" value="0"/>
+    <item time="0" type="Alpha" target="n4_wgeb" value="0"/>
+    <item time="0" type="Alpha" target="n5_wgeb" value="0"/>
+    <item time="0" type="Alpha" target="n6_ml1i" value="1"/>
+    <item time="0" type="Alpha" target="n7_ml1i" value="1"/>
+    <item time="0" type="Scale" target="n0_wgeb" tween="true" startValue="0.6000000238418579,0.009999999776482582" endValue="1,0.009999999776482582" duration="2"/>
+    <item time="0" type="Scale" target="n3_wgeb" value="1,1"/>
+    <item time="0" type="Scale" target="n6_ml1i" value="8,0.009999999776482582"/>
+    <item time="0" type="Scale" target="n7_ml1i" value="8,0.009999999776482582"/>
+    <item time="0" type="Visible" target="n6_ml1i" value="true"/>
+    <item time="0" type="Visible" target="n7_ml1i" value="true"/>
+    <item time="0" type="XY" target="n17_f62y" value="780,14.5"/>
+    <item time="0" type="XY" target="n27_f62y" value="837.5,43"/>
+    <item time="0" type="XY" target="n28_f62y" value="844.5,13"/>
+    <item time="0" type="XY" target="n3_wgeb" value="667,77"/>
+    <item time="0" type="XY" target="n6_ml1i" value="667,42"/>
+    <item time="0" type="XY" target="n7_ml1i" value="667,42"/>
+    <item time="1" type="Scale" target="n6_ml1i" value="7,0.009999999776482582"/>
+    <item time="1" type="Scale" target="n7_ml1i" value="7,0.009999999776482582"/>
+    <item time="1" type="XY" target="n6_ml1i" value="983,42"/>
+    <item time="1" type="XY" target="n7_ml1i" value="351,42"/>
+    <item time="2" type="Alpha" target="n6_ml1i" tween="true" startValue="1" endValue="0" duration="6" ease="Quad.In"/>
+    <item time="2" type="Alpha" target="n7_ml1i" tween="true" startValue="1" endValue="0" duration="6" ease="Quad.In"/>
+    <item time="2" type="Scale" target="n1_wgeb" tween="true" startValue="3,3" endValue="1,1" duration="4" ease="Quart.Out"/>
+    <item time="2" type="Scale" target="n6_ml1i" value="13.399999618530273,0.07999999821186066"/>
+    <item time="2" type="Scale" target="n7_ml1i" value="13.399999618530273,0.07000000029802322"/>
+    <item time="2" type="XY" target="n6_ml1i" value="667,39"/>
+    <item time="2" type="XY" target="n7_ml1i" value="667,44"/>
+    <item time="3" type="Alpha" target="n0_wgeb" value="1"/>
+    <item time="3" type="Alpha" target="n1_wgeb" tween="true" startValue="0" endValue="0.3" duration="3" ease="Custom"/>
+    <item time="3" type="Scale" target="n0_wgeb" tween="true" startValue="1,0.009999999776482582" endValue="1,1" duration="3"/>
+    <item time="3" type="XY" target="n5_wgeb" tween="true" startValue="-,20" endValue="-,3" duration="6"/>
+    <item time="4" type="Alpha" target="n17_f62y" tween="true" startValue="0.3" endValue="0" duration="27"/>
+    <item time="4" type="Alpha" target="n30_f62y" tween="true" startValue="0.3" endValue="0" duration="27"/>
+    <item time="4" type="Alpha" target="n3_wgeb" tween="true" startValue="0" endValue="1" duration="4"/>
+    <item time="4" type="Rotation" target="n17_f62y" tween="true" startValue="0" endValue="10" duration="27"/>
+    <item time="4" type="Rotation" target="n30_f62y" tween="true" startValue="0" endValue="60" duration="27"/>
+    <item time="4" type="Scale" target="n3_wgeb" tween="true" startValue="1,0.5" endValue="1,2.4000000953674316" duration="1"/>
+    <item time="4" type="Scale" target="n6_ml1i" value="13.399999618530273,0.14000000059604645"/>
+    <item time="4" type="Scale" target="n7_ml1i" value="13.399999618530273,0.14000000059604645"/>
+    <item time="4" type="XY" target="n17_f62y" tween="true" startValue="701,15.5" endValue="800,35.5" duration="27"/>
+    <item time="4" type="XY" target="n30_f62y" tween="true" startValue="587,25" endValue="467,25" duration="27"/>
+    <item time="4" type="XY" target="n3_wgeb" tween="true" startValue="667,61" endValue="667,83" duration="3"/>
+    <item time="4" type="XY" target="n6_ml1i" value="667,27"/>
+    <item time="4" type="XY" target="n7_ml1i" value="667,54"/>
+    <item time="5" type="Alpha" target="n27_f62y" tween="true" startValue="0.3" endValue="0" duration="25"/>
+    <item time="5" type="Alpha" target="n31_f62y" tween="true" startValue="0.3" endValue="0" duration="25"/>
+    <item time="5" type="Rotation" target="n27_f62y" tween="true" startValue="0" endValue="-10" duration="25"/>
+    <item time="5" type="Rotation" target="n31_f62y" tween="true" startValue="0" endValue="45" duration="25"/>
+    <item time="5" type="Scale" target="n3_wgeb" tween="true" startValue="1,2.4000000953674316" endValue="1,0.10000000149011612" duration="2"/>
+    <item time="5" type="Scale" target="n6_ml1i" value="13.399999618530273,0.10000000149011612"/>
+    <item time="5" type="Scale" target="n7_ml1i" value="13.399999618530273,0.10000000149011612"/>
+    <item time="5" type="XY" target="n27_f62y" tween="true" startValue="740,43" endValue="850,37" duration="25"/>
+    <item time="5" type="XY" target="n31_f62y" tween="true" startValue="550,38" endValue="421,38" duration="25"/>
+    <item time="5" type="XY" target="n6_ml1i" value="667,10"/>
+    <item time="5" type="XY" target="n7_ml1i" value="667,73"/>
+    <item time="6" type="Alpha" target="n28_f62y" tween="true" startValue="0.3" endValue="0" duration="22"/>
+    <item time="6" type="Alpha" target="n32_f62y" tween="true" startValue="0.3" endValue="0" duration="22"/>
+    <item time="6" type="Rotation" target="n28_f62y" tween="true" startValue="0" endValue="-75.12999725341797" duration="22"/>
+    <item time="6" type="Rotation" target="n32_f62y" tween="true" startValue="0" endValue="-45" duration="22"/>
+    <item time="6" type="Scale" target="n6_ml1i" value="13.399999618530273,0.019999999552965164"/>
+    <item time="6" type="Scale" target="n7_ml1i" value="13.399999618530273,0.019999999552965164"/>
+    <item time="6" type="XY" target="n28_f62y" tween="true" startValue="770,13" endValue="860,12" duration="22"/>
+    <item time="6" type="XY" target="n32_f62y" tween="true" startValue="536,8" endValue="455,8" duration="22"/>
+    <item time="6" type="XY" target="n6_ml1i" value="667,0"/>
+    <item time="6" type="XY" target="n7_ml1i" value="667,84"/>
+    <item time="6" type="Alpha" target="n29_f62y" tween="true" startValue="0.3" endValue="0" duration="21"/>
+    <item time="6" type="Alpha" target="n33_f62y" tween="true" startValue="0.3" endValue="0" duration="21"/>
+    <item time="6" type="Alpha" target="n4_wgeb" tween="true" startValue="0" endValue="1" duration="5"/>
+    <item time="6" type="Alpha" target="n5_wgeb" tween="true" startValue="0" endValue="0.5" duration="3"/>
+    <item time="6" type="Rotation" target="n29_f62y" tween="true" startValue="0" endValue="-45" duration="21"/>
+    <item time="6" type="Rotation" target="n33_f62y" tween="true" startValue="0" endValue="45" duration="21"/>
+    <item time="6" type="Scale" target="n4_wgeb" tween="true" startValue="0.6000000238418579,0.6000000238418579" endValue="1,1" duration="3"/>
+    <item time="6" type="Scale" target="n5_wgeb" tween="true" startValue="1,2" endValue="1,1" duration="3"/>
+    <item time="6" type="XY" target="n29_f62y" tween="true" startValue="810,33.5" endValue="902,33.5" duration="21"/>
+    <item time="6" type="XY" target="n33_f62y" tween="true" startValue="501,25" endValue="372,25" duration="21"/>
+    <item time="7" type="Alpha" target="n1_wgeb" value="1"/>
+    <item time="7" type="Scale" target="n3_wgeb" tween="true" startValue="1,0.10000000149011612" endValue="1,1" duration="2"/>
+    <item time="7" type="XY" target="n3_wgeb" tween="true" startValue="667,83" endValue="667,77" duration="2"/>
+    <item time="8" type="Alpha" target="n1_wgeb" value="0.3"/>
+    <item time="8" type="Alpha" target="n35_f62y" tween="true" startValue="0" endValue="0.1" duration="3"/>
+    <item time="9" type="Alpha" target="n1_wgeb" value="1"/>
+    <item time="10" type="Alpha" target="n1_wgeb" value="0.8"/>
+    <item time="10" type="XY" target="n35_f62y" value="601,0"/>
+    <item time="10" type="Alpha" target="n1_wgeb" value="1"/>
+    <item time="10" type="Alpha" target="n5_wgeb" value="1"/>
+    <item time="10" type="XY" target="n35_f62y" value="586,0"/>
+    <item time="11" type="Alpha" target="n35_f62y" tween="true" startValue="0.1" endValue="0" duration="5"/>
+    <item time="11" type="Alpha" target="n5_wgeb" value="0.6"/>
+    <item time="11" type="XY" target="n35_f62y" value="589,0"/>
+    <item time="12" type="Alpha" target="n5_wgeb" value="1"/>
+    <item time="12" type="XY" target="n35_f62y" value="593,0"/>
+    <item time="26" type="Alpha" target="n3_wgeb" value="0"/>
+    <item time="26" type="Alpha" target="n4_wgeb" value="0"/>
+    <item time="26" type="Alpha" target="n5_wgeb" value="0"/>
+    <item time="26" type="Scale" target="n0_wgeb" tween="true" startValue="1,1" endValue="1,0.009999999776482582" duration="4"/>
+    <item time="26" type="Visible" target="n6_ml1i" value="false"/>
+    <item time="26" type="Visible" target="n7_ml1i" value="false"/>
+    <item time="28" type="Alpha" target="n1_wgeb" value="0"/>
+    <item time="29" type="Alpha" target="n0_wgeb" tween="true" startValue="0.9" endValue="0" duration="5"/>
+  </transition>
+</component>

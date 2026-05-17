@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="272,89" remark="app.view.base.component.BaseDialogBubbleComp" extention="Label">
+  <controller name="type" pages="1,,0,,2,,3,,4,,5,,6,,7," selected="0"/>
+  <displayList>
+    <loader id="n6_rpcm" name="n6" xy="0,7" pivot="0.5,0.5" size="272,85" url="ui://kvb3znepc14agibvk" fill="scaleFree">
+      <gearSize controller="type" pages="0,3,4,6" values="272,85,1,1|272,85,1,1|272,85,1,1|272,85,1,1" default="272,85,-1,1"/>
+      <relation target="" sidePair="middle-middle"/>
+      <relation target="n3_tfcd" sidePair="height-height"/>
+    </loader>
+    <richtext id="n3_tfcd" name="title" xy="24,42" pivot="0,0.5" anchor="true" size="220,29" font="Source Han Sans CN" fontSize="20" color="#ffffff" leading="6" vAlign="middle" autoSize="height" ubb="true" text="">
+      <relation target="" sidePair="middle-middle"/>
+    </richtext>
+  </displayList>
+  <relation target="n3_tfcd" sidePair="height-height"/>
+</component>

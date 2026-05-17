@@ -35,4 +35,15 @@ declare namespace IUIArg {
         /** 提示文本参数 用来替换文本里的{0},{1},... */
         params?: any[]
     }
+
+    export interface IPvPlayViewArg {
+        /** PV 主视频资源（相对 resources，无扩展名） */
+        pvName: string,
+        /** PV 字幕视频资源（相对 resources，无扩展名）；空表示不显示字幕 */
+        zimuName?: string,
+        /** PV 期间播放的 BGM 资源 */
+        bgm?: string,
+        /** 播完是否把 PV 标记为已播；true=首次播放，false=重播 */
+        markPlayed?: boolean,
+    }
 }

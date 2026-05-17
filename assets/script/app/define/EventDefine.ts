@@ -17,6 +17,15 @@ export const enum EVENTNAME {
     UI_ONDESTROY = "UI_ONDESTROY",
     /**UI打开 { name: "LoginView" } */
     UI_ONSHOW = "UI_ONSHOW",
+
+    /** 登录：服务器列表加载完成 */
+    SERVER_LIST_READY = "SERVER_LIST_READY",
+    /** 登录：当前服切换 { serverId } */
+    SERVER_CHANGED = "SERVER_CHANGED",
+    /** 登录：登录成功 { account, serverId } */
+    LOGIN_SUCCESS = "LOGIN_SUCCESS",
+    /** 登录：登录失败 { code } */
+    LOGIN_FAIL = "LOGIN_FAIL",
 }
 /** 自定义事件参数 */
 export interface EventDataMap {
@@ -28,4 +37,8 @@ export interface EventDataMap {
     [EVENTNAME.AFTER_SCENE_CHANGE]: { sceneName: string; oldSceneName: string };
     [EVENTNAME.UI_ONDESTROY]: { name: string; isWindow: boolean };
     [EVENTNAME.UI_ONSHOW]: { name: string };
+    [EVENTNAME.SERVER_LIST_READY]: undefined;
+    [EVENTNAME.SERVER_CHANGED]: { serverId: number };
+    [EVENTNAME.LOGIN_SUCCESS]: { account: string; serverId: number };
+    [EVENTNAME.LOGIN_FAIL]: { code: number };
 }

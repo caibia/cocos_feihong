@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1334,750">
+  <controller name="speed" pages="0,,1,,2," selected="0"/>
+  <controller name="entryType" pages="0,yoozoo,1,chiyou" selected="0"/>
+  <controller name="isShowLevel" pages="0,,1,,2,,3," selected="0"/>
+  <displayList>
+    <component id="n115_yunh" name="effComp" src="v5sxibk8" pkg="kvb3znep" xy="667,1101" size="0,0">
+      <relation target="" sidePair="center-center"/>
+    </component>
+    <component id="n97_g1hn" name="bgComp" src="v5sxibk8" pkg="kvb3znep" xy="667,375" size="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <image id="n130_i3vj" name="n130" src="x3ocgibv1" pkg="kvb3znep" xy="-73,-531" pivot="0.5,0.5" size="1480,1279" alpha="0.40" visible="false">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n55_kpme" name="descInitTxt" xy="666,670" pivot="0.5,0.5" anchor="true" size="124,29" visible="false" font="Source Han Sans CN" fontSize="20" color="#f2f2f2" text="">
+      <relation target="" sidePair="center-center,top-bottom"/>
+    </text>
+    <text id="n66_hdsc" name="unzipTxt" xy="666,670" pivot="0.5,0.5" anchor="true" size="161,29" visible="false" font="Source Han Sans CN" fontSize="20" color="#f2f2f2" text="游戏解压资源中...">
+      <relation target="" sidePair="center-center,top-bottom"/>
+    </text>
+    <loader id="n79_fvx3" name="logonImg" xy="279,175" pivot="0.5,0.5" size="804,246">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <graph id="n107_sie6" name="globalLoginComp" xy="0,0" size="1334,750" alpha="0" type="rect">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n109_j3e6" name="serverTouch" xy="426,595" pivot="0,0.5" anchor="true" size="461,60" alpha="0" group="n53_p6cb" type="rect" fillColor="#ff000000"/>
+    <component id="n81_fvx3" name="serverBtn" src="fvx32u" fileName="widget/component/LoginBtnServer.xml" xy="434,578" group="n53_p6cb"/>
+    <group id="n53_p6cb" name="group0" xy="426,565" size="466,60" advanced="true">
+      <relation target="" sidePair="center-center,top-bottom"/>
+    </group>
+    <component id="n82_fvx3" name="checkBtn" src="q7aaibna" pkg="kvb3znep" xy="152,615" group="n52_d457"/>
+    <text id="n99_sie6" name="agreementText1" xy="194,641" pivot="0,0.5" anchor="true" size="184,29" group="n52_d457" font="Source Han Sans CN" fontSize="20" color="#ffffff" ubb="true" text="我已详细阅读并同意"/>
+    <text id="n100_sie6" name="agreementText2" xy="380,641" pivot="0,0.5" anchor="true" size="84,29" group="n124_dxtn" font="Source Han Sans CN" fontSize="20" color="#f9d382" text="用户协议"/>
+    <richtext id="n102_sie6" name="agreementText3" xy="464,641" pivot="0,0.5" anchor="true" size="144,29" group="n124_dxtn" font="Source Han Sans CN" fontSize="20" color="#f2f2f2" leading="0" ubb="true" text="、[color=#f9d382]隐私保护协议[/color]"/>
+    <richtext id="n121_dxtn" name="agreementText4" xy="608,641" pivot="0,0.5" anchor="true" size="184,29" group="n124_dxtn" font="Source Han Sans CN" fontSize="20" color="#f2f2f2" leading="0" ubb="true" text="、[color=#f9d382]儿童隐私保护协议[/color]"/>
+    <richtext id="n122_dxtn" name="agreementText5" xy="792,641" pivot="0,0.5" anchor="true" size="204,29" group="n124_dxtn" font="Source Han Sans CN" fontSize="20" color="#f2f2f2" leading="0" ubb="true" text="、[color=#f9d382]第三方共享清单协议[/color]"/>
+    <richtext id="n123_dxtn" name="agreementText6" xy="996,641" pivot="0,0.5" anchor="true" size="188,29" group="n124_dxtn" font="Source Han Sans CN" fontSize="20" color="#f2f2f2" leading="0" ubb="true" text="和 [color=#f9d382]个人信息收集清单[/color]"/>
+    <group id="n124_dxtn" name="n124" xy="380,626" size="804,29" group="n52_d457" advanced="true" layout="1" excludeInvisibles="true">
+      <relation target="n99_sie6" sidePair="left-right"/>
+    </group>
+    <component id="n117_qxtf" name="textStartNode" src="v5sxibk8" pkg="kvb3znep" xy="195,640" size="0,0" group="n52_d457"/>
+    <graph id="n103_sie6" name="compTouch1" xy="380,642" pivot="0,0.5" anchor="true" size="84,51" alpha="0" group="n52_d457" type="rect">
+      <relation target="n100_sie6" sidePair="width-width,middle-middle,left-left"/>
+    </graph>
+    <graph id="n104_sie6" name="compTouch2" xy="487,642" pivot="0,0.5" anchor="true" size="130,50" alpha="0" group="n52_d457" type="rect" fillColor="#ff000000">
+      <relation target="n102_sie6" sidePair="width-width,middle-middle,left-left"/>
+    </graph>
+    <graph id="n125_dxtn" name="compTouch3" xy="608,642" pivot="0,0.5" anchor="true" size="185,50" alpha="0" group="n52_d457" type="rect" fillColor="#ff000000">
+      <relation target="n121_dxtn" sidePair="center-center,middle-middle"/>
+    </graph>
+    <graph id="n126_dxtn" name="compTouch4" xy="792,642" pivot="0,0.5" anchor="true" size="204,50" alpha="0" group="n52_d457" type="rect" fillColor="#ff000000">
+      <relation target="n122_dxtn" sidePair="center-center,middle-middle"/>
+    </graph>
+    <graph id="n127_dxtn" name="compTouch5" xy="997,642" pivot="0,0.5" anchor="true" size="187,50" alpha="0" group="n52_d457" type="rect" fillColor="#ff000000">
+      <relation target="n123_dxtn" sidePair="center-center,middle-middle"/>
+    </graph>
+    <graph id="n110_sro6" name="selectTouch" xy="134,613" size="64,52" group="n52_d457"/>
+    <group id="n52_d457" name="agreementGroup" xy="134,613" size="1050,54" advanced="true">
+      <relation target="" sidePair="center-center,top-bottom"/>
+    </group>
+    <image id="n96_w0e5" name="n96" src="vnbf4s" fileName="img/bg_heisedi.png" xy="0,642" size="1334,108" alpha="0.50">
+      <relation target="" sidePair="width-width,top-bottom"/>
+    </image>
+    <graph id="n113_x3u3" name="n113" xy="0,670" size="1334,80" alpha="0" type="rect">
+      <relation target="" sidePair="width-width,top-bottom"/>
+    </graph>
+    <text id="n46_maxd" name="copyrightTxt" xy="667,711" pivot="0.5,0.5" anchor="true" size="1242,19" group="n54_p6cb" font="Source Han Sans CN" fontSize="12" color="#a6a6a6" leading="0" align="center" vAlign="middle" text="">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n47_maxd" name="noticeTxt" xy="228,680" size="878,22" group="n111_oq5i" font="Source Han Serif CN" fontSize="14" color="#f2f2f2" leading="0" align="center" vAlign="middle" text="">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n48_maxd" name="versionTxt" xy="1291,727" pivot="1,0" size="40,19" group="n111_oq5i" font="Source Han Sans CN" fontSize="12" color="#a6a6a6" leading="0" vAlign="middle" text="">
+      <relation target="" sidePair="right-right"/>
+    </text>
+    <text id="n119_qlqa" name="specialTxt" xy="7,729" size="500,19" group="n111_oq5i" font="Source Han Sans CN" fontSize="12" color="#a6a6a6" leading="0" vAlign="middle" autoSize="none" text="この作品はフィクションです。実在の人物、団体、事件などには関係ありません。">
+      <relation target="" sidePair="left-left"/>
+    </text>
+    <group id="n111_oq5i" name="n111" xy="7,680" size="1324,68" group="n54_p6cb" advanced="true"/>
+    <group id="n54_p6cb" name="group1" xy="7,680" size="1324,68" advanced="true">
+      <relation target="" sidePair="top-bottom"/>
+    </group>
+    <text id="n91_w0e5" name="n91" xy="667,525" pivot="0.5,0.5" anchor="true" size="182,39" group="n94_w0e5" fontSize="28" color="#f2f2f2" letterSpacing="2" text="点击进入游戏"/>
+    <image id="n92_w0e5" name="n92" src="w0e53y" fileName="img/pic_dl_line.png" xy="322,525" size="230,2" group="n94_w0e5">
+      <relation target="n91_w0e5" sidePair="right-left"/>
+    </image>
+    <image id="n93_w0e5" name="n93" src="w0e53y" fileName="img/pic_dl_line.png" xy="783,525" size="230,2" group="n94_w0e5" flip="hz">
+      <relation target="n91_w0e5" sidePair="left-right"/>
+    </image>
+    <group id="n94_w0e5" name="n94" xy="322,505" size="691,39" advanced="true">
+      <relation target="" sidePair="center-center,top-bottom"/>
+    </group>
+    <component id="n114_s81t" name="clearCacheBtn" src="qvil3u" fileName="widget/component/noticeBtn.xml" xy="1255,39" group="n77_fvx3">
+      <Button title="清理" icon="ui://xigti88cs81t4b"/>
+    </component>
+    <component id="n116_rvig" name="languageBtn" src="qvil3u" fileName="widget/component/noticeBtn.xml" xy="1255,119" group="n77_fvx3">
+      <Button title="语言" icon="ui://xigti88crvig4c"/>
+    </component>
+    <component id="n88_qvil" name="accountBtn" src="qvil3u" fileName="widget/component/noticeBtn.xml" xy="1255,199" group="n77_fvx3">
+      <Button title="账户" icon="ui://xigti88cw0e541"/>
+    </component>
+    <component id="n90_qvil" name="noticeBtn" src="qvil3u" fileName="widget/component/noticeBtn.xml" xy="1255,279" group="n77_fvx3">
+      <Button title="公告" icon="ui://xigti88cw0e540"/>
+    </component>
+    <component id="n89_qvil" name="movieBtn" src="qvil3u" fileName="widget/component/noticeBtn.xml" xy="1255,359" group="n77_fvx3">
+      <Button title="动画" icon="ui://xigti88cw0e53z"/>
+    </component>
+    <component id="n132_eypq" name="voiceBtn" src="qvil3u" fileName="widget/component/noticeBtn.xml" xy="1255,439" group="n77_fvx3">
+      <Button title="语音" icon="ui://xigti88coiks4w"/>
+    </component>
+    <component id="n136_oqti" name="switchBtn" src="qvil3u" fileName="widget/component/noticeBtn.xml" xy="1255,519" group="n77_fvx3">
+      <Button title="解除绑定" icon="ui://xigti88coqti57"/>
+    </component>
+    <group id="n77_fvx3" name="n77" xy="1255,39" size="49,540" advanced="true" layout="2" lineGap="20" excludeInvisibles="true">
+      <relation target="" sidePair="right-right,top-top"/>
+    </group>
+    <component id="n120_dxtn" name="levelBtn" src="mtubibk7" pkg="kvb3znep" xy="-67,-37" size="256,256" scale="0.4,0.4">
+      <gearDisplay controller="isShowLevel" pages="1,2,3"/>
+      <gearIcon controller="isShowLevel" pages="2,3" values="ui://xigti88cjdap4z|ui://xigti88ce9ys52" default="ui://xigti88cdxtn4o"/>
+      <relation target="" sidePair="left-left,top-top"/>
+    </component>
+    <component id="n129_vnbf" name="Criware" src="mtubibk7" pkg="kvb3znep" xy="21,56" size="80,70">
+      <gearXY controller="isShowLevel" pages="0" values="21,56" default="24,166"/>
+      <relation target="" sidePair="left-left,top-top"/>
+    </component>
+    <richtext id="n131_cf6g" name="beianTxt" xy="2,727" size="289,19" fontSize="12" color="#a6a6a6" ubb="true" text="APP备案号：沪ICP备09058784-23A [url=beian.miit.gov.cn]beian.miit.gov.cn[/url]">
+      <gearText controller="entryType" pages="1" values="APP备案号：沪ICP备2023012466号-4A [url=beian.miit.gov.cn]beian.miit.gov.cn[/url]" default="APP备案号：沪ICP备09058784-23A [url=beian.miit.gov.cn]beian.miit.gov.cn[/url]"/>
+      <relation target="" sidePair="left-left,top-bottom"/>
+    </richtext>
+    <loader id="n133_o0th" name="beianClickLoader" xy="2,702" size="289,44" visible="false">
+      <relation target="" sidePair="left-left,top-bottom"/>
+    </loader>
+    <component id="n135_m4fo" name="oneStoreComp" src="m4fo54" fileName="OneStoreMaskComp.xml" xy="-133,-75" size="1600,900">
+      <gearDisplay controller="isShowLevel" pages="3"/>
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </component>
+  </displayList>
+  <transition name="loop">
+    <item time="0" type="Alpha" target="n94_w0e5" tween="true" startValue="1" endValue="0.3" duration="24" repeat="-1" yoyo="true" ease="Linear"/>
+  </transition>
+  <transition name="enter" autoPlay="true" autoPlayTimes="1">
+    <item time="0" type="Alpha" target="n120_dxtn" value="0"/>
+    <item time="0" type="Alpha" target="n129_vnbf" value="0"/>
+    <item time="0" type="Alpha" target="n52_d457" value="0"/>
+    <item time="0" type="Alpha" target="n53_p6cb" value="0"/>
+    <item time="0" type="Alpha" target="n54_p6cb" value="0"/>
+    <item time="0" type="Alpha" target="n55_kpme" value="0"/>
+    <item time="0" type="Alpha" target="n66_hdsc" value="1"/>
+    <item time="0" type="Alpha" target="n77_fvx3" value="0"/>
+    <item time="0" type="Alpha" target="n79_fvx3" value="0"/>
+    <item time="0" type="Alpha" target="n94_w0e5" value="0"/>
+    <item time="0" type="Alpha" target="n96_w0e5" value="0"/>
+    <item time="0" type="Scale" target="n79_fvx3" value="1,1"/>
+    <item time="0" type="Scale" target="n97_g1hn" tween="true" startValue="3,3" endValue="1,1" duration="40" ease="Quint.Out"/>
+    <item time="5" type="Alpha" target="n79_fvx3" tween="true" startValue="0" endValue="1" duration="35" ease="Quint.Out"/>
+    <item time="5" type="Scale" target="n79_fvx3" tween="true" startValue="3,3" endValue="1,1" duration="35" ease="Quint.Out"/>
+    <item time="10" type="Alpha" target="n94_w0e5" tween="true" startValue="0" endValue="1" duration="41"/>
+    <item time="14" type="Alpha" target="n53_p6cb" tween="true" startValue="0" endValue="1" duration="34"/>
+    <item time="14" type="Alpha" target="n55_kpme" tween="true" startValue="0" endValue="1" duration="34" ease="Quint.Out"/>
+    <item time="15" type="Alpha" target="n96_w0e5" tween="true" startValue="0" endValue="0.5" duration="35"/>
+    <item time="17" type="Alpha" target="n120_dxtn" tween="true" startValue="0" endValue="1" duration="34"/>
+    <item time="17" type="Alpha" target="n129_vnbf" tween="true" startValue="0" endValue="1" duration="34"/>
+    <item time="17" type="Alpha" target="n52_d457" tween="true" startValue="0" endValue="1" duration="34"/>
+    <item time="17" type="Alpha" target="n54_p6cb" tween="true" startValue="0" endValue="1" duration="34" ease="Quint.Out"/>
+    <item time="17" type="Alpha" target="n66_hdsc" tween="true" startValue="0" endValue="1" duration="34" ease="Quint.Out"/>
+    <item time="17" type="Alpha" target="n77_fvx3" tween="true" startValue="0" endValue="1" duration="34"/>
+  </transition>
+  <transition name="oneStoreLoginShow">
+    <item time="0" type="Visible" target="n135_m4fo" value="true"/>
+    <item time="62" type="Alpha" target="n135_m4fo" tween="true" startValue="1" endValue="0" duration="10"/>
+    <item time="73" type="Visible" target="n135_m4fo" value="false"/>
+  </transition>
+</component>

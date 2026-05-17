@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="107,34" remark="app.view.base.component.BaseResourcesNumComp" extention="Label">
+  <controller name="color" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n0_kbke" name="icon" xy="0,2" pivot="0,0.5" size="50,30"/>
+    <text id="n1_kbke" name="title" xy="50,-1" pivot="0,0.5" size="57,37" font="Source Han Sans CN" fontSize="24" color="#ffffff" singleLine="true" text="">
+      <gearColor controller="color" pages="0,1" values="#3f3f49|#ffffff"/>
+      <relation target="n0_kbke" sidePair="left-right"/>
+    </text>
+  </displayList>
+  <relation target="n1_kbke" sidePair="rightext-right"/>
+</component>

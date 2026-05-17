@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="704,350" pivot="0.5,0.5" remark="app.view.base.component.BaseAwardPanel" margin="0,16783363,16779264,184555009">
+  <controller name="showTips" pages="0,,1," selected="0"/>
+  <displayList>
+    <image id="n2_sds9" name="n2" src="7id5kk2n7" fileName="img/bg_xinxidi.png" xy="351,50" pivot="0.5,0.5" anchor="true" size="491,14">
+      <gearDisplay controller="showTips" pages="1"/>
+      <relation target="n5_sds9" sidePair="width-width"/>
+    </image>
+    <text id="n5_sds9" name="tipsText" xy="353,46" pivot="0.5,0.5" anchor="true" size="316,34" font="Source Han Sans CN" fontSize="24" color="#323232" align="center" text="通过困难难度，获得以下奖励">
+      <gearDisplay controller="showTips" pages="1"/>
+    </text>
+    <list id="n1_10hvs" name="awardList" xy="-1,-30" size="704,350" layout="flow_hz" overflow="scroll" scrollBarFlags="2048" margin="30,0,0,0" lineGap="41" colGap="44" defaultItem="ui://kvb3znepkb6qibn8" align="center" vAlign="middle" autoItemSize="false">
+      <relation target="" sidePair="center-center"/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+  </displayList>
+  <transition name="open">
+    <item time="0" type="Visible" target="n1_10hvs" value="false"/>
+    <item time="7" type="Visible" target="n1_10hvs" value="false"/>
+    <item time="8" type="Visible" target="n1_10hvs" value="true"/>
+    <item time="14" type="Visible" target="n1_10hvs" value="true"/>
+  </transition>
+  <transition name="close">
+    <item time="0" type="Alpha" target="n1_10hvs" value="1"/>
+    <item time="4" type="Alpha" target="n1_10hvs" tween="true" startValue="1" endValue="0" duration="3"/>
+  </transition>
+</component>

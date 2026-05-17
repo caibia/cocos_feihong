@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="246,46" pivot="1,0.5" margin="0,256,1359413504,268451072">
+  <displayList>
+    <component id="n0_hkdh" name="placeComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="246,23" size="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+  </displayList>
+</component>

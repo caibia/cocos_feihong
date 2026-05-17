@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="50,50" pivot="0.5,0.5" margin="0,1024,1493631232,268451072">
+  <displayList>
+    <graph id="n0_l6ku" name="graph0" xy="-6,0" size="7,50" type="rect" lineSize="0" fillColor="#ff333333">
+      <relation target="" sidePair="right-left,height-height"/>
+    </graph>
+    <graph id="n1_l6ku" name="graph1" xy="49,0" size="7,50" type="rect" lineSize="0" fillColor="#ff333333">
+      <relation target="" sidePair="left-right,height-height"/>
+    </graph>
+    <graph id="n2_l6ku" name="graph2" xy="-6,-6" size="62,6" type="rect" lineSize="0" fillColor="#ff333333">
+      <relation target="" sidePair="bottom-top,width-width"/>
+    </graph>
+    <graph id="n3_l6ku" name="graph3" xy="-6,50" size="62,6" type="rect" lineSize="0" fillColor="#ff333333">
+      <relation target="" sidePair="top-bottom,width-width"/>
+    </graph>
+  </displayList>
+</component>

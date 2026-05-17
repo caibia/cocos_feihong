@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="134,134" remark="app.view.base.icon.KnightSoulIcon;app.view.base.button.BaseBtn">
+  <displayList>
+    <loader id="n20_9lw7" name="bgLoader" xy="0,0" size="134,134" group="n23_jz1u" fill="scaleFree"/>
+    <loader id="n17_lrp9" name="iconLoader" xy="18,28" size="128,128" scale="0.65,0.65" rotation="-10" group="n23_jz1u" fill="scaleFree"/>
+    <loader id="n22_9lw7" name="frameLoader" xy="0,0" size="134,134" group="n23_jz1u" fill="scaleFree"/>
+    <loader id="n19_9lw7" name="groupLoader" xy="87,11" size="86,86" scale="0.4,0.4" group="n23_jz1u" fill="scaleFree"/>
+    <text id="n21_9lw7" name="numTxt" xy="109,97" pivot="1,0.5" size="13,26" group="n23_jz1u" font="Source Han Sans CN" fontSize="18" color="#f2f2f2" text=""/>
+    <group id="n23_jz1u" name="contentGroup" xy="0,0" size="173,156" advanced="true"/>
+    <component id="n24_jz1u" name="effectNode" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="0,0" size="0,0"/>
+  </displayList>
+</component>

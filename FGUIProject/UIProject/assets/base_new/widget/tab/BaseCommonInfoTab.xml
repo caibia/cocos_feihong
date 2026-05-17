@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="174,90" extention="Button">
+  <controller name="button" pages="2,up,3,down" selected="0"/>
+  <displayList>
+    <image id="n1_xler" name="n1" src="xlerrd9" fileName="img/bg_xx_tab.png" xy="7,29" size="160,50">
+      <gearDisplay controller="button" pages="3"/>
+    </image>
+    <text id="n0_xler" name="title" xy="87,56" pivot="0.5,0.5" anchor="true" size="160,36" font="Source Han Serif CN" fontSize="26" color="#a6a6a6" align="center" vAlign="middle" autoSize="shrink" text="信息">
+      <gearColor controller="button" pages="2" values="#a6a6a6" default="#f2f2f2"/>
+    </text>
+    <image id="n2_xler" name="n2" src="qhdlgibt2" fileName="img/pic_line_11.png" xy="1,75" size="172,4">
+      <gearDisplay controller="button" pages="3"/>
+    </image>
+  </displayList>
+  <Button mode="Radio" sound="UI_Click_Large"/>
+</component>

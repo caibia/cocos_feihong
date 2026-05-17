@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="160,34" pivot="0.5,0.5" remark="app.view.base.component.BaseTxtSummary" margin="0,33575939,16779264,184555009" opaque="false" extention="Label">
+  <controller name="updown" pages="0,增益,1,减益" selected="0"/>
+  <controller name="isTitle" pages="0,,1,,2,,3,,4," selected="0"/>
+  <displayList>
+    <image id="n19_dogp" name="explodeBg" src="qk4nsdr" fileName="img/bg/bg_xinxi_15.png" xy="-100,-13"/>
+    <component id="n15_lf3u" name="valueLabel" src="vb3bibif" fileName="widget/component/BaseSummaryValue.xml" xy="67,-1">
+      <gearDisplay controller="isTitle" pages="0"/>
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <text id="n13_8ts1" name="desc" xy="-1,-1" size="40,37" fontSize="30" color="#bcd959" strokeColor="#32241d" strokeSize="1" text="">
+      <gearDisplay controller="isTitle" pages="0"/>
+      <gearColor controller="updown" pages="0,1" values="#bcd959,#32241d|#f26657,#32241d"/>
+    </text>
+    <richtext id="n10_f6w7" name="descRich" xy="0,0" size="40,36" touchable="false" fontSize="28" color="#f6e5c9" ubb="true" strokeColor="#32241d" strokeSize="1" text="">
+      <gearDisplay controller="isTitle" pages="3"/>
+    </richtext>
+    <text id="n14_8ts1" name="value" xy="46,-1" size="40,37" fontSize="30" color="#bcd959" strokeColor="#32241d" strokeSize="1" text="">
+      <gearDisplay controller="isTitle" pages="0"/>
+      <gearColor controller="updown" pages="0,1" values="#bcd959,#32241d|#f26657,#32241d"/>
+      <relation target="n13_8ts1" sidePair="left-right"/>
+    </text>
+    <text id="n12_gbwe" name="title" xy="20,0" pivot="0.5,0.5" size="118,52" fontSize="38" color="#f6e5c9" strokeColor="#aa3800" strokeSize="2" text="">
+      <gearDisplay controller="isTitle" pages="1"/>
+    </text>
+    <loader id="n5_ph2p" name="icon" xy="26,0" pivot="0.5,0" anchor="true" size="50,30" touchable="false">
+      <gearDisplay controller="isTitle" pages="2,4"/>
+    </loader>
+    <text id="n8_sgqx" name="babaojiText" xy="61,-11" pivot="0.5,0.5" size="10,47" font="Source Han Serif CN" fontSize="30" color="#fd7100" vAlign="bottom" text="">
+      <gearDisplay controller="isTitle" pages="2"/>
+    </text>
+    <text id="n17_vb3b" name="babaojiNumText" xy="71,-9" pivot="0,0.5" size="10,46" font="Source Han Sans CN" fontSize="30" color="#fd7100" vAlign="bottom" text="">
+      <gearDisplay controller="isTitle" pages="2"/>
+      <relation target="n8_sgqx" sidePair="left-right"/>
+    </text>
+    <text id="n9_sgqx" name="baojiText" xy="61,-11" pivot="0.5,0.5" size="10,47" font="Source Han Serif CN" fontSize="30" color="#fff4d6" vAlign="bottom" text="">
+      <gearDisplay controller="isTitle" pages="2"/>
+    </text>
+    <text id="n18_vb3b" name="baojiNumText" xy="71,-9" pivot="0,0.5" size="10,46" font="Source Han Sans CN" fontSize="30" color="#fff4d6" vAlign="bottom" text="">
+      <gearDisplay controller="isTitle" pages="2"/>
+      <relation target="n9_sgqx" sidePair="left-right"/>
+    </text>
+    <graph id="n11_qi6e" name="pos" xy="0,34" size="1,1" alpha="0" touchable="false" type="rect">
+      <gearXY controller="isTitle" pages="0,1,2,4" values="0,34|0,46|0,60|0,46" default="0,40"/>
+    </graph>
+  </displayList>
+  <relation target="n11_qi6e" sidePair="bottomext-bottom"/>
+</component>

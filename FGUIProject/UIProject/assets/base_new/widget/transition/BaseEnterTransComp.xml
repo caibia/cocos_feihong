@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1334,750" pivot="0.5,0.5" remark="app.view.base.transition.BaseEnterTransComp" margin="65536,16783363,16779264,184555010">
+  <controller name="styleType" pages="0,,1," selected="0"/>
+  <displayList>
+    <image id="n1_a6xi" name="n1" src="bul2kk2q4" fileName="img/cut/white_cur.png" xy="660,375" pivot="0.5,0.5" anchor="true" size="6144,1024" group="n2_a6xi">
+      <relation target="" sidePair="height-height"/>
+    </image>
+    <image id="n0_a6xi" name="n0" src="bul2kk2q3" fileName="img/cut/black_cut.png" xy="667,375" pivot="0.5,0.5" anchor="true" size="6144,1024" group="n2_a6xi">
+      <relation target="" sidePair="height-height"/>
+    </image>
+    <graph id="n3_lsgt" name="touchFliter" xy="-2405,-137" size="6144,1024" group="n2_a6xi"/>
+    <group id="n2_a6xi" name="normalGroup" xy="-2412,-137" size="6151,1024" advanced="true"/>
+    <component id="n5_x3u3" name="effectHolder" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="667,375" size="0,0" group="n6_x3u3">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <group id="n6_x3u3" name="spineGroup" xy="667,375" size="0,0" advanced="true"/>
+    <component id="n455_ecup" name="n455" src="o8klkk30z" fileName="widget/transition/BaseEnterTransChildComp.xml" xy="667,375" pivot="0.5,0.5" anchor="true" scale="1.2,1.2" visible="false">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+  </displayList>
+  <transition name="enter_right">
+    <item time="0" type="Visible" target="n1_a6xi" value="false"/>
+    <item time="0" type="Visible" target="n2_a6xi" value="true"/>
+    <item time="0" type="XY" target="n2_a6xi" tween="true" startValue="1365,-" endValue="-6171,-" duration="24"/>
+    <item time="7" type="Alpha" label="cut" value="1"/>
+  </transition>
+  <transition name="enter_left">
+    <item time="0" type="Visible" target="n1_a6xi" value="false"/>
+    <item time="0" type="Visible" target="n2_a6xi" value="true"/>
+    <item time="0" type="XY" target="n2_a6xi" tween="true" startValue="-6218,-" endValue="1361,-" duration="24"/>
+    <item time="7" type="Alpha" label="cut" value="1"/>
+  </transition>
+  <transition name="enter_right2">
+    <item time="0" type="Visible" target="n2_a6xi" value="false"/>
+    <item time="0" type="Visible" target="n455_ecup" value="true"/>
+    <item time="0" type="XY" target="n455_ecup" tween="true" startValue="4400,-" endValue="667,-" duration="10"/>
+    <item time="10" type="Alpha" label="cut" value="1"/>
+    <item time="10" type="XY" target="n455_ecup" tween="true" startValue="667,-" endValue="-3000,-" duration="14"/>
+  </transition>
+  <transition name="enter_left2">
+    <item time="0" type="Visible" target="n2_a6xi" value="false"/>
+    <item time="0" type="Visible" target="n455_ecup" value="true"/>
+    <item time="0" type="XY" target="n455_ecup" tween="true" startValue="-3000,-" endValue="667,-" duration="10"/>
+    <item time="10" type="Alpha" label="cut" value="1"/>
+    <item time="10" type="XY" target="n455_ecup" tween="true" startValue="667,-" endValue="4400,-" duration="14"/>
+  </transition>
+</component>

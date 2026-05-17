@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="109,237" pivot="0.5,1" remark="app.view.base.component.BasePlaceHolderNameComp" margin="0,67115011,16779264,184555008" opaque="false" extention="Button">
+  <controller name="showBub" pages="0,,1," selected="0"/>
+  <controller name="showStar" pages="0,,1," selected="0"/>
+  <controller name="scale" pages="0,1,1,0.8" selected="0"/>
+  <controller name="showSelfHint" pages="0,,1," selected="0"/>
+  <displayList>
+    <component id="n9_gbu8" name="pheffect" src="v5sxibk8" pkg="kvb3znep" xy="54,237" size="0,0" touchable="false">
+      <relation target="n5_lrou" sidePair="center-center,bottom-bottom"/>
+    </component>
+    <component id="n5_lrou" name="playerComp" src="v5sxibk8" pkg="kvb3znep" xy="54,237" size="0,0"/>
+    <text id="n10_iqg0" name="nameTxt" xy="53,35" pivot="0.5,0.5" anchor="true" size="1,0" fontSize="22" autoSize="none" text="">
+      <gearXY controller="scale" pages="0,1" values="53,35|58,59"/>
+      <relation target="n5_lrou" sidePair="center-center"/>
+    </text>
+    <component id="n12_qod2" name="titleComp" src="v5sxibk8" pkg="kvb3znep" xy="54,-10" size="0,0" scale="0.8,0.8" touchable="false">
+      <relation target="n10_iqg0" sidePair="top-bottom"/>
+    </component>
+    <image id="n16_exo3" name="starImg" src="nf6ux" pkg="kvb3znep" xy="13,15" size="48,45" scale="0.8,0.8">
+      <gearDisplay controller="showStar" pages="1"/>
+      <relation target="n10_iqg0" sidePair="right-left,middle-middle"/>
+    </image>
+    <text id="n17_exo3" name="starTxt" xy="24,23" size="14,29" fontSize="20" color="#f6e5c9" align="center" vAlign="middle" strokeColor="#32241d" strokeSize="1" text="2">
+      <gearDisplay controller="showStar" pages="1"/>
+      <relation target="n16_exo3" sidePair="center-center,middle-middle"/>
+    </text>
+    <loader id="n18_xndm" name="lordImg" xy="15,20" pivot="0.5,0.5" size="50,30" scale="0.6,0.6">
+      <relation target="n10_iqg0" sidePair="right-left"/>
+      <relation target="n16_exo3" sidePair="middle-middle"/>
+    </loader>
+    <text id="n20_hhpp" name="serverTxt" xy="51,10" size="84,29" fontSize="20" color="#f6e5c9" strokeColor="#32241d" strokeSize="1" text="">
+      <relation target="n10_iqg0" sidePair="middle-middle,left-right"/>
+    </text>
+    <component id="n21_ozrz" name="effectNode" src="v5sxibk8" pkg="kvb3znep" xy="54,118" size="0,0"/>
+  </displayList>
+  <Button/>
+</component>

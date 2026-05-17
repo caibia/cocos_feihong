@@ -9,7 +9,8 @@ import { ByteBuffer } from "./utils/ByteBuffer";
 import { ToolSet } from "./utils/ToolSet";
 import { defaultParser } from "./utils/UBBParser";
 import { GComponent } from "./GComponent";
-import { XResourcesUrl } from "../base/define/XResourcesUrl";
+// 0Common 公共包移除后暂不用：待回填 ScrollLabelCom 时恢复
+// import { XResourcesUrl } from "../base/define/XResourcesUrl";
 import ExtendColor, { GradientColorInfoArr } from "../base/extend/ExtendColor";
 import Extend from "../base/extend/Extend";
 /**
@@ -1013,32 +1014,34 @@ export class GTextField extends GObject {
 
     /** 设置为垂直滚动文本 */
     public setVerticalScrollText() {
-        if (!this._scrollLabCom) {
-            this._scrollLabCom = UIPackage.createObject(XResourcesUrl.COM_PACKAGE, "ScrollLabelCom") as GComponent;
-            this._scrollLabCom.x = this.x;
-            this._scrollLabCom.y = this.y;
-            this._scrollLabCom.width = this.width;
-            this._scrollLabCom.height = this.height;
-            this._scrollLabCom.relations.copyFrom(this._relations);
-            this._scrollLabCom.group = this.group;
-            this.parent.addChild(this._scrollLabCom);
-            // 把 fgui 里的 controller 赋值
-            for (let i = 0; i < 10; i++) {
-                let gear = this.getGear(i);
-                if (gear) {
-                    // @ts-ignore
-                    this._scrollLabCom._gears[i] = gear;
-                    gear._owner = this._scrollLabCom;
-                }
-            }
-            this.removeFromParent();
-            this._scrollLabCom.addChild(this);
-            this.x = 0;
-            this.y = 0;
-            this.autoSize = AutoSizeType.Height;
-        }
-        this._scrollLabCom.visible = this.visible;
-        this._scrollLabCom.scrollPane.touchEffect = this.height > this._scrollLabCom.height;
+        // 0Common 公共包移除后 ScrollLabelCom 暂不可用，待回填时取消注释
+        return;
+        // if (!this._scrollLabCom) {
+        //     this._scrollLabCom = UIPackage.createObject(XResourcesUrl.COM_PACKAGE, "ScrollLabelCom") as GComponent;
+        //     this._scrollLabCom.x = this.x;
+        //     this._scrollLabCom.y = this.y;
+        //     this._scrollLabCom.width = this.width;
+        //     this._scrollLabCom.height = this.height;
+        //     this._scrollLabCom.relations.copyFrom(this._relations);
+        //     this._scrollLabCom.group = this.group;
+        //     this.parent.addChild(this._scrollLabCom);
+        //     // 把 fgui 里的 controller 赋值
+        //     for (let i = 0; i < 10; i++) {
+        //         let gear = this.getGear(i);
+        //         if (gear) {
+        //             // @ts-ignore
+        //             this._scrollLabCom._gears[i] = gear;
+        //             gear._owner = this._scrollLabCom;
+        //         }
+        //     }
+        //     this.removeFromParent();
+        //     this._scrollLabCom.addChild(this);
+        //     this.x = 0;
+        //     this.y = 0;
+        //     this.autoSize = AutoSizeType.Height;
+        // }
+        // this._scrollLabCom.visible = this.visible;
+        // this._scrollLabCom.scrollPane.touchEffect = this.height > this._scrollLabCom.height;
     }
 }
 

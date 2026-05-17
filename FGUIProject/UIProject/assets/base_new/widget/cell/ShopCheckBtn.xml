@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="34,34" pivot="0.5,0.5" margin="0,16783363,16779264,184555009" extention="Button">
+  <controller name="button" pages="2,up,3,down" selected="0"/>
+  <displayList>
+    <loader id="n42_qzho" name="icon" xy="0,0" size="34,34" url="ui://kvb3znepqzho1v5dsv2">
+      <gearIcon controller="button" pages="2" values="ui://kvb3znepqzho1v5dsv1" default="ui://kvb3znepqzho1v5dsv2"/>
+    </loader>
+  </displayList>
+  <Button mode="Check"/>
+</component>

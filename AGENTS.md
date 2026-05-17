@@ -33,5 +33,6 @@
 | Skill | 命中场景 |
 | --- | --- |
 | [code-style](Angents/Skills/code-style/SKILL.md) | 代码、脚本、类型声明、命名、重构、配置结构调整 |
+| [module-model](Angents/Skills/module-model/SKILL.md) | 业务模块（View / DB / Repo / 定义）的新建、修改、重构；新增 UI / 弹窗 / Cell；接新数据源；切联网 |
 | [check-doc](Angents/Skills/check-doc/SKILL.md) | 策划文档、说明文档、需求文档检查 |
 | [editor-change-spec](Angents/Skills/editor-change-spec/SKILL.md) | 编辑器相关改动（`tools/edit-*/`、字段结构、联表选项、导入导出、校验逻辑） |

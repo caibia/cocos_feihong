@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="t87m37lc">
+  <resources>
+    <image id="9qmcibi5" name="icon_fangshou.png" path="/widget/sketch/" exported="true"/>
+    <image id="9qmcibi6" name="icon_tiaozhan.png" path="/widget/sketch/" exported="true"/>
+    <image id="9qmcibi7" name="btn_huifang.png" path="/widget/sketch/" exported="true"/>
+    <image id="clc0f" name="icon_shangdian.png" path="/widget/outline/" exported="true"/>
+    <image id="cpvhibey" name="btn_icon_liaotian.png" path="/widget/outline/" exported="true"/>
+    <image id="cpvhibfc" name="icon_tongji.png" path="/widget/outline/" exported="true"/>
+    <image id="ephzibfi" name="icon_dongxi_1.png" path="/widget/sketch/" exported="true"/>
+    <image id="ephzibfj" name="icon_dongxi_2.png" path="/widget/sketch/" exported="true"/>
+    <image id="ephzibfk" name="icon_jiaoguo_1.png" path="/widget/sketch/" exported="true"/>
+    <image id="ephzibfl" name="icon_jiaoguo_2.png" path="/widget/sketch/" exported="true"/>
+    <image id="ephzibfm" name="icon_lijinlianmeng_1.png" path="/widget/sketch/" exported="true"/>
+    <image id="ephzibfn" name="icon_lijinlianmeng_2.png" path="/widget/sketch/" exported="true"/>
+    <image id="ephzibfo" name="icon_lindonggongye_1.png" path="/widget/sketch/" exported="true"/>
+    <image id="ephzibfp" name="icon_lindonggongye_2.png" path="/widget/sketch/" exported="true"/>
+    <image id="fvogibfv" name="icon_dongxi_3.png" path="/widget/sketch/" exported="true"/>
+    <image id="fvogibfw" name="icon_jiaoguo_3.png" path="/widget/sketch/" exported="true"/>
+    <image id="fvogibfx" name="icon_lijinlianmeng_3.png" path="/widget/sketch/" exported="true"/>
+    <image id="fvogibfy" name="icon_lindonggongye_3.png" path="/widget/sketch/" exported="true"/>
+    <image id="gf13ibfv" name="btn_jq_huigu.png" path="/widget/sketch/" exported="true"/>
+    <image id="gf13ibfw" name="btn_jq_tiaoguo.png" path="/widget/sketch/" exported="true"/>
+    <image id="gf13ibfx" name="btn_jq_zidong_01.png" path="/widget/sketch/" exported="true"/>
+    <image id="gf13ibfy" name="btn_jq_zidong_02.png" path="/widget/sketch/" exported="true"/>
+    <image id="hfcqibhg" name="icon_bf_shuxing.png" path="/widget/outline/" exported="true"/>
+    <image id="hfcqibhh" name="icon_huishou.png" path="/widget/outline/" exported="true"/>
+    <image id="hfcqibhi" name="icon_shangzhen.png" path="/widget/outline/" exported="true"/>
+    <image id="hnizibgc" name="icon_dongxi_4.png" path="/widget/sketch/" exported="true"/>
+    <image id="hnizibgd" name="icon_jiaoguo_4.png" path="/widget/sketch/" exported="true"/>
+    <image id="hnizibge" name="icon_lijinlianmeng_4.png" path="/widget/sketch/" exported="true"/>
+    <image id="hnizibgf" name="icon_lindonggongye_4.png" path="/widget/sketch/" exported="true"/>
+    <image id="j02nibib" name="8.png" path="/widget/func/" exported="true"/>
+    <image id="j02nibic" name="200000.png" path="/widget/func/" exported="true"/>
+    <image id="j1t5ibgu" name="icon_zhuangbei_1_1.png" path="/widget/sketch/" exported="true"/>
+    <image id="j1t5ibgv" name="icon_zhuangbei_1_2.png" path="/widget/sketch/" exported="true"/>
+    <image id="j1t5ibgw" name="icon_zhuangbei_2_1.png" path="/widget/sketch/" exported="true"/>
+    <image id="j1t5ibgx" name="icon_zhuangbei_2_2.png" path="/widget/sketch/" exported="true"/>
+    <image id="j1t5ibgy" name="icon_zhuangbei_3_1.png" path="/widget/sketch/" exported="true"/>
+    <image id="j1t5ibgz" name="icon_zhuangbei_3_2.png" path="/widget/sketch/" exported="true"/>
+    <image id="j1t5ibh0" name="icon_zhuangbei_4_1.png" path="/widget/sketch/" exported="true"/>
+    <image id="j1t5ibh1" name="icon_zhuangbei_4_2.png" path="/widget/sketch/" exported="true"/>
+    <image id="jyr4ibh9" name="icon_lijinlianmeng_7.png" path="/widget/sketch/" exported="true"/>
+    <image id="jyr4ibha" name="icon_lindonggongye_7.png" path="/widget/sketch/" exported="true"/>
+    <image id="jyr4ibhb" name="icon_dongxi_7.png" path="/widget/sketch/" exported="true"/>
+    <image id="jyr4ibhc" name="icon_jiaoguo_7.png" path="/widget/sketch/" exported="true"/>
+    <image id="kveoibhq" name="btn_shuxingjiacheng.png" path="/widget/outline/" exported="true"/>
+    <image id="kveoibhr" name="btn_chongzhi.png" path="/widget/outline/" exported="true"/>
+    <image id="kveoibhs" name="btn_saodangbenceng.png" path="/widget/outline/" exported="true"/>
+    <image id="kveoibht" name="btn_yijiansaodang.png" path="/widget/outline/" exported="true"/>
+    <image id="kveoibhu" name="btn_heiyuanshangren.png" path="/widget/outline/" exported="true"/>
+    <image id="kveoibhv" name="btn_paihangbang.png" path="/widget/outline/" exported="true"/>
+    <image id="kveoibhw" name="btn_wanfashangdian.png" path="/widget/outline/" exported="true"/>
+    <image id="ky89ibhk" name="icon_hj_dian.png" path="/widget/sketch/" exported="true"/>
+    <image id="ltikibgq" name="icon_dongxi_6.png" path="/widget/sketch/" exported="true"/>
+    <image id="ltikibgr" name="icon_jiaoguo_6.png" path="/widget/sketch/" exported="true"/>
+    <image id="ltikibgs" name="icon_lijinlianmeng_6.png" path="/widget/sketch/" exported="true"/>
+    <image id="ltikibgt" name="icon_lindonggongye_6.png" path="/widget/sketch/" exported="true"/>
+    <image id="m4efibi0" name="icon_jingjichang.png" path="/widget/sketch/" exported="true"/>
+    <image id="m4efibi4" name="btn_tiaozhanrenwu.png" path="/widget/outline/" exported="true"/>
+    <image id="mbs1ibew" name="icon_skill_01.png" path="/widget/skill/" exported="true"/>
+    <image id="mbs1ibez" name="icon_jixu.png" path="/widget/sketch/" exported="true"/>
+    <image id="n3piibhm" name="icon_dongxi_8.png" path="/widget/sketch/" exported="true"/>
+    <image id="n3piibhn" name="icon_jiaoguo_8.png" path="/widget/sketch/" exported="true"/>
+    <image id="n3piibho" name="icon_lijinlianmeng_8.png" path="/widget/sketch/" exported="true"/>
+    <image id="n3piibhp" name="icon_lindonggongye_8.png" path="/widget/sketch/" exported="true"/>
+    <image id="nfybibgg" name="icon_dongxi_5.png" path="/widget/sketch/" exported="true"/>
+    <image id="nfybibgh" name="icon_jiaoguo_5.png" path="/widget/sketch/" exported="true"/>
+    <image id="nfybibgi" name="icon_lijinlianmeng_5.png" path="/widget/sketch/" exported="true"/>
+    <image id="nfybibgj" name="icon_lindonggongye_5.png" path="/widget/sketch/" exported="true"/>
+    <image id="piimibhx" name="icon_gaojibaoxiang.png" path="/widget/func/" exported="true"/>
+    <image id="piimibhz" name="btn_buzhen.png" path="/widget/outline/" exported="true"/>
+    <image id="q7agsbe" name="icon_zhandou.png" path="/widget/sketch/" exported="true"/>
+    <image id="q95fibi8" name="pic_srhy_tongguan_1.png" path="/widget/outline/" exported="true"/>
+    <image id="q95fibi9" name="pic_srhy_tongguan_2.png" path="/widget/outline/" exported="true"/>
+    <image id="q95fibia" name="pic_srhy_tongguan_3.png" path="/widget/outline/" exported="true"/>
+    <image id="tcn2r" name="icon_kuaisuchayue.png" path="/widget/outline/" exported="true"/>
+    <image id="uqnpibh2" name="btn_zr_huanjiang.png" path="/widget/sketch/" exported="true"/>
+    <image id="uqnpibh3" name="btn_zr_huanzhuang.png" path="/widget/sketch/" exported="true"/>
+  </resources>
+  <publish name="icon">
+    <atlas name="Default" index="0"/>
+  </publish>
+</packageDescription>

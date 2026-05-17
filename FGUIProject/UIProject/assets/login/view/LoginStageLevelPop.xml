@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1010,620" pivot="0.5,0.5" margin="0,768,1460076800,268449024">
+  <displayList>
+    <component id="n0_fvpz" name="popPanel" src="mdfj15" pkg="kvb3znep" xy="0,0"/>
+    <richtext id="n2_fvpz" name="stageTipsTxt" xy="24,71" size="952,68" group="n3_fvpz" fontSize="22" color="#323232" leading="9" autoSize="height" ubb="true" text=""/>
+    <group id="n3_fvpz" name="content" xy="24,71" size="952,68" advanced="true"/>
+  </displayList>
+</component>

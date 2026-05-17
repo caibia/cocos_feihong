@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="4,508" extention="ScrollBar">
+  <displayList>
+    <loader id="n0_wgeb" name="bar" xy="0,0" size="4,508" alpha="0.20" url="ui://kvb3znepnf6u4" fill="scaleFree">
+      <relation target="" sidePair="width-width,height-height"/>
+    </loader>
+    <loader id="n1_wgeb" name="grip" xy="0,0" size="4,48" url="ui://kvb3znepnf6uc" fill="scaleFree">
+      <relation target="" sidePair="width-width,top-top"/>
+    </loader>
+  </displayList>
+  <ScrollBar/>
+</component>

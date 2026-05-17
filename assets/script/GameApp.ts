@@ -15,6 +15,7 @@ import LanguageMgr from './base/manager/LanguageMgr';
 import { UIObjectFactoryDefine } from './app/define/UIObjectFactoryDefine';
 import { SceneName } from './app/define/SceneDefine';
 import UserDB from './app/data/UserDB';
+import LoginDB from './app/data/LoginDB';
 import XConst from './base/define/XConst';
 import XStorageMgr from './base/manager/XStorageMgr';
 import Extend from './base/extend/Extend';
@@ -44,7 +45,7 @@ export class GameApp extends Component {
         await MaterialMgr.inst.preload();
         await ConfigMgr.inst.init();
         await ResMgr.inst.init();
-        registerFont("GameFont", "font/yuehei");
+        registerFont("GameFont", "font/SourceHanSansCN-Regular");
         UIConfig.defaultFont = "GameFont";
         this.initSystem();
         this.initModel();
@@ -55,6 +56,7 @@ export class GameApp extends Component {
     public initModel() {
         RedPointDB.inst.init();
         UserDB.inst.init();
+        LoginDB.inst.init();
     }
 
     public initSystem() {
@@ -110,6 +112,7 @@ export class GameApp extends Component {
     public static clearAllData() {
         RedPointDB.inst.clearData();
         UserDB.inst.clearData();
+        LoginDB.inst.clearData();
         ProcedureQueueMgr.inst.clearData();
     }
 }

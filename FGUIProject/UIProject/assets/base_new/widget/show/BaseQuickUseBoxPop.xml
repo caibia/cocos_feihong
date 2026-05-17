@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="344,127" pivot="1,0.5" margin="0,3840,1191641344,268451072">
+  <displayList>
+    <image id="n0_9dqs" name="n0" src="9dqskk2vg" fileName="img/bg_use_di.png" xy="0,0" size="499,124"/>
+    <text id="n12_9dqs" name="n12" xy="18,12" size="326,79" alpha="0.15" font="Novecento wide" fontSize="60" color="#323232" letterSpacing="5" text="PROMPTS"/>
+    <text id="n13_9dqs" name="n13" xy="5,85" size="38,30" alpha="0.15" font="Novecento wide" fontSize="10" color="#323232" leading="-2" autoSize="none" text="TURN ON"/>
+    <loader id="n1_9dqs" name="nameBgLoader" xy="4,0" size="340,26" url="ui://kvb3znephps0ibnr" fill="scaleFree"/>
+    <text id="n2_9dqs" name="n2" xy="4,-7" pivot="0,0.5" size="93,36" font="Novecento wide" fontSize="26" color="#f2f2f2" letterSpacing="-1" align="center" vAlign="middle" autoSize="shrink" text="NAME"/>
+    <image id="n3_9dqs" name="n3" src="hfacibmi" fileName="img/pic_line_04.png" xy="98,0" size="24,1" rotation="90"/>
+    <component id="n4_9dqs" name="boxNameTxt" src="hmzukk2u8" fileName="widget/text/BaseScrollText.xml" xy="102,-2" pivot="0,0.5" size="242,29">
+      <Label titleColor="#f2f2f2" titleFontSize="20"/>
+    </component>
+    <image id="n5_9dqs" name="n5" src="hfacibmi" fileName="img/pic_line_04.png" xy="4,24" size="340,1">
+      <relation target="n4_9dqs" sidePair="rightext-right"/>
+    </image>
+    <loader id="n6_9dqs" name="smallQualityLoader" xy="4,36" size="8,8" url="ui://kvb3znepnb21ibpc" fill="scaleFree"/>
+    <loader id="n7_9dqs" name="longQualityLoader" xy="4,112" size="130,8" url="ui://kvb3znepnb21ibpc" fill="scaleFree"/>
+    <loader id="n8_9dqs" name="iconLoader" xy="10,10" size="128,128" scale="0.9,0.9" fill="scaleFree"/>
+    <text id="n9_9dqs" name="boxNumTxt" xy="92,85" pivot="1,0.5" size="44,29" font="Source Han Sans CN" fontSize="20" color="#323232" text="x199"/>
+    <loader id="n10_9dqs" name="openBgLoader" xy="150,51" size="164,44" url="ui://kvb3znephps0ibnr" fill="scaleFree"/>
+    <text id="n11_9dqs" name="n11" xy="150,51" pivot="0.5,0.5" size="164,44" font="Source Han Serif CN" fontSize="22" color="#f2f2f2" leading="-2" align="center" vAlign="middle" autoSize="shrink" text="打开"/>
+    <component id="n14_8pe1" name="countDownProgress" src="ke2z1d" fileName="widget/progress/BaseProgBar.xml" xy="4,120" size="340,6">
+      <ProgressBar value="100" max="100"/>
+    </component>
+  </displayList>
+  <transition name="enter">
+    <item time="0" type="Alpha" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="0" type="XY" tween="true" startValue="160,-" endValue="0,-" duration="7"/>
+  </transition>
+  <transition name="back">
+    <item time="0" type="Alpha" tween="true" startValue="1" endValue="0" duration="5"/>
+    <item time="0" type="XY" tween="true" startValue="0,-" endValue="102,-" duration="5"/>
+  </transition>
+</component>

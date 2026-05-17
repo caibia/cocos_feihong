@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="64,25" remark="app.view.base.component.BaseURArtifactWeaponComp">
+  <displayList>
+    <image id="n0_s3ej" name="n0" src="s3ej1emighj" fileName="img/pic_qiling_di.png" xy="0,0"/>
+    <text id="n1_s3ej" name="weaponTxt" xy="44,12" pivot="0.5,0.5" anchor="true" size="33,32" font="Novecento wide" fontSize="22" color="#f2f2f2" text="+6"/>
+  </displayList>
+</component>

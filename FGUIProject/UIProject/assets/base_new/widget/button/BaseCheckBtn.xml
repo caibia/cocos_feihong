@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="84,50" pivot="0.5,0.5" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <controller name="isShowTxt" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n3_rtmk" name="bgLoader" xy="2,12" size="26,26" url="ui://kvb3znepoezyibkd"/>
+    <loader id="n4_rtmk" name="icon" xy="4,16" pivot="0.5,0.5" size="23,18" url="ui://kvb3znepoezyibke">
+      <gearDisplay controller="button" pages="1"/>
+    </loader>
+    <text id="n5_rtmk" name="title" xy="38,10" pivot="0,0.5" size="44,29" font="Source Han Sans CN" fontSize="20" color="#323232" leading="-1" vAlign="middle" text="">
+      <gearDisplay controller="isShowTxt" pages="0"/>
+    </text>
+    <graph id="n7_irec" name="clickComp" xy="0,0" pivot="0,0.5" size="80,50" alpha="0" type="rect">
+      <relation target="n5_rtmk" sidePair="width-width,height-height"/>
+    </graph>
+  </displayList>
+  <Button mode="Check" sound="UI_Click_Middle"/>
+  <relation target="n5_rtmk" sidePair="width-width,height-height"/>
+</component>

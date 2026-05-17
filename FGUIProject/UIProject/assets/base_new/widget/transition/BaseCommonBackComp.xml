@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1638,998" pivot="0.5,0.5" remark="app.view.base.transition.BaseCommonBackComp" margin="0,5120,1107755264,268449024">
+  <displayList>
+    <component id="n2_nz54" name="frag1" src="a9b8gibu4" fileName="widget/transition/comp/BaseCommonBackComp1.xml" xy="0,0"/>
+    <component id="n3_nz54" name="frag2" src="a9b8gibu5" fileName="widget/transition/comp/BaseCommonBackComp2.xml" xy="0,0"/>
+    <component id="n4_nz54" name="frag3" src="a9b8gibue" fileName="widget/transition/comp/BaseCommonBackComp3.xml" xy="0,0"/>
+    <component id="n5_nz54" name="frag4" src="a9b8gibuf" fileName="widget/transition/comp/BaseCommonBackComp4.xml" xy="0,0"/>
+    <component id="n6_nz54" name="frag5" src="a9b8gibug" fileName="widget/transition/comp/BaseCommonBackComp5.xml" xy="0,0"/>
+    <component id="n7_nz54" name="frag6" src="a9b8gibuh" fileName="widget/transition/comp/BaseCommonBackComp6.xml" xy="0,0"/>
+    <component id="n8_nz54" name="frag7" src="a9b8gibui" fileName="widget/transition/comp/BaseCommonBackComp7.xml" xy="0,0"/>
+    <component id="n9_nz54" name="frag8" src="a9b8gibuj" fileName="widget/transition/comp/BaseCommonBackComp8.xml" xy="0,0"/>
+    <component id="n10_nz54" name="frag9" src="a9b8gibuk" fileName="widget/transition/comp/BaseCommonBackComp9.xml" xy="0,0"/>
+    <component id="n11_nz54" name="frag10" src="a9b8gibu6" fileName="widget/transition/comp/BaseCommonBackComp10.xml" xy="0,0"/>
+    <component id="n12_nz54" name="frag11" src="a9b8gibu7" fileName="widget/transition/comp/BaseCommonBackComp11.xml" xy="0,0"/>
+    <component id="n13_nz54" name="frag12" src="a9b8gibu8" fileName="widget/transition/comp/BaseCommonBackComp12.xml" xy="0,0"/>
+    <component id="n14_nz54" name="frag13" src="a9b8gibu9" fileName="widget/transition/comp/BaseCommonBackComp13.xml" xy="0,0"/>
+    <component id="n15_nz54" name="frag14" src="a9b8gibua" fileName="widget/transition/comp/BaseCommonBackComp14.xml" xy="0,0"/>
+    <component id="n16_nz54" name="frag15" src="a9b8gibub" fileName="widget/transition/comp/BaseCommonBackComp15.xml" xy="0,0"/>
+    <component id="n18_nz54" name="frag16" src="a9b8gibuc" fileName="widget/transition/comp/BaseCommonBackComp16.xml" xy="0,0"/>
+    <component id="n19_h4a9" name="frag17" src="h4a9kk2nl" fileName="widget/transition/comp/BaseCommonBackComp17.xml" xy="0,0"/>
+    <component id="n20_h4a9" name="frag18" src="h4a9kk2nm" fileName="widget/transition/comp/BaseCommonBackComp18.xml" xy="0,0"/>
+    <component id="n21_h4a9" name="frag19" src="h4a9kk2nn" fileName="widget/transition/comp/BaseCommonBackComp19.xml" xy="0,0"/>
+    <component id="n22_h4a9" name="frag20" src="h4a9kk2no" fileName="widget/transition/comp/BaseCommonBackComp20.xml" xy="0,0"/>
+  </displayList>
+</component>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="220,120" remark="app.view.base.component.BaseMulTeamFormationKnightComp" overflow="hidden">
+  <controller name="empty" pages="0,,1," selected="0"/>
+  <controller name="addEnable" pages="0,,1," selected="0"/>
+  <controller name="bindEmpty" pages="0,,1," selected="0"/>
+  <controller name="isLock" pages="0,normal,1,lock" selected="0"/>
+  <displayList>
+    <image id="n21_p4ls" name="draggingBgImg" src="nf6u4" fileName="img/bg_black_01.png" xy="133,66" pivot="0.5,0.5" anchor="true" size="148,92" alpha="0.90" visible="false"/>
+    <image id="n12_u5j0" name="n0" src="nqp51emigbq" fileName="img/formation/bg_xd_diban.png" xy="0,0"/>
+    <text id="n36_ko9d" name="n36" xy="32,26" pivot="0.5,0.5" anchor="true" size="42,14" font="Novecento wide" fontSize="8" color="#808080" letterSpacing="6" align="center" text="LINK"/>
+    <component id="n10_u5j0" name="knightClickAreaComp" src="yc0c2" pkg="x6gj81kp" xy="133,66" size="148,92" alpha="0"/>
+    <image id="n38_dmmi" name="n21" src="nf6u4" fileName="img/bg_black_01.png" xy="133,66" pivot="0.5,0.5" anchor="true" size="148,92" alpha="0.90" group="n41_dmmi"/>
+    <loader id="n39_dmmi" name="lockIcon" xy="133,66" pivot="0.5,0.5" anchor="true" size="70,70" group="n41_dmmi"/>
+    <group id="n41_dmmi" name="n111" xy="59,20" size="148,92" advanced="true">
+      <gearDisplay controller="isLock" pages="1"/>
+    </group>
+    <image id="n6_u5j0" name="n2" src="nf6u4" fileName="img/bg_black_01.png" xy="133,66" pivot="0.5,0.5" anchor="true" size="148,92" alpha="0.90" group="n9_u5j0"/>
+    <image id="n7_u5j0" name="n3" src="n4cp3m" fileName="img/arena/pic_jjc_weibushu.png" xy="133,66" pivot="0.5,0.5" anchor="true" group="n9_u5j0">
+      <gearDisplay controller="addEnable" pages="0"/>
+    </image>
+    <component id="n8_u5j0" name="addBtn" src="mtubibk7" fileName="widget/button/BaseLoaderBtn.xml" xy="133,66" pivot="0.5,0.5" anchor="true" size="66,66" group="n9_u5j0">
+      <gearDisplay controller="addEnable" pages="1"/>
+      <Button icon="ui://kvb3znepnf6un"/>
+    </component>
+    <group id="n9_u5j0" name="n1" xy="59,20" size="148,92" advanced="true">
+      <gearDisplay controller="empty" pages="1"/>
+      <gearDisplay2 controller="isLock" pages="0" condition="0"/>
+    </group>
+    <component id="n11_u5j0" name="knightIconLbl" src="rbu61emigbw" fileName="widget/component/BaseMulTeamFormationKnightIconLbl.xml" xy="133,66" pivot="0.5,0.5" anchor="true" size="148,92" touchable="false" group="n31_nqp5">
+      <gearDisplay controller="empty" pages="0"/>
+    </component>
+    <image id="n34_rbu6" name="n13" src="rbu61emigbv" fileName="img/formation/bg_xd_dibanzhezhao.png" xy="59,74" group="n31_nqp5"/>
+    <group id="n31_nqp5" name="n10" xy="59,20" size="148,92" advanced="true">
+      <gearDisplay controller="empty" pages="0"/>
+    </group>
+    <image id="n28_nqp5" name="n7" src="nqp51emigbs" fileName="img/bg_black_09.png" xy="34,102" pivot="0.5,0.5" anchor="true" size="42,20" alpha="0" group="n33_nqp5">
+      <gearLook controller="empty" pages="0,1" values="0.00,0,0,0|1.00,0,0,0"/>
+    </image>
+    <text id="n17_u5j0" name="linkLvTxt" xy="34,102" pivot="0.5,0.5" anchor="true" size="40,29" group="n33_nqp5" font="Novecento wide" fontSize="20" color="#f2f2f2" align="center" vAlign="middle" text=""/>
+    <group id="n33_nqp5" name="lvGroup" xy="13,87" size="42,29" advanced="true">
+      <gearDisplay controller="bindEmpty" pages="0"/>
+    </group>
+    <image id="n26_nqp5" name="n5" src="nqp51emigbr" fileName="img/formation/bg_xd_touxiangdi.png" xy="34,59" pivot="0.5,0.5" anchor="true" group="n25_nqp5"/>
+    <loader id="n13_u5j0" name="bindKnightLoader" xy="34,59" pivot="0.5,0.5" anchor="true" size="38,38" group="n25_nqp5" align="center" vAlign="middle" fill="scaleFree"/>
+    <image id="n27_nqp5" name="n6" src="nqp51emigbt" fileName="img/bg_black_08.png" xy="34,86" pivot="0.5,0.5" anchor="true" size="42,12" group="n32_nqp5"/>
+    <text id="n24_nqp5" name="n8" xy="35,87" pivot="0.5,0.5" anchor="true" size="42,29" group="n32_nqp5" font="Novecento wide" fontSize="10" color="#f2f2f2" align="center" vAlign="middle" autoSize="shrink" text="LEVEL"/>
+    <group id="n32_nqp5" name="lvWordGroup" xy="13,72" size="43,29" group="n25_nqp5" advanced="true"/>
+    <group id="n25_nqp5" name="n4" xy="13,39" size="43,62" advanced="true">
+      <gearDisplay controller="bindEmpty" pages="0"/>
+    </group>
+    <image id="n30_nqp5" name="n9" src="nqp51emigbu" fileName="img/pic_xd_lv.png" xy="10,80">
+      <gearDisplay controller="empty" pages="0"/>
+    </image>
+    <component id="n15_u5j0" name="starComp" src="v6znibjq" fileName="widget/component/BaseStarComp.xml" xy="10,2" size="30,28" scale="0.5,0.5">
+      <gearDisplay controller="empty" pages="0"/>
+      <Label icon="ui://kvb3znepnf6uv"/>
+    </component>
+    <loader id="n14_u5j0" name="leftQualityLoader" xy="0,60" pivot="0,0.5" anchor="true" size="8,120" touchable="false"/>
+    <loader id="n42_uesp" name="elementLoader" xy="155,0" pivot="1,0" size="52,52" scale="0.6,0.6">
+      <gearDisplay controller="empty" pages="0"/>
+    </loader>
+    <component id="n35_gti8" name="effDadComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="60,97" size="0,0">
+      <gearDisplay controller="bindEmpty" pages="0"/>
+    </component>
+    <component id="n37_i2qo" name="redPointComp" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="204,20"/>
+  </displayList>
+  <transition name="level">
+    <item time="0" type="Alpha" target="n28_nqp5" tween="true" startValue="1" endValue="0" duration="2"/>
+    <item time="0" type="XY" target="n32_nqp5" tween="true" startValue="13,72" endValue="13,83" duration="10" ease="Quint.Out"/>
+    <item time="0" type="XY" target="n33_nqp5" value="13,88"/>
+    <item time="0" type="XY" target="n33_nqp5" tween="true" startValue="13,88" endValue="13,81" duration="2"/>
+    <item time="2" type="XY" target="n33_nqp5" tween="true" startValue="13,81" endValue="65,81" duration="10" ease="Quint.Out"/>
+  </transition>
+</component>

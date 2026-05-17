@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="134,134" pivot="0.5,0.5" remark="app.view.base.icon.KnightIcon;app.view.base.button.BaseBtn" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <controller name="isShowInfo" pages="0,hide,1,show" selected="0"/>
+  <controller name="nameType" pages="0,hide,1,oneRow,2,towRow" selected="0"/>
+  <controller name="hideSkin" pages="0,show,1,hide" selected="0"/>
+  <controller name="isShowWedding" pages="0,,1," selected="0"/>
+  <displayList>
+    <image id="n11_117fg" name="imgEmpty" src="hfacibml" fileName="img/pic_wupinlan.png" xy="0,0" group="n13_q8o2"/>
+    <loader id="n3_f6o1" name="bgLoader" xy="67,67" pivot="0.5,0.5" anchor="true" size="134,134" group="n13_q8o2" url="ui://kvb3znephhudibll"/>
+    <loader id="n4_f6o1" name="iconLoader" xy="67,62" pivot="0.5,0.5" anchor="true" size="128,128" scale="0.8,0.8" group="n13_q8o2"/>
+    <loader id="n16_sto8" name="weddingLoader" xy="67,67" pivot="0.5,0.5" anchor="true" size="134,134" touchable="false" group="n13_q8o2">
+      <gearDisplay controller="isShowWedding" pages="1"/>
+    </loader>
+    <loader id="n18_kypp" name="elementLoader" xy="73,9" pivot="1,0" size="52,52" scale="0.6,0.6" group="n13_q8o2"/>
+    <component id="n17_f68q" name="weddingEff" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="67,67" size="0,0" group="n13_q8o2"/>
+    <loader id="n6_f6o1" name="starBg" xy="11,108" size="114,16" touchable="false" group="n9_f6o1" visible="false" url="ui://kvb3znephhudiblp" fill="scaleFree"/>
+    <component id="n10_f6o1" name="starComp" src="v6znibjq" fileName="widget/component/BaseStarComp.xml" xy="14,115" pivot="0,0.5" anchor="true" size="30,28" scale="0.5,0.5" group="n9_f6o1">
+      <Label icon="ui://kvb3znepnf6uv"/>
+    </component>
+    <image id="n7_f6o1" name="advanceBg" src="nf6u4" fileName="img/bg_black_01.png" xy="123,114" pivot="1,0.5" anchor="true" size="30,18" alpha="0.80" group="n9_f6o1">
+      <relation target="n8_f6o1" sidePair="leftext-left"/>
+    </image>
+    <group id="n9_f6o1" name="infoGroup" xy="11,101" size="114,28" group="n13_q8o2" advanced="true">
+      <gearDisplay controller="isShowInfo" pages="1"/>
+    </group>
+    <text id="n5_f6o1" name="numText" xy="120,110" pivot="1,0.5" anchor="true" size="37,32" group="n13_q8o2" visible="false" font="Source Han Sans CN" fontSize="22" color="#323232" text="100">
+      <gearDisplay controller="isShowInfo" pages="0"/>
+    </text>
+    <text id="n8_f6o1" name="advanceText" xy="123,114" pivot="1,0.5" anchor="true" size="29,24" group="n13_q8o2" font="Source Han Sans CN" fontSize="16" color="#ffffff" text="+12">
+      <gearDisplay controller="isShowInfo" pages="1"/>
+    </text>
+    <graph id="n12_bmx9" name="grayGraph" xy="67,67" pivot="0.5,0.5" anchor="true" size="116,116" alpha="0.40" touchable="false" group="n13_q8o2" visible="false" type="rect" fillColor="#ff000000"/>
+    <text id="n15_p3ip" name="nameTxt" xy="67,128" pivot="0.5,0" anchor="true" size="140,30" group="n13_q8o2" font="Source Han Sans CN" fontSize="20" color="#323232" leading="-3" align="center" autoSize="shrink" text="">
+      <gearDisplay controller="nameType" pages="1,2"/>
+      <gearSize controller="nameType" pages="0,1,2" values="140,30,1,1|140,30,1,1|140,64,1,1"/>
+      <relation target="" sidePair="center-center,top-bottom"/>
+    </text>
+    <group id="n13_q8o2" name="contentGroup" xy="-3,-2" size="140,160" advanced="true"/>
+    <component id="n14_q8o2" name="effectNode" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="0,0" size="0,0"/>
+  </displayList>
+  <Button/>
+</component>

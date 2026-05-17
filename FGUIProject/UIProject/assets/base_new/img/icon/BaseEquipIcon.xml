@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="134,134" pivot="0.5,0.5" remark="app.view.base.icon.EquipIcon;app.view.base.button.BaseBtn" margin="0,167778307,16779264,184555009" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <controller name="showLevel" pages="0,hide,1,show" selected="0"/>
+  <controller name="isShowRefine" pages="0,hide,1,show" selected="0"/>
+  <controller name="isGlyph" pages="0,normal,1,glyph" selected="0"/>
+  <controller name="isShowNum" pages="0,show,1,hide" selected="0"/>
+  <controller name="isEnough" pages="0,shortage,1,enough" selected="0"/>
+  <controller name="isDiamond" pages="0,normal,1,diamond" selected="0"/>
+  <controller name="nameType" pages="0,hide,1,oneRow,2,twoRow" selected="0"/>
+  <controller name="isLock" pages="0,否,1,是" selected="0"/>
+  <controller name="showResonance" pages="0,,1,,3," selected="0"/>
+  <displayList>
+    <loader id="n6_f6o1" name="bgLoader" xy="67,67" pivot="0.5,0.5" anchor="true" size="134,134" group="n21_q8o2" url="ui://kvb3znepexy8ibky">
+      <relation target="" sidePair="width-width,height-height"/>
+    </loader>
+    <component id="n26_fgi2" name="effectBg" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="66,66" size="0,0" group="n21_q8o2">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n31_bzdm" name="effectIconDown" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="67,67" size="0,0" group="n21_q8o2">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <loader id="n7_f6o1" name="iconLoader" xy="67,67" pivot="0.5,0.5" anchor="true" size="90,90" scale="0.8,0.8" group="n21_q8o2" url="ui://x6gj81kpcyefsbd"/>
+    <component id="n30_jld6" name="magicalHolder" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="67,65" size="0,0" group="n21_q8o2"/>
+    <component id="n27_fgi2" name="effectIcon" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="67,67" size="0,0" group="n21_q8o2">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <image id="n9_f6o1" name="levelBg" src="nf6u4" fileName="img/bg_black_01.png" xy="13,12" size="60,20" alpha="0.80" group="n21_q8o2">
+      <gearDisplay controller="showLevel" pages="1"/>
+      <relation target="n10_f6o1" sidePair="rightext-right"/>
+    </image>
+    <component id="n19_kb6q" name="glyphQualityComp" src="e3lnibo7" fileName="widget/component/BaseGlyphQualityComp.xml" xy="92,10" size="40,40" scale="0.8,0.8" group="n21_q8o2">
+      <gearDisplay controller="isGlyph" pages="1"/>
+      <gearXY controller="isDiamond" pages="0,1" values="92,10|86,20"/>
+    </component>
+    <component id="n25_uur0" name="resonanceLevelComp" src="fc69ag" fileName="widget/component/BaseEquipResonanceLevelComp.xml" xy="106,33" pivot="0.5,0.5" anchor="true" scale="0.6,0.6" group="n21_q8o2">
+      <gearDisplay controller="showResonance" pages="1,2,3"/>
+      <gearXY controller="showResonance" pages="1,3" values="111,22|112,43" default="106,33"/>
+      <relation target="" sidePair="right-right,top-top"/>
+    </component>
+    <image id="n14_f6o1" name="refineBg" src="nf6u4" fileName="img/bg_black_01.png" xy="125,98" pivot="1,0" anchor="true" size="30,20" alpha="0.80" group="n21_q8o2">
+      <gearDisplay controller="isShowRefine" pages="1"/>
+      <relation target="n15_f6o1" sidePair="leftext-left"/>
+    </image>
+    <text id="n10_f6o1" name="levelText" xy="17,22" pivot="0,0.5" anchor="true" size="45,24" group="n21_q8o2" font="Source Han Sans CN" fontSize="16" color="#ffffff" text="lv.200">
+      <gearDisplay controller="showLevel" pages="1"/>
+    </text>
+    <text id="n15_f6o1" name="refineText" xy="124,108" pivot="1,0.5" anchor="true" size="29,24" group="n21_q8o2" font="Source Han Sans CN" fontSize="16" color="#ffffff" text="+12">
+      <gearDisplay controller="isShowRefine" pages="1"/>
+    </text>
+    <text id="n17_f6o1" name="numText" xy="120,110" pivot="1,0.5" anchor="true" size="37,32" group="n21_q8o2" font="Source Han Sans CN" fontSize="22" color="#f44e4e" text="">
+      <gearDisplay controller="isShowNum" pages="0"/>
+      <gearColor controller="isEnough" pages="0" values="#f44e4e" default="#323232"/>
+      <gearDisplay2 controller="isShowRefine" pages="0" condition="0"/>
+    </text>
+    <graph id="n20_bmx9" name="grayGraph" xy="67,67" pivot="0.5,0.5" anchor="true" size="116,116" alpha="0.40" touchable="false" group="n21_q8o2" visible="false" type="rect" fillColor="#ff000000"/>
+    <text id="n23_p3ip" name="nameTxt" xy="67,128" pivot="0.5,0" anchor="true" size="140,30" group="n21_q8o2" font="Source Han Sans CN" fontSize="20" color="#323232" leading="-3" align="center" autoSize="shrink" text="">
+      <gearDisplay controller="nameType" pages="1,2"/>
+      <gearSize controller="nameType" pages="0,1,2" values="140,30,1,1|140,30,1,1|140,64,1,1"/>
+      <relation target="" sidePair="center-center,top-bottom"/>
+    </text>
+    <image id="n24_vxpq" name="n24" src="vxpqkk2rg" fileName="img/icon_guanlian2.png" xy="3,86" group="n21_q8o2">
+      <gearDisplay controller="isLock" pages="1"/>
+    </image>
+    <group id="n21_q8o2" name="contentGroup" xy="-3,0" size="140,158" advanced="true"/>
+    <component id="n22_q8o2" name="effectNode" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="0,0" size="0,0"/>
+    <loader id="n28_iy9r" name="itemSpecialUseLoader" xy="122,12" pivot="1,0" anchor="true" size="30,30" fill="scaleFree"/>
+  </displayList>
+  <Button/>
+</component>

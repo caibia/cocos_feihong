@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="94,120" remark="app.view.base.component.BaseMulTeamFormationArtifactComp">
+  <controller name="empty" pages="0,,1," selected="0"/>
+  <controller name="urStageAdd" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n5_u5j0" name="qualityLoader" xy="0,60" pivot="0,0.5" anchor="true" size="94,120" group="n12_u5j0"/>
+    <component id="n7_u5j0" name="effDadComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="46,60" size="0,0" group="n12_u5j0"/>
+    <loader id="n8_u5j0" name="iconLoader" xy="47,60" pivot="0.5,0.5" anchor="true" size="94,120" group="n12_u5j0" align="center" vAlign="middle"/>
+    <image id="n9_u5j0" name="n2" src="u5j01emigb9" fileName="img/formation/pic_wjmy_bz_yht_star.png" xy="55,5" group="n12_u5j0">
+      <relation target="n10_u5j0" sidePair="left-left"/>
+    </image>
+    <text id="n10_u5j0" name="starNumTxt" xy="91,13" pivot="1,0.5" anchor="true" size="14,32" group="n12_u5j0" font="Novecento wide" fontSize="22" color="#f2f2f2" align="right" vAlign="middle" text=""/>
+    <group id="n12_u5j0" name="n1" xy="0,-3" size="94,123" advanced="true">
+      <gearDisplay controller="empty" pages="0"/>
+    </group>
+    <loader id="n13_bh0l" name="emptyBgLoader" xy="0,0" size="94,120" group="n14_y49b" url="ui://kvb3znepu5j01emigb8"/>
+    <component id="n6_u5j0" name="addBtn" src="mtubibk7" fileName="widget/button/BaseLoaderBtn.xml" xy="47,60" pivot="0.5,0.5" anchor="true" size="66,66" scale="0.7,0.7" group="n14_y49b">
+      <Button icon="ui://kvb3znepnf6un"/>
+    </component>
+    <group id="n14_y49b" name="n0" xy="0,0" size="94,120" advanced="true">
+      <gearDisplay controller="empty" pages="1"/>
+    </group>
+    <component id="n15_i2qo" name="redPointComp1" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="89,5"/>
+    <component id="n17_s3ej" name="spiritComp" src="s3ej1emighi" fileName="widget/component/BaseURArtifactWeaponComp.xml" xy="30,91">
+      <gearDisplay controller="urStageAdd" pages="1"/>
+      <gearDisplay2 controller="empty" pages="0" condition="0"/>
+    </component>
+  </displayList>
+</component>

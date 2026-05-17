@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="26,37">
+  <controller name="type" pages="0,,1," selected="0"/>
+  <displayList>
+    <graph id="n2_lf3u" name="n2" xy="0,0" size="27,37">
+      <relation target="n1_lf3u" sidePair="rightext-right"/>
+    </graph>
+    <text id="n0_lf3u" name="nameLabel" xy="0,0" pivot="0,0.5" size="10,37" fontSize="30" color="#bcd959" strokeColor="#32241d" strokeSize="1" text="">
+      <gearColor controller="type" pages="0" values="#bcd959,#32241d" default="#f26657,#32241d"/>
+    </text>
+    <text id="n1_lf3u" name="valueLabel" xy="17,0" size="10,37" fontSize="30" color="#bcd959" strokeColor="#32241d" strokeSize="1" text="">
+      <gearColor controller="type" pages="0" values="#bcd959,#32241d" default="#f26657,#32241d"/>
+      <relation target="n0_lf3u" sidePair="left-right"/>
+    </text>
+  </displayList>
+  <relation target="n2_lf3u" sidePair="width-width,height-height"/>
+</component>

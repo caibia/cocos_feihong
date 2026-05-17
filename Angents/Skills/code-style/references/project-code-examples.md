@@ -31,17 +31,17 @@
 | 配置/常量定义 | `XxxDefine` / `XxxConst` | `UIObjectFactoryDefine`、`XConst` |
 | 枚举 | `PascalCase` 或项目既有常量风格 | `MATERIAL_TYPE`、`TIMERTYPE` |
 
-## 3. 自动生成 UI 与业务类分层示例
+## 3. UI 结构绑定与业务类分层示例
 
 推荐模式：
 
-1. `Interfaces/*` 下的自动生成类只做绑定。
-2. 实际业务页面继承自动生成类或公共 UI 基类。
-3. 交互、状态、数据请求放在业务类，不写进生成文件。
+1. `app/module/*/interfaces/I*View.ts` 是**手写**的结构绑定基类，只放字段声明、`UIPackage.createObject`、`initComponentByView` / `initControllerByView`、`Transition` 取值。
+2. 实际业务页面继承结构绑定基类或公共 UI 基类。
+3. 交互、状态、数据请求放在业务类，不写进结构绑定基类。
 
 适合的目录分工：
 
-1. `app/module/*/Interfaces`：自动生成结构
+1. `app/module/*/interfaces`：手写的结构绑定基类（字段名严格对齐 FGUI 组件结构）
 2. `app/module/*/*View.ts`：业务视图
 3. `base/ui/*`：可复用基础 UI 能力
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="60,60" remark="app.view.base.component.BaseRankIndexComp" extention="Label">
+  <controller name="rank" pages="0,,1,,2,,3," selected="0"/>
+  <displayList>
+    <loader id="n0_qnmg" name="icon" xy="30,30" pivot="0.5,0.5" anchor="true" size="34,34">
+      <gearDisplay controller="rank" pages="1,2,3"/>
+      <gearIcon controller="rank" pages="0,1,2,3" values="null|ui://kw1l1k0djnlw4|ui://kw1l1k0djnlw5|ui://kw1l1k0djnlw6"/>
+    </loader>
+    <text id="n1_qnmg" name="title" xy="29,30" pivot="0.5,0.5" anchor="true" size="19,42" fontSize="30" color="#323232" align="center" vAlign="middle" text="">
+      <gearDisplay controller="rank" pages="0"/>
+    </text>
+  </displayList>
+</component>

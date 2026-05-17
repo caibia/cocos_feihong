@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="68,104" remark="app.view.base.button.BaseBtn;app.view.base.button.BaseTaskBtn" extention="Button">
+  <controller name="state" pages="1,可领取,2,前往,5,未开启,6,已领取" selected="0"/>
+  <displayList>
+    <loader id="n0_i8nw" name="bg" xy="34,52" pivot="0.5,0.5" anchor="true" size="68,104" url="ui://kvb3znepi8nw8">
+      <gearIcon controller="state" pages="1,6" values="ui://kvb3znepi8nw8|ui://kvb3znepi8nw7" default="ui://kvb3znepi8nwc"/>
+    </loader>
+    <loader id="n1_i8nw" name="icon" xy="36,51" pivot="0.5,0.5" anchor="true" size="36,36" url="ui://kvb3znepi8nwi">
+      <gearIcon controller="state" pages="1,2,5" values="ui://kvb3znepi8nwi|ui://kvb3znepi8nwj|ui://kvb3znepi8nwk" default="ui://kvb3znepi8nwm"/>
+    </loader>
+  </displayList>
+  <Button/>
+  <transition name="get" options="4">
+    <item time="0" type="Alpha" target="n1_i8nw" value="1"/>
+    <item time="0" type="Rotation" target="n1_i8nw" tween="true" startValue="0" endValue="8" duration="3"/>
+    <item time="0" type="XY" target="n1_i8nw" tween="true" startValue="-,51" endValue="-,46" duration="3"/>
+    <item time="3" type="XY" target="n1_i8nw" tween="true" startValue="-,46" endValue="-,50" duration="2"/>
+    <item time="5" type="Rotation" target="n1_i8nw" tween="true" startValue="10" endValue="-7" duration="2"/>
+    <item time="6" type="Rotation" target="n1_i8nw" tween="true" startValue="-7" endValue="0" duration="2"/>
+    <item time="6" type="XY" target="n1_i8nw" tween="true" startValue="-,50" endValue="-,51" duration="2"/>
+    <item time="29" type="Alpha" target="n1_i8nw" value="1"/>
+  </transition>
+  <transition name="go" options="4">
+    <item time="0" type="Alpha" target="n1_i8nw" tween="true" startValue="1" endValue="0.3" duration="12" ease="Linear"/>
+    <item time="12" type="Alpha" target="n1_i8nw" tween="true" startValue="0.3" endValue="1" duration="12" ease="Linear"/>
+  </transition>
+</component>

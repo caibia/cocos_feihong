@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="170,68" remark="app.view.base.button.BaseBtn" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <text id="n6_oabj" name="englishTitle1" xy="62,16" pivot="0,0.5" anchor="true" size="121,32" visible="false" font="Source Han Serif CN" fontSize="22" color="#323232" text=""/>
+    <loader id="n3_oabj" name="n3" xy="3,-1" size="174,68" url="ui://kvb3znept4wmkk2u9" fill="scaleFree"/>
+    <loader id="n4_oabj" name="icon" xy="34,33" pivot="0.5,0.5" anchor="true" size="26,32"/>
+    <text id="n5_oabj" name="title" xy="116,31" pivot="0.5,0.5" anchor="true" size="110,29" font="Source Han Serif CN" fontSize="20" color="#f2f2f2" leading="0" letterSpacing="-1" align="center" vAlign="middle" autoSize="shrink" text=""/>
+    <text id="n7_oabj" name="englishTitle2" xy="69,51" pivot="0,0.5" anchor="true" size="92,14" visible="false" font="Source Han Serif CN" fontSize="8" color="#323232" letterSpacing="2" text=""/>
+    <component id="n8_d490" name="redPointComp" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="166,14"/>
+  </displayList>
+  <Button/>
+</component>

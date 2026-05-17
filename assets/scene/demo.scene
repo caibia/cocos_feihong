@@ -63,7 +63,7 @@
     "_globals": {
       "__id__": 26
     },
-    "_id": "12372001-f00a-4248-aef2-af94e052e596"
+    "_id": "1cd47020-12e9-42a5-9cd4-935a94f12a4e"
   },
   {
     "__type__": "cc.Node",
@@ -593,7 +593,7 @@
     "fileId": "e8a+bU/8dPDbbJguUzLdoF"
   },
   {
-    "__type__": "0129aUPNfJJkLgpS4lwCvV4",
+    "__type__": "5d477EfNaxFoYcc4IR8Qdi8",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -602,7 +602,7 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "_id": "95yIQcQ7JGWrpqnqtfWZI0"
+    "_id": "0asBoKS89Meqep6Z1kh1mx"
   },
   {
     "__type__": "cc.Node",

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="692,272">
+  <displayList>
+    <component id="n0_ft1p" name="titleLabel" src="zvsd21" fileName="widget/title/BaseLineTitle.xml" xy="236,0" size="221,30"/>
+    <text id="n1_ft1p" name="descTxt" xy="9,42" size="672,227" font="Source Han Sans CN" fontSize="20" leading="9" autoSize="height" ubb="true" text=""/>
+  </displayList>
+  <relation target="n1_ft1p" sidePair="bottomext-bottom"/>
+</component>

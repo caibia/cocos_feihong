@@ -12,18 +12,21 @@ import { XResourcesUrl } from "../define/XResourcesUrl";
 import { GComponent } from "../../fairyGUI/GComponent";
 import { GRoot } from "../../fairyGUI/GRoot";
 import { GObject } from "../../fairyGUI/GObject";
-import AlertLabelTip from "../../app/module/Alert/AlertLabelTip";
-import NodePoolMgr from "./NodePoolMgr";
-import { XNODEPOOL_KEY } from "../define/XNodePoolDefine";
-import LanguageMgr from "./LanguageMgr";
+// 0Common 公共包移除后暂不用：待回填 AlertLabelTip / DialogView / 点击特效 时恢复
+// import AlertLabelTip from "../../app/module/alert/AlertLabelTip";
+// import NodePoolMgr from "./NodePoolMgr";
+// import { XNODEPOOL_KEY } from "../define/XNodePoolDefine";
+// import LanguageMgr from "./LanguageMgr";
 import SceneMgr from "./SceneMgr";
 import { ExtendTime } from "../extend/ExtendTime";
 import TimerMgr from "./TimerMgr";
 import EventMgr from "./EventMgr";
 import { EVENTNAME } from "../../app/define/EventDefine";
 import XWindow from "../ui/XWindow";
-import { EventTouch, NodeEventType, TextAsset, Tween, game, tween, resources } from "cc";
-import { GLoader3D } from "../../fairyGUI/GLoader3D";
+// 0Common 点击特效相关 cc 模块占位
+// import { EventTouch, NodeEventType, Tween, game, tween } from "cc";
+// import { GLoader3D } from "../../fairyGUI/GLoader3D";
+import { TextAsset, resources } from "cc";
 import { UIPackage } from "../../fairyGUI/UIPackage";
 
 type FinishCallback<T extends UINameType = UINameType> = (ui: UIInstanceMap[T]) => void;
@@ -92,11 +95,13 @@ export default class UIMgr {
      * @param params 提示参数
      */
     public showLabelTip(id: number | string, params?: any[]) {
-        let alertLabelTip: AlertLabelTip = NodePoolMgr.inst.get(XNODEPOOL_KEY.ALERT_LABELTIP_POOL, XResourcesUrl.COM_PACKAGE, "AlertLabelTip", AlertLabelTip) as AlertLabelTip;
-        let layer: GComponent = this._layers[LAYER_CONST.TOP];
-        layer.addChild(alertLabelTip);
-        alertLabelTip.onCreate();
-        alertLabelTip.onRefresh({ id: id, params: params });
+        // 0Common 公共包移除后 AlertLabelTip 暂不可用
+        XDEBUGLOG.warn("[UIMgr] showLabelTip 公共控件未就绪", id, params);
+        // let alertLabelTip: AlertLabelTip = NodePoolMgr.inst.get(XNODEPOOL_KEY.ALERT_LABELTIP_POOL, XResourcesUrl.COM_PACKAGE, "AlertLabelTip", AlertLabelTip) as AlertLabelTip;
+        // let layer: GComponent = this._layers[LAYER_CONST.TOP];
+        // layer.addChild(alertLabelTip);
+        // alertLabelTip.onCreate();
+        // alertLabelTip.onRefresh({ id: id, params: params });
     }
 
     /**
@@ -104,11 +109,13 @@ export default class UIMgr {
      * @param str 调试文本
      */
     public showDebugLabelTip(str: string) {
-        let alertLabelTip: AlertLabelTip = NodePoolMgr.inst.get(XNODEPOOL_KEY.ALERT_LABELTIP_POOL, XResourcesUrl.COM_PACKAGE, "AlertLabelTip", AlertLabelTip) as AlertLabelTip;
-        let layer: GComponent = this._layers[LAYER_CONST.TOP];
-        layer.addChild(alertLabelTip);
-        alertLabelTip.onCreate();
-        alertLabelTip.onRefresh({ debugTxt: str });
+        // 0Common 公共包移除后 AlertLabelTip 暂不可用
+        XDEBUGLOG.warn("[UIMgr] showDebugLabelTip 公共控件未就绪", str);
+        // let alertLabelTip: AlertLabelTip = NodePoolMgr.inst.get(XNODEPOOL_KEY.ALERT_LABELTIP_POOL, XResourcesUrl.COM_PACKAGE, "AlertLabelTip", AlertLabelTip) as AlertLabelTip;
+        // let layer: GComponent = this._layers[LAYER_CONST.TOP];
+        // layer.addChild(alertLabelTip);
+        // alertLabelTip.onCreate();
+        // alertLabelTip.onRefresh({ debugTxt: str });
     }
 
     public showNetLoading() {
@@ -125,15 +132,17 @@ export default class UIMgr {
      * @param cancelText 取消文本
      */
     public showDialog(title: string, content: string, okFunc?: () => void, cancelFunc?: () => void, okText?: string, cancelText?: string) {
-        let args: IUIArg.IDialogViewArg = {
-            title: title || LanguageMgr.get(1002301),
-            content: content,
-            okFunc: okFunc,
-            cancelFunc: cancelFunc,
-            okBtnText: okText || LanguageMgr.get(1002302),
-            cancelBtnText: cancelText || LanguageMgr.get(1002303)
-        }
-        this.show(UINAME.DialogView, args);
+        // 0Common 公共包移除后 DialogView 暂不可用
+        XDEBUGLOG.warn("[UIMgr] showDialog DialogView 未就绪", title, content);
+        // let args: IUIArg.IDialogViewArg = {
+        //     title: title || LanguageMgr.get(1002301),
+        //     content: content,
+        //     okFunc: okFunc,
+        //     cancelFunc: cancelFunc,
+        //     okBtnText: okText || LanguageMgr.get(1002302),
+        //     cancelBtnText: cancelText || LanguageMgr.get(1002303)
+        // }
+        // this.show(UINAME.DialogView, args);
     }
 
     /**获取最顶层UI */
@@ -673,39 +682,39 @@ export default class UIMgr {
         return isExist;
     }
     static isMoveAddEffEnable = true;
-    /** 添加点击特效 */
+    /** 添加点击特效。0Common 公共包移除后 Com 暂不可用，待回填后取消注释 */
     private addClickEff() {
-        let layer = this.getUILayer(LAYER_CONST.MAX);
-        let clickTime: number = 0;
-        let clickFun = (evt: EventTouch, isMove?: boolean) => {
-            let currTime = game.totalTime;
-            if (currTime - clickTime < 80) return;
-            clickTime = currTime;
-            let worldPos = evt.getUILocation();
-            let localPos = layer.CCGlobalToLocal(worldPos.x, worldPos.y);
-            let effCom = NodePoolMgr.inst.get(XNODEPOOL_KEY.CLICK_EFF_POOL, XResourcesUrl.COM_PACKAGE, "Com").asCom;
-            let loader3D: GLoader3D = effCom.getChild("loader3D") as GLoader3D;
-            // this._dragonBonesUnit.play("dragonBones/ui/com/dianjitexiao", effCom, 0, 0, loader3D, "effect", false, (l3d: GLoader3D) => {
-            //     l3d.addCompleteEventListener((l3d: GLoader3D) => {
-            //         Tween.stopAllByTarget(effCom);
-            //         NodePoolMgr.inst.put(effCom);
-            //     });
-            // });
-            effCom.setPivot(0.5, 0.5, true);
-            effCom.setScale(1, 1);
-            effCom.setPosition(localPos.x, localPos.y);
-            layer.addChild(effCom);
-            evt.preventSwallow = true;
-            return effCom;
-        }
-        let moveFun = (evt: EventTouch) => {
-            if (!UIMgr.isMoveAddEffEnable) return;
-            let eff = clickFun(evt, true);
-            if (!eff) return;
-            tween(eff).to(0.8, { scaleX: 0.2, scaleY: 0.2 }).start();
-        }
-        GRoot.inst.node.on(NodeEventType.TOUCH_START, clickFun, this);
-        GRoot.inst.node.on(NodeEventType.TOUCH_MOVE, moveFun, this);
+        // let layer = this.getUILayer(LAYER_CONST.MAX);
+        // let clickTime: number = 0;
+        // let clickFun = (evt: EventTouch, isMove?: boolean) => {
+        //     let currTime = game.totalTime;
+        //     if (currTime - clickTime < 80) return;
+        //     clickTime = currTime;
+        //     let worldPos = evt.getUILocation();
+        //     let localPos = layer.CCGlobalToLocal(worldPos.x, worldPos.y);
+        //     let effCom = NodePoolMgr.inst.get(XNODEPOOL_KEY.CLICK_EFF_POOL, XResourcesUrl.COM_PACKAGE, "Com").asCom;
+        //     let loader3D: GLoader3D = effCom.getChild("loader3D") as GLoader3D;
+        //     // this._dragonBonesUnit.play("dragonBones/ui/com/dianjitexiao", effCom, 0, 0, loader3D, "effect", false, (l3d: GLoader3D) => {
+        //     //     l3d.addCompleteEventListener((l3d: GLoader3D) => {
+        //     //         Tween.stopAllByTarget(effCom);
+        //     //         NodePoolMgr.inst.put(effCom);
+        //     //     });
+        //     // });
+        //     effCom.setPivot(0.5, 0.5, true);
+        //     effCom.setScale(1, 1);
+        //     effCom.setPosition(localPos.x, localPos.y);
+        //     layer.addChild(effCom);
+        //     evt.preventSwallow = true;
+        //     return effCom;
+        // }
+        // let moveFun = (evt: EventTouch) => {
+        //     if (!UIMgr.isMoveAddEffEnable) return;
+        //     let eff = clickFun(evt, true);
+        //     if (!eff) return;
+        //     tween(eff).to(0.8, { scaleX: 0.2, scaleY: 0.2 }).start();
+        // }
+        // GRoot.inst.node.on(NodeEventType.TOUCH_START, clickFun, this);
+        // GRoot.inst.node.on(NodeEventType.TOUCH_MOVE, moveFun, this);
     }
 }
 

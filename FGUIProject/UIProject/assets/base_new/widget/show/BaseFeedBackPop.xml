@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1334,750" pivot="0.5,0.5" margin="0,2816,1661403392,268453376">
+  <displayList>
+    <loader id="n17_ih15" name="clickBg" xy="667,375" pivot="0.5,0.5" anchor="true" size="1334,750">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <image id="n3_jte4" name="tipsBgImg" src="hhudiblf" fileName="img/bg_reward.png" xy="667,375" pivot="0.5,0.5" anchor="true" size="1334,440">
+      <relation target="" sidePair="width-width,middle-middle"/>
+    </image>
+    <loader id="n9_qzkf" name="huawenLoader" xy="-152,430" size="1638,130" url="ui://kvb3znephhudiblj">
+      <relation target="n3_jte4" sidePair="bottom-bottom"/>
+    </loader>
+    <component id="n14_qto6" name="eff_ui_awardsummary_panel" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="667,382" size="0,0"/>
+    <component id="n1_10hvs" name="posComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="667,375" size="0,0">
+      <relation target="n3_jte4" sidePair="center-center,middle-middle"/>
+    </component>
+    <text id="n16_j8f0" name="tips" xy="53,138" pivot="0,0.5" anchor="true" size="148,49" scale="1.01,1" group="n15_psej" font="Source Han Serif CN" fontSize="36" color="#f2f2f2" text="获得奖励"/>
+    <image id="n10_qzkf" name="n10" src="hhudiblg" fileName="img/bg_rewardtitle_1.png" xy="7,83" group="n15_psej"/>
+    <image id="n11_qzkf" name="n11" src="hhudiblh" fileName="img/bg_rewardtitle_2.png" xy="7,160" size="206,3" group="n15_psej">
+      <relation target="n16_j8f0" sidePair="width-width"/>
+    </image>
+    <text id="n12_qzkf" name="englishTitle" xy="56,115" pivot="0,0.5" anchor="true" size="62,16" group="n15_psej" font="Novecento wide" fontSize="10" color="#a6a6a6" text="CONGRATS"/>
+    <component id="n13_qto6" name="eff_ui_awardsummary_title" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="114,129" size="0,0" group="n15_psej"/>
+    <group id="n15_psej" name="n15" xy="7,83" size="206,80" advanced="true">
+      <relation target="n3_jte4" sidePair="left-left,bottom-top"/>
+    </group>
+  </displayList>
+  <transition name="enter" options="4">
+    <item time="0" type="Alpha" target="n10_qzkf" value="0"/>
+    <item time="0" type="Alpha" target="n11_qzkf" value="1"/>
+    <item time="0" type="Alpha" target="n11_qzkf" value="0"/>
+    <item time="0" type="Alpha" target="n12_qzkf" value="1"/>
+    <item time="0" type="Alpha" target="n12_qzkf" value="0"/>
+    <item time="0" type="Alpha" target="n13_qto6" value="1"/>
+    <item time="0" type="Alpha" target="n14_qto6" tween="true" startValue="0" endValue="0.5" duration="10"/>
+    <item time="0" type="Alpha" target="n16_j8f0" value="0"/>
+    <item time="0" type="Alpha" target="n3_jte4" value="0"/>
+    <item time="0" type="Alpha" target="n9_qzkf" value="0"/>
+    <item time="0" type="Visible" target="n13_qto6" value="true"/>
+    <item time="0" type="Visible" target="n14_qto6" value="true"/>
+    <item time="1" type="Visible" target="n14_qto6" label="panel_Start" value="true"/>
+    <item time="10" type="Alpha" target="n14_qto6" tween="true" startValue="0.5" endValue="0" duration="8" ease="Quad.In"/>
+    <item time="10" type="Visible" target="n13_qto6" label="title_Start" value="true"/>
+    <item time="10" type="Alpha" target="n12_qzkf" value="0"/>
+    <item time="10" type="Alpha" target="n16_j8f0" value="0"/>
+    <item time="10" type="Alpha" target="n3_jte4" tween="true" startValue="0" endValue="1" duration="7" ease="Custom"/>
+    <item time="13" type="Alpha" target="n12_qzkf" value="1"/>
+    <item time="13" type="Alpha" target="n16_j8f0" label="reward_show" value="1"/>
+    <item time="14" type="Alpha" target="n10_qzkf" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="14" type="Alpha" target="n11_qzkf" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="14" type="Alpha" target="n13_qto6" tween="true" startValue="1" endValue="0" duration="8"/>
+    <item time="17" type="Alpha" target="n9_qzkf" tween="true" startValue="0" endValue="1" duration="2" ease="Custom"/>
+  </transition>
+</component>

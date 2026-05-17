@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1334,750" extention="Label">
+  <displayList>
+    <graph id="n0_m4fo" name="n0" xy="0,0" size="1334,750" type="rect" lineSize="0">
+      <relation target="" sidePair="width-width,height-height,center-center,middle-middle"/>
+    </graph>
+    <image id="n2_m4fo" name="n2" src="e9ys52" fileName="img/pic_kr_19.png" xy="439,140" group="n4_m4fo"/>
+    <loader id="n3_m4fo" name="n3" xy="706,156" size="189,224" touchable="false" group="n4_m4fo" url="ui://xigti88cm4fo55" fill="scaleFree"/>
+    <group id="n4_m4fo" name="n4" xy="439,140" size="456,256" advanced="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </group>
+    <text id="n5_m4fo" name="title" xy="433,440" pivot="0.5,0.5" size="494,34" font="Source Han Sans CN" fontSize="24" align="center" autoSize="height" text="">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+  </displayList>
+</component>

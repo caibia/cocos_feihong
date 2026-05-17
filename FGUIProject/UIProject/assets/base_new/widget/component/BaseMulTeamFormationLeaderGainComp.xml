@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="192,72" pivot="0.5,0.5" remark="app.view.base.button.BaseBtn;app.view.base.component.BaseMulTeamFormationLeaderGainComp" margin="0,33560579,16779264,184555009" extention="Button">
+  <controller name="button" pages="2,up,3,down" selected="0"/>
+  <controller name="color" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n51_ke4k" name="n2" xy="30,36" pivot="0.5,0.5" anchor="true" size="51,57" url="ui://kvb3znephjpc1emigaw">
+      <gearIcon controller="color" pages="1" values="ui://kvb3znepgti81emigc4" default="ui://kvb3znephjpc1emigaw"/>
+    </loader>
+    <image id="n59_ke4k" name="gainBarImg" src="hjpc1emigax" fileName="img/formation/pic_bz_lingxiuzengyi_3.png" xy="30,36" pivot="0.5,0.5" anchor="true" fillMethod="radial360" fillAmount="78"/>
+    <loader id="n60_ke4k" name="campLoader" xy="10,16" size="40,40" url="ui://kvb3znepnennkk2pc"/>
+    <text id="n43_nv6b" name="n0" xy="59,13" pivot="0,0.5" size="124,34" font="Source Han Serif CN" fontSize="24" color="#f2f2f2" leading="-10" letterSpacing="-1" vAlign="middle" autoSize="shrink" text="领袖增益"/>
+    <text id="n44_nv6b" name="n1" xy="60,51" pivot="0,0.5" size="104,19" font="Novecento wide" fontSize="12" color="#f2f2f2" leading="0" letterSpacing="-1" align="center" vAlign="middle" text="Case Resonance"/>
+    <component id="n45_r97n" name="effDadComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="30,36" size="0,0"/>
+  </displayList>
+  <Button/>
+  <relation target="n43_nv6b" sidePair="rightext-right"/>
+</component>

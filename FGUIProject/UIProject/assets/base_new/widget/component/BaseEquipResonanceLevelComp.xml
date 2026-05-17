@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="50,50" remark="app.view.base.component.BaseEquipResonanceLevelComp">
+  <controller name="level" pages="1,,2,,3,,4,,5,,6,,7,,8,,9,,10," selected="0"/>
+  <displayList>
+    <loader id="n0_fc69" name="icon" xy="25,25" pivot="0.5,0.5" anchor="true" size="50,50" url="ui://kvb3znepfc69kk2xk">
+      <gearIcon controller="level" pages="1,2,3,4,5,6,7,8,9,10" values="ui://kvb3znepfc69kk2xj|ui://kvb3znepfc69kk2xk|ui://kvb3znepfc69kk2xl|ui://kvb3znepfc69kk2xm|ui://kvb3znepfc69kk2xn|ui://kvb3znepfc69kk2xo|ui://kvb3znepfc69kk2xp|ui://kvb3znepfc69kk2xq|ui://kvb3znepfc69kk2xr|ui://kvb3znepfc69kk2xi"/>
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+  </displayList>
+</component>

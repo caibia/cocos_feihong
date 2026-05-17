@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="166,46" pivot="0.5,0.5" remark="app.view.base.button.BaseBtn" extention="Button">
+  <controller name="type" pages="0,黑底红标,1,白底黑标" selected="0"/>
+  <controller name="button" pages="2,up,3,down" selected="0"/>
+  <controller name="iconState" pages="0,有icon,1,无icon" selected="0"/>
+  <displayList>
+    <loader id="n0_p1v6" name="n0" xy="0,0" size="166,46" url="ui://kvb3znepp1v6ibox" fill="scaleFree">
+      <gearIcon controller="type" pages="1" values="ui://kvb3znepp1v6ibp0" default="ui://kvb3znepp1v6ibox"/>
+    </loader>
+    <loader id="n1_p1v6" name="n1" xy="17,15" size="3,18" visible="false" url="ui://kvb3znepnf6uu" fill="scaleFree">
+      <gearIcon controller="type" pages="1" values="ui://kvb3znepnf6ur" default="ui://kvb3znepnf6uu"/>
+    </loader>
+    <loader id="n2_p1v6" name="icon" xy="22,23" pivot="0.5,0.5" anchor="true" size="26,22">
+      <gearDisplay controller="iconState" pages="0"/>
+    </loader>
+    <text id="n3_p1v6" name="title" xy="35,23" pivot="0,0.5" anchor="true" size="126,34" font="Source Han Serif CN" fontSize="18" color="#f2f2f2" align="right" vAlign="middle" autoSize="shrink" text="">
+      <gearColor controller="type" pages="1" values="#323232" default="#f2f2f2"/>
+      <gearDisplay2 controller="iconState" pages="0" condition="0"/>
+    </text>
+    <text id="n5_bheq" name="title1" xy="83,23" pivot="0.5,0.5" anchor="true" size="146,28" font="Source Han Serif CN" fontSize="18" color="#f2f2f2" align="center" vAlign="middle" autoSize="shrink" text="">
+      <gearColor controller="type" pages="1" values="#323232" default="#f2f2f2"/>
+      <gearDisplay2 controller="iconState" pages="1" condition="0"/>
+    </text>
+    <component id="n6_janl" name="redPointComp" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="155,11">
+      <relation target="" sidePair="left-right,bottom-top"/>
+    </component>
+  </displayList>
+  <Button/>
+</component>

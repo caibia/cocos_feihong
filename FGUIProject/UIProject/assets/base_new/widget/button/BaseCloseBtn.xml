@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="50,50" pivot="0.5,0.5" remark="app.view.base.button.BasePanelCloseBtn" extention="Button">
+  <controller name="button" pages="2,up,3,down,4,over,5,selectedOver" selected="0"/>
+  <displayList>
+    <loader id="n0_mdfj" name="loader" xy="10,10" pivot="0.5,0.5" size="30,30" url="ui://kvb3znepnf6ui"/>
+  </displayList>
+  <Button sound="UI_Click_Cancel"/>
+</component>

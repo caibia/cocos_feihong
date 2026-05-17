@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="38,48" remark="app.view.base.component.BaseStarComp" extention="Label">
+  <displayList>
+    <loader id="n1_v6zn" name="icon" xy="0,0" size="38,48"/>
+    <component id="n2_ibwg" name="effStar" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="19,24" size="0,0"/>
+    <component id="n3_yhlg" name="effLife" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="19,24" size="0,0"/>
+  </displayList>
+  <relation target="n1_v6zn" sidePair="width-width,height-height"/>
+</component>

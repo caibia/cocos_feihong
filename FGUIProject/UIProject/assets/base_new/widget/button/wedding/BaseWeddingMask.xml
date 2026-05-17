@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="128,128" pivot="0.5,0.5" margin="0,512,1057423616,268449024" opaque="false" extention="Label">
+  <displayList>
+    <image id="n8_ktcs" name="n8" src="ktcs1emiggi" fileName="img/wedding/pic_yht_sy_rukoudi1_mask.png" xy="13,17"/>
+    <loader id="n9_ktcs" name="icon" xy="64,60" pivot="0.5,0.5" anchor="true" size="134,134" scale="0.8,0.8"/>
+  </displayList>
+</component>

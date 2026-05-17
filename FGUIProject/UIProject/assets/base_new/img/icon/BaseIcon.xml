@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="40,40" remark="app.view.base.icon.BaseIconNew">
+  <controller name="isShowNum" pages="2,none,0,show,1,hide" selected="0"/>
+  <controller name="isShowRefine" pages="3,none,0,hide,1,show" selected="0"/>
+  <controller name="isShowInfo" pages="4,none,0,hide,1,show" selected="0"/>
+  <controller name="showLevel" pages="5,none,0,hide,1,show" selected="0"/>
+  <controller name="nameType" pages="0,none,1,hide,2,oneRow,3,twoRow" selected="0"/>
+  <controller name="scaleIndex" pages="0,100,1,90,2,80,3,70,4,60,5,50,6,40,7,30" selected="0"/>
+  <controller name="hideSkin" pages="0,none,1,normal,2,hide" selected="0"/>
+  <displayList>
+    <loader id="n2_x323" name="n1" xy="0,0" size="40,40" fill="scaleFree">
+      <gearSize controller="scaleIndex" pages="1,2,3,4,5,6,7" values="121,121,1,1|107,107,1,1|94,94,1,1|81,81,1,1|67,67,1,1|54,54,1,1|40,40,1,1" default="134,134,1,1"/>
+    </loader>
+    <component id="n4_kb6q" name="iconHoldComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="18,18" size="0,0" scale="0.3,0.3">
+      <gearSize controller="scaleIndex" pages="0,1,2,3,4,5,6,7" values="0,0,1,1|0,0,0.8999999761581421,0.8999999761581421|0,0,0.800000011920929,0.800000011920929|0,0,0.699999988079071,0.699999988079071|0,0,0.6000000238418579,0.6000000238418579|0,0,0.5,0.5|0,0,0.4000000059604645,0.4000000059604645|0,0,0.30000001192092896,0.30000001192092896"/>
+      <relation target="n2_x323" sidePair="center-center,middle-middle"/>
+    </component>
+    <component id="n6_l72o" name="BaseIconTagComp" src="l72okk2vj" fileName="img/icon/BaseIconTagComp.xml" xy="0,0" size="134,134" scale="0.3,0.3" touchable="false">
+      <gearSize controller="scaleIndex" pages="0,1,2,3,4,5,6,7" values="134,134,1,1|134,134,0.8999999761581421,0.8999999761581421|134,134,0.800000011920929,0.800000011920929|134,134,0.699999988079071,0.699999988079071|134,134,0.6000000238418579,0.6000000238418579|134,134,0.5,0.5|134,134,0.4000000059604645,0.4000000059604645|134,134,0.30000001192092896,0.30000001192092896"/>
+    </component>
+  </displayList>
+  <relation target="n2_x323" sidePair="width-width,height-height"/>
+</component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1334,750" extention="Label">
+  <displayList>
+    <loader id="n13_tnoo" name="icon" xy="667,375" pivot="0.5,0.5" anchor="true" size="50,50" fill="scaleFree">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+  </displayList>
+  <transition name="in"/>
+  <transition name="out"/>
+</component>

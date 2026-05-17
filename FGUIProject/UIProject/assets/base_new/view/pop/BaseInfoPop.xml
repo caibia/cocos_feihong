@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="678,454" remark="app.view.base.pop.BaseInfoPop" extention="Label">
+  <displayList>
+    <image id="n1_doxu" name="n1" src="ku6zibjt" fileName="img/bg_tips_1.png" xy="0,0" pivot="0.5,0.5" size="678,454">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_doxu" name="n2" src="ku6zibk1" fileName="img/pic_tips_red.png" xy="5,70" size="668,5">
+      <relation target="" sidePair="width-width,top-top"/>
+    </image>
+    <text id="n0_doxu" name="title" xy="43,18" pivot="0,0.5" size="338,46" font="Source Han Serif CN" fontSize="34" color="#323232" letterSpacing="-1" vAlign="middle" autoSize="shrink" singleLine="true" text="">
+      <relation target="" sidePair="left-left,top-top"/>
+    </text>
+    <graph id="n9_itga" name="n9" xy="5,70" size="72,5" type="rect" lineSize="0" lineColor="#00000000" fillColor="#fff44e4e"/>
+  </displayList>
+  <transition name="open">
+    <item time="0" type="Alpha" target="n0_doxu" value="0"/>
+    <item time="0" type="Alpha" target="n1_doxu" tween="true" startValue="0" endValue="1" duration="6" ease="Quint.Out"/>
+    <item time="0" type="Alpha" target="n2_doxu" value="0"/>
+    <item time="0" type="Alpha" target="n9_itga" value="0"/>
+    <item time="0" type="ColorFilter" target="n9_itga" value="1,0,0,0"/>
+    <item time="0" type="Scale" target="n1_doxu" tween="true" startValue="1,0.10000000149011612" endValue="1,1" duration="6" ease="Quint.Out"/>
+    <item time="0" type="Scale" target="n9_itga" value="9.279999732971191,1"/>
+    <item time="0" type="Visible" target="n9_itga" value="false"/>
+    <item time="0" type="XY" target="n0_doxu" tween="true" startValue="-,86" endValue="-,18" duration="10" ease="Quint.Out"/>
+    <item time="1" type="Alpha" target="n9_itga" tween="true" startValue="0" endValue="1" duration="4"/>
+    <item time="1" type="ColorFilter" target="n9_itga" tween="true" startValue="1,0,0,0" endValue="0,0,0,0" duration="5"/>
+    <item time="1" type="Scale" target="n9_itga" tween="true" startValue="9.279999732971191,1" endValue="1,1" duration="12" ease="Quint.Out"/>
+    <item time="1" type="Visible" target="n9_itga" value="true"/>
+    <item time="2" type="Alpha" target="n0_doxu" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="2" type="Alpha" target="n2_doxu" tween="true" startValue="0" endValue="1" duration="5"/>
+    <item time="10" type="Visible" target="n9_itga" value="true"/>
+    <item time="13" type="Visible" target="n9_itga" value="false"/>
+  </transition>
+  <transition name="close">
+    <item time="0" type="Alpha" target="n0_doxu" tween="true" startValue="1" endValue="0" duration="3" ease="Quad.In"/>
+    <item time="0" type="Alpha" target="n1_doxu" tween="true" startValue="1" endValue="0" duration="5" ease="Quad.In"/>
+    <item time="0" type="Alpha" target="n2_doxu" tween="true" startValue="1" endValue="0" duration="3" ease="Quad.In"/>
+    <item time="0" type="Alpha" target="n9_itga" value="0"/>
+    <item time="0" type="Scale" target="n1_doxu" tween="true" startValue="1,1" endValue="1,0.009999999776482582" duration="5" ease="Quint.In"/>
+  </transition>
+</component>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="360,32" remark="app.view.base.component.BaseInputTextComp">
+  <controller name="maxLength" pages="0,0(无限制),1,6,2,8,3,10" selected="0"/>
+  <controller name="fontColor" pages="0,A2,1,A1,2,A3,3,A6" selected="0"/>
+  <controller name="fontSize" pages="0,20,1,22,2,24,3,26,4,18" selected="0"/>
+  <controller name="showClearBtn" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n0_l57y" name="icon" xy="0,0" size="360,33" vAlign="middle" fill="scaleFree">
+      <relation target="" sidePair="width-width,height-height"/>
+    </loader>
+    <text id="n2_l57y" name="lable" xy="180,16" pivot="0.5,0.5" anchor="true" size="360,36" fontSize="20" color="#808080" align="center" vAlign="middle" autoSize="shrink" text="请输入内容">
+      <gearColor controller="fontColor" pages="0,1,2,3" values="#808080,#323232|#323232,#808080|#a6a6a6|#f2f2f2"/>
+      <gearFontSize controller="fontSize" pages="1,2,3,4" values="22|24|26|18" default="20"/>
+      <relation target="n1_l57y" sidePair="rightext-right,bottomext-bottom"/>
+    </text>
+    <text id="n1_l57y" name="inputText" xy="0,0" size="360,32" fontSize="22" color="#323232" autoSize="none" singleLine="true" text="" input="true">
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+    <component id="n3_txej" name="clearBtn" src="mtubibk7" fileName="widget/button/BaseLoaderBtn.xml" xy="331,7" size="18,18">
+      <gearDisplay controller="showClearBtn" pages="1"/>
+      <relation target="" sidePair="right-right"/>
+      <Button icon="ui://kvb3znepsyeo1emigip" selectedIcon="ui://kvb3znepsyeo1emigip"/>
+    </component>
+  </displayList>
+</component>

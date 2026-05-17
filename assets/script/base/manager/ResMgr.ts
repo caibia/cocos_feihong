@@ -27,8 +27,9 @@ export default class ResMgr {
     }
 
     public async init() {
-        let pkgUrl: string = XResourcesUrl.getUIPackageUrl("0Common");
-        await this.loadFGUIPackage(pkgUrl, "common");
+        // 0Common 公共包已移除，新公共包就绪后取消注释
+        // let pkgUrl: string = XResourcesUrl.getUIPackageUrl("0Common");
+        // await this.loadFGUIPackage(pkgUrl, "common");
         TimerMgr.inst.setInterval(this._intervalGC.bind(this), 1 * 1000, this);
     }
 

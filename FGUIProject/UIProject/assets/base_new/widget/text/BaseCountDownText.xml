@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="74,26" remark="app.view.base.text.BaseCountdownTxt" extention="Label">
+  <displayList>
+    <text id="n0_qoge" name="title" xy="37,13" pivot="0.5,0.5" anchor="true" size="74,26" font="Source Han Sans CN" fontSize="18" color="#e52e2e" align="center" vAlign="middle" text="00:00:00">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+  </displayList>
+  <relation target="n0_qoge" sidePair="width-width,height-height"/>
+</component>

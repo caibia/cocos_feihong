@@ -3,7 +3,7 @@
 *Desc    : 过程队列管理器，负责过程插入、排序、执行、锁定与场景联动控制
 */
 
-import { BlockView } from "../../app/module/Alert/BlockView";
+import { BlockView } from "../../app/module/alert/BlockView";
 import XDEBUGLOG from "../debug/XDEBUGLOG";
 import XConst from "../define/XConst";
 import { EVENTNAME } from "../../app/define/EventDefine";

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="980,410" pivot="0.5,0.5" margin="0,1536,1392967936,268449024" extention="Label">
+  <displayList>
+    <component id="n17_upi3" name="popPanel" src="mdfj1a" pkg="kvb3znep" xy="0,0"/>
+    <image id="n19_upi3" name="n19" src="wl2ow" pkg="kvb3znep" xy="256,173" size="466,50" group="n18_upi3"/>
+    <text id="n4_nvh0" name="inputNameTxt" xy="256,173" size="466,50" group="n18_upi3" font="Source Han Sans CN" fontSize="24" color="#808080" vAlign="middle" autoSize="none" ubb="true" singleLine="true" text="" input="true" prompt="[color=#ffffff]请输入账号ID[/color]"/>
+    <component id="n8_nvh0" name="confirmBtn" src="mdfj14" pkg="kvb3znep" xy="351,326" size="278,58" group="n18_upi3"/>
+    <text id="n20_upi3" name="n20" xy="502,372" pivot="0.5,0.5" anchor="true" size="56,16" group="n18_upi3" visible="false" font="Source Han Serif CN" fontSize="10" color="#808080" text="CONFIRM"/>
+    <group id="n18_upi3" name="content" xy="256,173" size="466,211" advanced="true"/>
+  </displayList>
+</component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="128,128" pivot="0.5,0.5" margin="0,512,1342636288,268453376" extention="Label">
+  <displayList>
+    <image id="n1_tba7" name="n1" src="t5051emigj2" fileName="img/pic_ghlm_kuang.png" xy="-5,-5" pivot="0.5,0.5" size="138,138"/>
+    <loader id="n0_tba7" name="icon" xy="64,64" pivot="0.5,0.5" anchor="true" size="128,128"/>
+  </displayList>
+</component>

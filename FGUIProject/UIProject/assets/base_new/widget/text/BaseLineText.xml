@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1000,40" extention="Label">
+  <displayList>
+    <image id="n4_jd8d" name="n4" src="hhudibls" fileName="img/pic_line_02.png" xy="6,19" size="388,1">
+      <relation target="n0_ke2z" sidePair="right-left"/>
+    </image>
+    <image id="n3_jd8d" name="n3" src="hhudibls" fileName="img/pic_line_02.png" xy="612,19" size="388,1">
+      <relation target="n0_ke2z" sidePair="left-right"/>
+    </image>
+    <text id="n0_ke2z" name="title" xy="451,3" pivot="0.5,0.5" size="100,34" font="Source Han Serif CN" fontSize="24" color="#323232" align="center" vAlign="middle" singleLine="true" text="">
+      <relation target="" sidePair="center-center"/>
+    </text>
+  </displayList>
+  <transition name="enter">
+    <item time="0" type="Alpha" target="n0_ke2z" tween="true" startValue="0" endValue="1" duration="10"/>
+    <item time="0" type="Alpha" target="n3_jd8d" tween="true" startValue="0" endValue="1" duration="10"/>
+    <item time="0" type="Alpha" target="n4_jd8d" tween="true" startValue="0" endValue="1" duration="10"/>
+    <item time="0" type="XY" target="n3_jd8d" tween="true" startValue="712,19" endValue="612,19" duration="10"/>
+    <item time="0" type="XY" target="n4_jd8d" tween="true" startValue="-94,19" endValue="6,19" duration="10"/>
+  </transition>
+</component>

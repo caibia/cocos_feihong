@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="x6gj81kp">
+  <resources>
+    <component id="rdw4sex" name="BaseHelpCell.xml" path="/widget/component/"/>
+    <component id="vb3bibif" name="BaseSummaryValue.xml" path="/widget/component/"/>
+    <component id="96r9sbl" name="BaseTxtPopComp.xml" path="/widget/component/" exported="true"/>
+    <component id="flp5sfs" name="TouchMapComp.xml" path="/widget/component/" exported="true"/>
+    <component id="fyta6c" name="BaseItemCountComp.xml" path="/widget/component/" exported="true"/>
+    <component id="fyta6d" name="BaseDialogBubbleComp.xml" path="/widget/component/" exported="true"/>
+    <component id="jl0c1q" name="BaseFuncUnlockComp.xml" path="/widget/component/" exported="true"/>
+    <component id="jl0c1u" name="BaseAssistPopComp.xml" path="/widget/component/" exported="true"/>
+    <component id="jrsd6y" name="BasePlaceHolderNameComp.xml" path="/widget/component/" exported="true"/>
+    <component id="kbkesfh" name="BaseResourcesNumComp.xml" path="/widget/component/" exported="true"/>
+    <component id="lhoeibjq" name="BaseBlurContainer.xml" path="/widget/component/" exported="true"/>
+    <component id="n1se2n" name="BaseBtn.xml" path="/widget/button/" exported="true"/>
+    <component id="nl6r96" name="BaseHexagonMaskComp.xml" path="/widget/component/" exported="true"/>
+    <component id="pepus" name="BaseAttrValueComp.xml" path="/widget/component/" exported="true"/>
+    <component id="qe6bibjv" name="BaseFightTipsComp.xml" path="/widget/component/" exported="true"/>
+    <component id="qmzoscj" name="BaseProgExp.xml" path="/widget/progress/" exported="true"/>
+    <component id="rdw4sew" name="BaseHelpPop.xml" path="/widget/component/" exported="true"/>
+    <component id="svka9f" name="BaseValueChange.xml" path="/widget/component/" exported="true"/>
+    <component id="urvd76" name="BaseBgBtn.xml" path="/widget/button/" exported="true"/>
+    <component id="vb3bibig" name="BaseTxtSummary.xml" path="/widget/component/" exported="true"/>
+    <component id="yc0c2" name="BasePlaceHolderComp2.xml" path="/widget/component/" exported="true"/>
+    <component id="zvsd21" name="BaseLineTitle.xml" path="/widget/title/" exported="true"/>
+    <image id="81zose0" name="icon_jizhi.png" path="/img/icon/" exported="true"/>
+    <image id="861hibi1" name="btn_small_1.png" path="/img/btn/" exported="true"/>
+    <image id="861hibi2" name="btn_small_2.png" path="/img/btn/" exported="true"/>
+    <image id="9vzxsc9" name="btn_xuanzekuang_02.png" path="/img/btn/" exported="true"/>
+    <image id="9yxbx" name="bg_xinxi_3.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="18,10,13,6"/>
+    <image id="bn7ks9x" name="pic_bg_jindutiao_2.png" path="/img/progress/" exported="true" scale="9grid" scale9grid="2,2,4,3"/>
+    <image id="cyefsbd" name="pic_box_1.png" path="/img/pic/" exported="true"/>
+    <image id="d55jibiu" name="bg_black_06.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="5,5,10,10"/>
+    <image id="dsi7sg2" name="icon_lz_wancheng.png" path="/img/icon/" exported="true"/>
+    <image id="eexvs9s" name="bg_progress_1.png" path="/img/progress/" exported="true" scale="9grid" scale9grid="9,0,2,5"/>
+    <image id="eexvs9t" name="pic_progress_1.png" path="/img/progress/" exported="true" scale="9grid" scale9grid="9,0,2,5"/>
+    <image id="eexvs9u" name="icon_tongji.png" path="/img/icon/" exported="true"/>
+    <image id="f2y1ibio" name="arrow_10.png" path="/img/arrow/" exported="true"/>
+    <image id="fhaxt" name="icon_zhezhao.png" path="/img/icon/" exported="true" scale="9grid" scale9grid="5,5,6,7"/>
+    <image id="fyta54" name="mask_circle.png" path="/img/mask/" exported="true"/>
+    <image id="g76cseb" name="pic_suipianjiaobiao.png" path="/img/pic/" exported="true"/>
+    <image id="gf13sc6" name="qipao_01.png" path="/img/pic/" exported="true" scale="9grid" scale9grid="2,2,3,1"/>
+    <image id="gtujibij" name="arrow_11.png" path="/img/arrow/" exported="true"/>
+    <image id="gtujibik" name="line_title.png" path="/img/line/" exported="true" scale="9grid" scale9grid="5,1,2,1"/>
+    <image id="h13oibj9" name="bg_xinxi_20.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="14,5,23,10"/>
+    <image id="hbz9ibix" name="bg_zhandouchufa.png" path="/img/bg/" exported="true" scale="tile"/>
+    <image id="hcbyse3" name="btn_fanhui.png" path="/img/btn/" exported="true"/>
+    <image id="hcbyse4" name="btn_home.png" path="/img/btn/" exported="true"/>
+    <image id="imckibie" name="pic_taicidi.png" path="/img/pic/" exported="true"/>
+    <image id="ir3esdt" name="icon_add.png" path="/img/icon/" exported="true"/>
+    <image id="kveoibit" name="btn_icon_7.png" path="/img/btn/" exported="true"/>
+    <image id="ky89ibhj" name="icon_sx_shuxing.png" path="/img/outline/" exported="true"/>
+    <image id="l332ibgk" name="icon_sx_fafang.png" path="/img/outline/" exported="true"/>
+    <image id="l332ibgl" name="icon_sx_gongji.png" path="/img/outline/" exported="true"/>
+    <image id="l332ibgm" name="icon_sx_shengming.png" path="/img/outline/" exported="true"/>
+    <image id="l332ibgn" name="icon_sx_wufang.png" path="/img/outline/" exported="true"/>
+    <image id="l332sd2" name="bg_shuxing.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="7,7,14,14"/>
+    <image id="l332sd6" name="pic_jineng_kong.png" path="/img/pic/" exported="true"/>
+    <image id="mbs1s9y" name="bg_black_01.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="4,4,12,12"/>
+    <image id="mczsscr" name="bg_progress_4.png" path="/img/progress/" exported="true" scale="9grid" scale9grid="5,3,10,3"/>
+    <image id="mczsscs" name="pic_progress_2.png" path="/img/progress/" exported="true" scale="9grid" scale9grid="5,3,10,6"/>
+    <image id="n3piibij" name="btn_jq_01.png" path="/img/btn/" exported="true"/>
+    <image id="o4o4ibi9" name="arrow_06.png" path="/img/arrow/" exported="true"/>
+    <image id="orq7sdl" name="btn_mini.png" path="/img/btn/" exported="true" scale="9grid" scale9grid="22,15,44,18"/>
+    <image id="q68mibi6" name="btn_shensuo.png" path="/img/btn/" exported="true"/>
+    <image id="qk4nsdr" name="bg_xinxi_15.png" path="/img/bg/" exported="true"/>
+    <image id="r89nsae" name="pic_icon_hongdian_1.png" path="/img/pic/" exported="true"/>
+    <image id="r89nsak" name="line_1.png" path="/img/line/" exported="true" scale="9grid" scale9grid="15,2,30,4"/>
+    <image id="rdw4sey" name="bg_tishi_01.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="3,2,1,1"/>
+    <image id="rdw4sf5" name="pic_zhuangshi_02.png" path="/img/pic/" exported="true"/>
+    <image id="tcn2sfi" name="bg_liebiao_3.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="8,8,4,4"/>
+    <image id="tcn2sfj" name="bg_xinxi_18.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="10,10,10,8"/>
+    <image id="ugqusc3" name="bg_black_03.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="8,8,4,4"/>
+    <image id="urvd77" name="btn_icon_1.png" path="/img/btn/" exported="true"/>
+    <image id="urvd78" name="btn_icon_2.png" path="/img/btn/" exported="true"/>
+    <image id="urvd7b" name="btn_icon_5.png" path="/img/btn/" exported="true"/>
+    <image id="urvd7c" name="arrow_01.png" path="/img/arrow/" exported="true"/>
+    <image id="urvd7e" name="arrow_03.png" path="/img/arrow/" exported="true"/>
+    <image id="urvd7f" name="arrow_04.png" path="/img/arrow/" exported="true"/>
+    <image id="urvd7g" name="bg_biaoti.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="6,7,14,9"/>
+    <image id="urvd7q" name="bg_progress_1.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="5,5,10,10"/>
+    <image id="urvd80" name="icon_lock_1.png" path="/img/icon/" exported="true"/>
+    <image id="urvd86" name="pic_boss.png" path="/img/pic/" exported="true"/>
+    <image id="urvd8i" name="pic_wanjia.png" path="/img/pic/" exported="true"/>
+    <image id="wvzlibhk" name="pic_zhuangshi_01.png" path="/img/pic/" exported="true"/>
+    <image id="yc0ca" name="btn_big_1.png" path="/img/btn/" exported="true"/>
+    <image id="yc0cb" name="btn_big_2.png" path="/img/btn/" exported="true"/>
+    <image id="yc0cs" name="btn_guanbi.png" path="/img/btn/" exported="true"/>
+    <image id="z7vi1r" name="btn_xiangqing.png" path="/img/btn/" exported="true"/>
+    <image id="zurqse9" name="btn_middle_1.png" path="/img/btn/" exported="true"/>
+    <image id="zurqsea" name="btn_middle_2.png" path="/img/btn/" exported="true"/>
+    <image id="zvsd2c" name="bg_name_2.png" path="/img/bg/" exported="true" scale="9grid" scale9grid="23,26,202,15"/>
+  </resources>
+  <publish name="base">
+    <atlas name="Default" index="0"/>
+  </publish>
+</packageDescription>

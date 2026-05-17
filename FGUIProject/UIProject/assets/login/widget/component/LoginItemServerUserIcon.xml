@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="74,74" mask="graph0" extention="Label">
+  <displayList>
+    <loader id="n4_vx2o" name="icon" xy="0,0" size="74,74" fill="scale"/>
+    <graph id="n3_vx2o" name="graph0" xy="0,0" size="74,74" type="eclipse" lineSize="0"/>
+  </displayList>
+</component>

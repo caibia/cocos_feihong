@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1638,998" overflow="hidden">
+  <displayList>
+    <graph id="n1_gmt0" name="n1" xy="818,0" pivot="0.5,0.5" size="1,998" alpha="0.50" visible="false" type="rect" lineSize="0" lineColor="#00000000" fillColor="#ff000000"/>
+    <graph id="n2_gk6j" name="n2" xy="818,-554" pivot="0.5,0.5" size="2,2107" rotation="90" alpha="0.50" visible="false" type="rect" lineSize="0" lineColor="#00000000" fillColor="#ff000000"/>
+    <graph id="n3_gk6j" name="n3" xy="574,-3" pivot="0.5,0.5" size="120,640" rotation="45" alpha="0.60" touchable="false" type="rect" lineSize="0" lineColor="#00000000" fillColor="#ff000000"/>
+    <graph id="n4_gk6j" name="n4" xy="942,-4" pivot="0.5,0.5" size="120,640" rotation="-45" alpha="0.60" touchable="false" type="rect" lineSize="0" lineColor="#00000000" fillColor="#ff000000"/>
+    <graph id="n5_gk6j" name="n5" xy="575,364" pivot="0.5,0.5" size="120,640" rotation="135" alpha="0.60" touchable="false" type="rect" lineSize="0" lineColor="#00000000" fillColor="#ff000000"/>
+    <graph id="n6_gk6j" name="n6" xy="942,363" pivot="0.5,0.5" size="120,640" rotation="-135" alpha="0.60" touchable="false" type="rect" lineSize="0" lineColor="#00000000" fillColor="#ff000000"/>
+    <graph id="n7_gk6j" name="n7" xy="1146,-386" pivot="0.5,0.5" size="60,1064" rotation="-45" alpha="0.30" touchable="false" type="rect" lineSize="0" lineColor="#00000000" fillColor="#ff000000"/>
+    <graph id="n8_gk6j" name="n8" xy="1143,323" pivot="0.5,0.5" size="60,1064" rotation="-135" alpha="0.30" touchable="false" type="rect" lineSize="0" lineColor="#00000000" fillColor="#ff000000"/>
+    <graph id="n9_gk6j" name="n9" xy="436,-388" pivot="0.5,0.5" size="60,1064" rotation="45" alpha="0.30" touchable="false" type="rect" lineSize="0" lineColor="#00000000" fillColor="#ff000000"/>
+    <graph id="n10_gk6j" name="n10" xy="434,323" pivot="0.5,0.5" size="60,1064" rotation="135" alpha="0.30" touchable="false" type="rect" lineSize="0" lineColor="#00000000" fillColor="#ff000000"/>
+    <text id="n11_gk6j" name="n11" xy="682,290" pivot="0.5,0.5" size="635,64" rotation="45" alpha="0.30" font="Source Han Sans CN" fontSize="48" color="#ffffff" letterSpacing="30" align="center" autoSize="none" text="START LINK"/>
+    <text id="n12_gk6j" name="n12" xy="320,646" pivot="0.5,0.5" size="635,64" rotation="-135" alpha="0.30" font="Source Han Sans CN" fontSize="48" color="#ffffff" letterSpacing="30" align="center" autoSize="none" text="START LINK"/>
+    <graph id="n13_gk6j" name="n13" xy="971,20" pivot="0.5,0.5" size="16,640" rotation="-45" alpha="0.20" touchable="false" type="rect" lineSize="0" lineColor="#00000000"/>
+    <graph id="n14_gk6j" name="n14" xy="650,21" pivot="0.5,0.5" size="16,640" rotation="45" alpha="0.20" touchable="false" type="rect" lineSize="0" lineColor="#00000000"/>
+    <graph id="n15_gk6j" name="n15" xy="972,340" pivot="0.5,0.5" size="16,640" rotation="45" alpha="0.20" touchable="false" type="rect" lineSize="0" lineColor="#00000000"/>
+    <graph id="n16_gk6j" name="n16" xy="648,341" pivot="0.5,0.5" size="16,640" rotation="-45" alpha="0.20" touchable="false" type="rect" lineSize="0" lineColor="#00000000"/>
+  </displayList>
+  <transition name="enter">
+    <item time="0" type="XY" target="n10_gk6j" value="975,867"/>
+    <item time="0" type="XY" target="n11_gk6j" tween="true" startValue="100,-297" endValue="682,290" duration="24"/>
+    <item time="0" type="XY" target="n12_gk6j" tween="true" startValue="922,1244" endValue="320,646" duration="24"/>
+    <item time="0" type="XY" target="n13_gk6j" tween="true" startValue="389,-567" endValue="971,20" duration="13"/>
+    <item time="0" type="XY" target="n14_gk6j" tween="true" startValue="-235,918" endValue="650,21" duration="13"/>
+    <item time="0" type="XY" target="n15_gk6j" tween="true" startValue="1867,-545" endValue="972,340" duration="13"/>
+    <item time="0" type="XY" target="n16_gk6j" tween="true" startValue="1250,939" endValue="648,341" duration="13"/>
+    <item time="0" type="XY" target="n3_gk6j" tween="true" startValue="-313.44000244140625,891.8800048828125" endValue="574,-3" duration="6"/>
+    <item time="0" type="XY" target="n4_gk6j" tween="true" startValue="359,-591.8800048828125" endValue="942,-4" duration="6"/>
+    <item time="0" type="XY" target="n5_gk6j" tween="true" startValue="1171,962.5999755859375" endValue="575,364" duration="6"/>
+    <item time="0" type="XY" target="n6_gk6j" tween="true" startValue="1837,-522" endValue="942,363" duration="6"/>
+    <item time="0" type="XY" target="n7_gk6j" value="582,-949"/>
+    <item time="0" type="XY" target="n8_gk6j" value="2019,-542"/>
+    <item time="0" type="XY" target="n9_gk6j" value="-431,479"/>
+    <item time="2" type="XY" target="n10_gk6j" tween="true" startValue="975,867" endValue="434,323" duration="10"/>
+    <item time="2" type="XY" target="n7_gk6j" tween="true" startValue="582,-949" endValue="1146,-386" duration="10"/>
+    <item time="2" type="XY" target="n8_gk6j" tween="true" startValue="2019,-542" endValue="1143,323" duration="10"/>
+    <item time="2" type="XY" target="n9_gk6j" tween="true" startValue="-431,479" endValue="436,-388" duration="10"/>
+  </transition>
+</component>

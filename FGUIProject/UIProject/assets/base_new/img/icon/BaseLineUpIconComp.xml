@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="134,134" remark="app.view.base.icon.BaseLineUpIconComp">
+  <controller name="lineUpState" pages="0,lock,1,empty,2,inBattle" selected="0"/>
+  <controller name="showLevel" pages="0,,1," selected="0"/>
+  <displayList>
+    <component id="n0_117fg" name="iconComp" src="kb6qibn9" fileName="img/icon/BaseKnightIcon.xml" xy="0,0">
+      <gearDisplay controller="lineUpState" pages="0,2"/>
+    </component>
+    <loader id="n1_117fg" name="n1" xy="67,67" pivot="0.5,0.5" anchor="true" size="114,114" url="ui://kvb3znepdco1gibwk" fill="scaleFree">
+      <gearDisplay controller="lineUpState" pages="1"/>
+    </loader>
+    <loader id="n4_irec" name="n4" xy="67,67" pivot="0.5,0.5" anchor="true" size="112,112" url="ui://kvb3znepdco1gibwj">
+      <gearDisplay controller="lineUpState" pages="1"/>
+    </loader>
+    <loader id="n3_117fg" name="n3" xy="32,30" pivot="0.5,0.5" size="68,72" url="ui://kvb3znepnf6uo">
+      <gearDisplay controller="lineUpState" pages="0"/>
+    </loader>
+    <image id="n5_pqlz" name="n5" src="nf6u4" fileName="img/bg_black_01.png" xy="8,9" size="59,22" alpha="0.80" group="n7_pqlz">
+      <relation target="n6_pqlz" sidePair="rightext-right"/>
+    </image>
+    <text id="n6_pqlz" name="levelText" xy="10,19" pivot="0,0.5" anchor="true" size="54,24" group="n7_pqlz" font="Novecento wide" fontSize="16" color="#f2f2f2" text=""/>
+    <group id="n7_pqlz" name="n7" xy="8,7" size="59,24" advanced="true">
+      <gearDisplay controller="showLevel" pages="1"/>
+    </group>
+  </displayList>
+</component>

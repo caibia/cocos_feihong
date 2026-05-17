@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="120,120" overflow="hidden" extention="Label">
+  <displayList>
+    <image id="n0_jr2h" name="n0" src="jjdh1v5dsry" fileName="widget/component/images/pic_mnzj_ai_touxiangzhe.png" xy="-25,-25"/>
+    <loader id="n1_jr2h" name="icon" xy="60,60" pivot="0.5,0.5" anchor="true" size="50,50" scale="0.8,0.8" touchable="false"/>
+  </displayList>
+</component>

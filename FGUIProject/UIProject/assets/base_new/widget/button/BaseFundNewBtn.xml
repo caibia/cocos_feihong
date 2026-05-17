@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="98,100" pivot="0.5,0.5" remark="app.view.base.button.BaseBtn;app.view.base.button.BaseFundNewBtn" margin="0,33561603,16779264,184556032" extention="Button">
+  <controller name="type" pages="2,,0,,1," selected="0"/>
+  <controller name="button" pages="2,up,3,down" selected="0"/>
+  <displayList>
+    <loader id="n0_vspw" name="n0" xy="48,50" pivot="0.5,0.5" anchor="true" size="142,116" url="ui://kvb3znepvspw1emiggc">
+      <gearXY controller="type" pages="0,1" values="53,50|48,50" default="66,50"/>
+      <gearIcon controller="type" pages="0,1" values="ui://kvb3znepvspw1emiggb|ui://kvb3znepvspw1emiggc" default="ui://kvb3znepvspw1emiggd"/>
+    </loader>
+    <text id="n1_vspw" name="title" xy="47,86" pivot="0.5,0.5" anchor="true" size="76,26" font="Source Han Serif CN" fontSize="18" color="#f2f2f2" text="水仙支援">
+      <gearXY controller="type" pages="0,1" values="47,86|47,86" default="56,84"/>
+      <gearText controller="type" pages="2,0,1" values="雾境支援|星野支援|水仙支援"/>
+    </text>
+    <component id="n2_qi9b" name="redPointComp" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="89,18"/>
+  </displayList>
+  <Button/>
+</component>

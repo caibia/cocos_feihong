@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="257,32" remark="app.view.base.component.BaseAttrValueComp">
+  <controller name="attrNum" pages="0,,1," selected="0"/>
+  <controller name="gray" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n6_cold" name="customBg" xy="0,2" pivot="0,0.5" size="257,28" fill="scaleFree">
+      <gearDisplay controller="attrNum" pages="0"/>
+      <relation target="" sidePair="rightext-right"/>
+    </loader>
+    <loader id="n7_cold" name="customBg2" xy="0,2" pivot="0,0.5" size="492,28" fill="scaleFree">
+      <gearDisplay controller="attrNum" pages="1"/>
+      <relation target="n5_a4d3" sidePair="rightext-right"/>
+    </loader>
+    <text id="n2_a4d3" name="attName" xy="0,1" pivot="0,0.5" size="189,29" font="Source Han Sans CN" fontSize="20" color="#323232" letterSpacing="-1" vAlign="middle" autoSize="shrink" text="">
+      <gearColor controller="gray" pages="1" values="#a6a6a6" default="#323232"/>
+      <relation target="" sidePair="rightext-right"/>
+    </text>
+    <text id="n3_a4d3" name="firstAttValue" xy="190,0" pivot="1,0.5" size="70,32" font="Source Han Sans CN" fontSize="22" color="#323232" text="">
+      <gearDisplay controller="attrNum" pages="0,1"/>
+      <gearColor controller="gray" pages="1" values="#a6a6a6" default="#323232"/>
+      <relation target="" sidePair="right-right"/>
+    </text>
+    <loader id="n4_a4d3" name="arrow" xy="323,8" pivot="0,0.5" size="18,16" touchable="false" url="ui://kvb3znepnf6u1">
+      <gearDisplay controller="attrNum" pages="1"/>
+      <relation target="" sidePair="left-right"/>
+    </loader>
+    <text id="n5_a4d3" name="secondAttrValue" xy="410,1" pivot="1,0.5" size="81,32" font="Source Han Sans CN" fontSize="22" color="#24bd81" align="right" text="">
+      <gearDisplay controller="attrNum" pages="1"/>
+      <relation target="" sidePair="left-right"/>
+    </text>
+  </displayList>
+  <transition name="txt_leftIn">
+    <item time="0" type="Alpha" target="n2_a4d3" value="0"/>
+    <item time="0" type="Alpha" target="n3_a4d3" value="0"/>
+    <item time="0" type="Alpha" target="n4_a4d3" value="0"/>
+    <item time="0" type="Alpha" target="n5_a4d3" value="0"/>
+    <item time="0" type="XY" target="n2_a4d3" value="0,1"/>
+    <item time="0" type="XY" target="n3_a4d3" value="190,0"/>
+    <item time="0" type="XY" target="n4_a4d3" value="323,8"/>
+    <item time="0" type="XY" target="n5_a4d3" value="410,1"/>
+    <item time="1" type="Alpha" target="n2_a4d3" tween="true" startValue="0" endValue="1" duration="8"/>
+    <item time="1" type="XY" target="n2_a4d3" tween="true" startValue="-20,1" endValue="0,1" duration="8"/>
+    <item time="7" type="Alpha" target="n3_a4d3" tween="true" startValue="0" endValue="1" duration="8"/>
+    <item time="7" type="XY" target="n3_a4d3" tween="true" startValue="170,0" endValue="190,0" duration="8"/>
+    <item time="14" type="Alpha" target="n4_a4d3" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="14" type="XY" target="n4_a4d3" tween="true" startValue="303,8" endValue="323,8" duration="7"/>
+    <item time="24" type="Alpha" target="n5_a4d3" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="24" type="XY" target="n5_a4d3" tween="true" startValue="390,1" endValue="410,1" duration="7"/>
+  </transition>
+  <transition name="txt_downIn">
+    <item time="0" type="Alpha" target="n2_a4d3" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="0" type="Alpha" target="n3_a4d3" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="0" type="Alpha" target="n4_a4d3" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="0" type="Alpha" target="n5_a4d3" tween="true" startValue="0" endValue="1" duration="12"/>
+    <item time="0" type="XY" target="n2_a4d3" tween="true" startValue="0,41" endValue="0,1" duration="12"/>
+    <item time="0" type="XY" target="n3_a4d3" tween="true" startValue="190,40" endValue="190,0" duration="12"/>
+    <item time="0" type="XY" target="n4_a4d3" tween="true" startValue="323,48" endValue="323,8" duration="12"/>
+    <item time="0" type="XY" target="n5_a4d3" tween="true" startValue="410,41" endValue="410,1" duration="12"/>
+  </transition>
+</component>

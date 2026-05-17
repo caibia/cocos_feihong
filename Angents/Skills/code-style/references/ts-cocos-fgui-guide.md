@@ -12,11 +12,11 @@
 
 ## 2. UI 与 FairyGUI 分层
 
-当前项目中 FairyGUI 自动生成类与业务类是分层使用的：
+当前项目中 FGUI 结构绑定基类与业务类是分层使用的：
 
-1. 自动生成的 `Interfaces/*` 文件只做结构绑定，不直接写业务逻辑。
+1. `app/module/*/interfaces/I*View.ts` 是**手写**的结构绑定基类（不再依赖 FGUI 导出器生成），只做字段声明、`UIPackage.createObject`、`initComponentByView` / `initControllerByView` 调用、`Transition` 取值。
 2. 业务逻辑写在继承类中，例如 `XWindow`、`XComponent` 或具体模块视图类。
-3. 修改 UI 字段、组件名、绑定关系时，同步检查生成类、继承类与调用方是否一致。
+3. 修改 UI 字段、组件名、绑定关系时，FGUI 工程改完需**人手同步**到结构绑定基类与继承类，并检查调用方是否一致。
 
 ## 3. 生命周期与资源释放
 

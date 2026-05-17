@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="126,58" pivot="0.5,0.5" remark="app.view.base.button.BaseBtn;app.view.base.button.BaseBtnStyle" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <controller name="style" pages="0,,1,,2,,3,,4,,5,,6,,7,,8,,9,,10,,11," selected="0"/>
+  <controller name="titleColor" pages="0,,1,,2," selected="0"/>
+  <controller name="showIcon" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n4_yc0c" name="loader" xy="0,0" size="126,58" touchable="false" url="ui://x6gj81kp861hibi2">
+      <gearIcon controller="style" pages="1,2,3,4,5,6,7,8,9,10,11" values="ui://x6gj81kp861hibi2|ui://x6gj81kp861hibi2|ui://x6gj81kpzurqse9|ui://x6gj81kpzurqsea|ui://x6gj81kpzurqsea|ui://x6gj81kpyc0ca|ui://x6gj81kpyc0cb|ui://x6gj81kpyc0cb|ui://x6gj81kpyc0cj|ui://x6gj81kp861hibi2|ui://x6gj81kp861hibi2" default="ui://x6gj81kp861hibi1"/>
+    </loader>
+    <text id="n3_yc0c" name="title" xy="0,1" size="126,58" font="Source Han Serif CN" fontSize="20" color="#232322" align="center" vAlign="middle" autoSize="none" singleLine="true" text="按钮">
+      <gearDisplay controller="showIcon" pages="0"/>
+      <gearColor controller="titleColor" pages="0,1,2" values="#fff4f4,#a4330b|#ffffff,#984f00|#232322,#7c706c"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+    <loader id="n10_gju8" name="icon" xy="38,15" size="50,30" touchable="false">
+      <gearDisplay controller="showIcon" pages="1"/>
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <graph id="n7_q4v2" name="effect" xy="62,26" size="1,1" type="rect">
+      <gearSize controller="style" pages="1,2,3,4,5,6,7,8,9,10,11" values="1,1,1,1|1,1,1,1|1,1,1,1|1,1,1,1|1,1,1,1|1,1,1.100000023841858,1.100000023841858|1,1,1,1|1,1,1,1|1,1,1.25,1.0499999523162842|1,1,1,1|1,1,1,1" default="1,1,0.800000011920929,1"/>
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </graph>
+    <component id="n6_q4v2" name="funcUnlockComp" src="jl0c1q" fileName="widget/component/BaseFuncUnlockComp.xml" xy="63,26">
+      <relation target="n4_yc0c" sidePair="middle-middle,center-center"/>
+    </component>
+    <image id="n12_81zo" name="n12" src="81zose0" fileName="img/icon/icon_jizhi.png" xy="63,16">
+      <gearDisplay controller="style" pages="5"/>
+    </image>
+  </displayList>
+  <Button/>
+  <relation target="n4_yc0c" sidePair="width-width,height-height"/>
+</component>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="172,40" remark="app.view.module.login.view.loginGroupCell" extention="Button">
+  <controller name="isRecommend" pages="0,normal,1,recommend" selected="0"/>
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <displayList>
+    <loader id="n0_spn4" name="loader" xy="0,0" size="172,40" url="ui://kvb3znephhudiblw">
+      <gearIcon controller="button" pages="1" values="ui://kvb3znephhudiblw" default="ui://kvb3znephhudiblx"/>
+    </loader>
+    <text id="n1_spn4" name="title" xy="5,1" pivot="0.5,0.5" size="164,38" font="Source Han Serif CN" fontSize="20" color="#f2f2f2" align="center" vAlign="middle" autoSize="shrink" text="">
+      <gearColor controller="button" pages="1" values="#f2f2f2" default="#808080"/>
+    </text>
+    <component id="n2_spn4" name="redPointComp" src="n7cvkk2qg" pkg="kvb3znep" xy="169,1"/>
+    <image id="n3_mwjc" name="n3" src="t3hc6a" pkg="kvb3znep" xy="37,0" pivot="0.5,0.5" anchor="true" group="n5_mwjc"/>
+    <text id="n4_mwjc" name="n4" xy="37,0" pivot="0.5,0.5" anchor="true" size="40,26" group="n5_mwjc" font="Source Han Sans CN" fontSize="18" color="#f2f2f2" align="center" vAlign="middle" text="推荐"/>
+    <group id="n5_mwjc" name="n5" xy="-1,-13" size="76,26" advanced="true">
+      <gearDisplay controller="isRecommend" pages="1"/>
+    </group>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

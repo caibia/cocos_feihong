@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1000,998" pivot="0.5,0.5" remark="app.view.base.component.BasePetPicComp" margin="0,256,1661403392,268453376">
+  <displayList>
+    <loader id="n0_hoj5" name="petImg" xy="500,499" pivot="0.5,0.5" anchor="true" size="666,440">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+  </displayList>
+  <transition name="enter">
+    <item time="0" type="Scale" target="n0_hoj5" tween="true" startValue="3,3" endValue="1,1" duration="24" ease="Quint.Out"/>
+  </transition>
+  <transition name="back">
+    <item time="0" type="Scale" target="n0_hoj5" tween="true" startValue="1,1" endValue="0.8999999761581421,0.8999999761581421" duration="5" ease="Quint.Out"/>
+  </transition>
+  <transition name="blackWhite">
+    <item time="0" type="Color" target="n0_hoj5" value="rgb(0,0,0)"/>
+    <item time="3" type="Color" target="n0_hoj5" tween="true" startValue="rgb(0,0,0)" endValue="rgb(255,255,255)" duration="5"/>
+  </transition>
+</component>

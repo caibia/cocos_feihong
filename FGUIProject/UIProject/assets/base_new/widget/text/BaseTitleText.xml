@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="370,35" extention="Label">
+  <controller name="showRedLine" pages="0,,1," selected="0"/>
+  <controller name="showBtn" pages="0,,1," selected="0"/>
+  <controller name="showLine" pages="0,,1," selected="0"/>
+  <displayList>
+    <text id="n0_uhfx" name="title" xy="15,-4" pivot="0,0.5" size="260,40" font="Source Han Serif CN" fontSize="20" color="#323232" vAlign="middle" autoSize="shrink" text="标题名">
+      <relation target="" sidePair="rightext-right"/>
+    </text>
+    <loader id="n1_uhfx" name="redLine" xy="3,6" size="4,20" url="ui://kvb3znepnf6uu">
+      <gearDisplay controller="showRedLine" pages="0"/>
+    </loader>
+    <loader id="n2_uhfx" name="bottomLine" xy="-1,29" size="371,2" url="ui://kvb3znepnf6uq" fill="scaleFree">
+      <gearDisplay controller="showLine" pages="0"/>
+      <relation target="" sidePair="rightext-right"/>
+    </loader>
+    <component id="n3_uhfx" name="infoBtn" src="mtubibk7" fileName="widget/button/BaseLoaderBtn.xml" xy="345,6" size="18,18">
+      <gearDisplay controller="showBtn" pages="0"/>
+      <relation target="" sidePair="right-right"/>
+      <Button icon="ui://kvb3znepoezyibkc"/>
+    </component>
+  </displayList>
+  <transition name="enter" options="4">
+    <item time="0" type="Alpha" target="n0_uhfx" value="0"/>
+    <item time="0" type="Alpha" target="n1_uhfx" value="0"/>
+    <item time="0" type="Alpha" target="n2_uhfx" value="0"/>
+    <item time="0" type="Alpha" target="n3_uhfx" value="0"/>
+    <item time="0" type="ColorFilter" target="n1_uhfx" value="0,0,0,0"/>
+    <item time="0" type="Scale" target="n1_uhfx" value="1,1"/>
+    <item time="0" type="Scale" target="n2_uhfx" value="0.800000011920929,1"/>
+    <item time="0" type="XY" target="n0_uhfx" value="38,-4"/>
+    <item time="0" type="XY" target="n1_uhfx" value="105,-"/>
+    <item time="0" type="XY" target="n2_uhfx" value="99,-"/>
+    <item time="1" type="Alpha" target="n1_uhfx" tween="true" startValue="0" endValue="1" duration="14"/>
+    <item time="1" type="Alpha" target="n2_uhfx" tween="true" startValue="0" endValue="1" duration="11" ease="Circ.Out"/>
+    <item time="1" type="ColorFilter" target="n1_uhfx" tween="true" startValue="1,0,0,0" endValue="0,0,0,0" duration="14"/>
+    <item time="1" type="Scale" target="n1_uhfx" tween="true" startValue="1,1" endValue="20,1" duration="5"/>
+    <item time="1" type="Scale" target="n2_uhfx" tween="true" startValue="0.800000011920929,1" endValue="1,1" duration="11" ease="Circ.Out"/>
+    <item time="1" type="XY" target="n1_uhfx" tween="true" startValue="105,-" endValue="15,-" duration="5"/>
+    <item time="1" type="XY" target="n2_uhfx" tween="true" startValue="99,-" endValue="-1,-" duration="11"/>
+    <item time="2" type="Alpha" target="n3_uhfx" tween="true" startValue="0" endValue="1" duration="14"/>
+    <item time="6" type="Scale" target="n1_uhfx" tween="true" startValue="20,1" endValue="1,1" duration="9" ease="Custom"/>
+    <item time="6" type="XY" target="n1_uhfx" tween="true" startValue="15,-" endValue="3,-" duration="9" ease="Custom"/>
+    <item time="7" type="Alpha" target="n0_uhfx" tween="true" startValue="0" endValue="1" duration="9" ease="Custom"/>
+    <item time="7" type="XY" target="n0_uhfx" tween="true" startValue="38,-4" endValue="18,-4" duration="9" ease="Custom"/>
+  </transition>
+</component>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="220,32" remark="app.view.base.component.BaseAttrValueComp">
+  <controller name="hideIcon" pages="0,,1," selected="0"/>
+  <controller name="attrNum" pages="0,,1," selected="0"/>
+  <controller name="gray" pages="0,,1," selected="0"/>
+  <controller name="firstValueSize" pages="0,,1," selected="0"/>
+  <controller name="isShowBg" pages="0,否,1,是" selected="0"/>
+  <controller name="iconScale" pages="0,100,7,15" selected="0"/>
+  <displayList>
+    <loader id="n6_p0x6" name="bg" xy="0,2" pivot="0,0.5" size="220,28" url="ui://kvb3znepscpegibs1" fill="scaleFree">
+      <gearDisplay controller="isShowBg" pages="1"/>
+      <relation target="" sidePair="rightext-right"/>
+    </loader>
+    <loader id="n7_pl94" name="customBg" xy="0,2" pivot="0,0.5" size="220,28" fill="scaleFree">
+      <gearDisplay controller="attrNum" pages="0"/>
+      <relation target="" sidePair="rightext-right"/>
+    </loader>
+    <loader id="n8_cold" name="customBg2" xy="3,2" pivot="0,0.5" size="382,28" fill="scaleFree">
+      <gearDisplay controller="attrNum" pages="1"/>
+      <relation target="n5_a4d3" sidePair="rightext-right"/>
+    </loader>
+    <loader id="n1_a4d3" name="icon" xy="-3,-1" pivot="0.5,0.5" size="34,34" url="ui://kvb3znepnf6u13">
+      <gearDisplay controller="hideIcon" pages="0"/>
+      <gearSize controller="iconScale" pages="7" values="34,34,0.15000000596046448,0.15000000596046448" default="34,34,1,1"/>
+    </loader>
+    <text id="n2_a4d3" name="attName" xy="30,16" pivot="0,0.5" anchor="true" size="115,29" font="Source Han Sans CN" fontSize="20" color="#323232" letterSpacing="-1" vAlign="middle" autoSize="shrink" text="">
+      <gearColor controller="gray" pages="1" values="#a6a6a6" default="#323232"/>
+      <relation target="n3_a4d3" sidePair="rightext-left"/>
+    </text>
+    <text id="n3_a4d3" name="firstAttValue" xy="148,0" pivot="1,0.5" size="70,32" font="Source Han Sans CN" fontSize="22" color="#323232" align="right" vAlign="middle" text="">
+      <gearDisplay controller="attrNum" pages="0,1"/>
+      <gearColor controller="gray" pages="1" values="#a6a6a6" default="#323232"/>
+      <gearFontSize controller="firstValueSize" pages="1" values="24" default="22"/>
+      <relation target="" sidePair="right-right"/>
+    </text>
+    <loader id="n4_a4d3" name="arrow" xy="239,8" pivot="0,0.5" size="18,16" touchable="false" url="ui://kvb3znepnf6u1">
+      <gearDisplay controller="attrNum" pages="1"/>
+      <relation target="" sidePair="left-right"/>
+    </loader>
+    <text id="n5_a4d3" name="secondAttrValue" xy="303,0" pivot="1,0.5" size="81,32" font="Source Han Sans CN" fontSize="22" color="#24bd81" align="right" text="">
+      <gearDisplay controller="attrNum" pages="1"/>
+      <relation target="" sidePair="left-right"/>
+    </text>
+  </displayList>
+</component>

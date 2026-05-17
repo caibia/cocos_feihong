@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="134,134" pivot="0.5,0.5" remark="app.view.base.button.BaseBtn;app.view.base.icon.BaseArtifactIcon" margin="0,16783363,16779264,184555014" extention="Button">
+  <controller name="hideLevel" pages="0,,1," selected="0"/>
+  <displayList>
+    <component id="n0_lu7a" name="baseIcon" src="kb6qibn8" fileName="img/icon/BaseIcon.xml" xy="0,0" size="134,134"/>
+    <image id="n2_lu7a" name="levelBg" src="nf6u4" fileName="img/bg_black_01.png" xy="9,9" size="68,20" alpha="0.80" group="n4_lu7a">
+      <relation target="n3_lu7a" sidePair="rightext-right"/>
+    </image>
+    <text id="n3_lu7a" name="levelText" xy="43,19" pivot="0.5,0.5" anchor="true" size="68,24" group="n4_lu7a" font="Source Han Sans CN" fontSize="16" color="#ffffff" align="center" vAlign="middle" autoSize="shrink" text=""/>
+    <group id="n4_lu7a" name="n4" xy="9,7" size="68,24" advanced="true">
+      <gearDisplay controller="hideLevel" pages="0"/>
+    </group>
+  </displayList>
+  <Button/>
+</component>

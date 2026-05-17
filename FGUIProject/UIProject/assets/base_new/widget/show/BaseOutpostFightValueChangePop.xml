@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,60" pivot="0.5,0.5" margin="0,16783363,16779264,184555012">
+  <controller name="state" pages="0,,1," selected="0"/>
+  <displayList>
+    <image id="n5_tsak" name="n5" src="tsakkk2uq" fileName="img/bg_zhanliup.png" xy="0,0" pivot="0.5,0.5" size="800,60"/>
+    <image id="n7_tsak" name="n7" src="tsakkk2uu" fileName="img/pic_zhanliup.png" xy="492,0"/>
+    <image id="n8_tsak" name="n8" src="tsakkk2uu" fileName="img/pic_zhanliup.png" xy="236,0" scale="-1,1"/>
+    <image id="n13_tsak" name="n13" src="tsakkk2ur" fileName="img/bg_zhanliup_guangxiao.png" xy="-27,-39" size="594,154" alpha="0.60"/>
+    <component id="n3_tsak" name="placeHolderComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="400,32" pivot="1,0.5" anchor="true" size="0,0"/>
+    <image id="n6_tsak" name="n6" src="tsakkk2us" fileName="img/icon_zhanlitisheng.png" xy="127,0">
+      <relation target="n1_tsak" sidePair="right-left"/>
+    </image>
+    <text id="n1_tsak" name="fightTxt" xy="332,30" pivot="1,0.5" anchor="true" size="142,56" font="Source Han Serif CN" fontSize="21" color="#f2f2f2" leading="1" align="center" vAlign="middle" autoSize="shrink" text="">
+      <gearText controller="state" pages="0,1" values="回响哨站战略价值|回响哨站战略价值"/>
+    </text>
+    <text id="n0_tsak" name="fightValueTxt" xy="409,30" pivot="0.5,0.5" anchor="true" size="137,46" font="Source Han Sans CN" fontSize="34" color="#ffedaf" vAlign="middle" text="1245.94K"/>
+    <image id="n2_tsak" name="n2" src="tsakkk2um" fileName="img/pic_tx_jiantou.png" xy="654,31" pivot="0.5,0.5" anchor="true" size="30,30" scale="1,-1">
+      <gearSize controller="state" pages="0,1" values="24,24,1,1|30,30,1,-1"/>
+      <relation target="n17_lpm2" sidePair="left-right"/>
+    </image>
+    <image id="n9_tsak" name="n9" src="tsakkk2ut" fileName="img/pic_tx_jiantou2.png" xy="691,0" alpha="0.50"/>
+    <image id="n10_tsak" name="n10" src="tsakkk2ut" fileName="img/pic_tx_jiantou2.png" xy="659,0" alpha="0.20"/>
+    <image id="n11_tsak" name="n11" src="tsakkk2ut" fileName="img/pic_tx_jiantou2.png" xy="137,0" scale="-1,1" alpha="0.20"/>
+    <image id="n12_tsak" name="n12" src="tsakkk2ut" fileName="img/pic_tx_jiantou2.png" xy="105,0" scale="-1,1" alpha="0.50"/>
+    <text id="n17_lpm2" name="valueTxt" xy="477,28" pivot="0,0.5" anchor="true" size="155,46" font="Source Han Serif CN" fontSize="34" color="#47dfa7" vAlign="middle" text="+12454K">
+      <relation target="n0_tsak" sidePair="left-right"/>
+    </text>
+  </displayList>
+  <transition name="in">
+    <item time="0" type="Alpha" target="n0_tsak" value="0"/>
+    <item time="0" type="Alpha" target="n10_tsak" value="0"/>
+    <item time="0" type="Alpha" target="n11_tsak" value="0"/>
+    <item time="0" type="Alpha" target="n12_tsak" value="0"/>
+    <item time="0" type="Alpha" target="n13_tsak" value="0"/>
+    <item time="0" type="Alpha" target="n17_lpm2" value="0"/>
+    <item time="0" type="Alpha" target="n1_tsak" value="0"/>
+    <item time="0" type="Alpha" target="n2_tsak" value="0"/>
+    <item time="0" type="Alpha" target="n5_tsak" tween="true" startValue="0" endValue="1" duration="4"/>
+    <item time="0" type="Alpha" target="n6_tsak" value="0"/>
+    <item time="0" type="Alpha" target="n7_tsak" value="0"/>
+    <item time="0" type="Alpha" target="n8_tsak" value="0"/>
+    <item time="0" type="Alpha" target="n9_tsak" value="0"/>
+    <item time="0" type="Scale" target="n5_tsak" tween="true" startValue="2,0.009999999776482582" endValue="1,0.10000000149011612" duration="4" ease="Quad.In"/>
+    <item time="0" type="XY" target="n2_tsak" value="-,33"/>
+    <item time="4" type="Scale" target="n5_tsak" tween="true" startValue="1,0.10000000149011612" endValue="1,1" duration="5" ease="Quint.Out"/>
+    <item time="5" type="Alpha" target="n17_lpm2" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="5" type="Alpha" target="n1_tsak" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="5" type="Alpha" target="n6_tsak" tween="true" startValue="0" endValue="1" duration="5"/>
+    <item time="5" type="XY" target="n1_tsak" tween="true" startValue="450,-" endValue="280,-" duration="6"/>
+    <item time="6" type="Alpha" target="n0_tsak" tween="true" startValue="0" endValue="1" duration="6"/>
+    <item time="6" type="Alpha" target="n10_tsak" tween="true" startValue="0" endValue="0.2" duration="14"/>
+    <item time="6" type="Alpha" target="n11_tsak" tween="true" startValue="0" endValue="0.2" duration="14"/>
+    <item time="6" type="Alpha" target="n13_tsak" label="eff" tween="true" startValue="1" endValue="0.6" duration="6"/>
+    <item time="6" type="XY" target="n0_tsak" label="roll" tween="true" startValue="495,30" endValue="395,30" duration="6"/>
+    <item time="6" type="XY" target="n13_tsak" tween="true" startValue="134,-39" endValue="-36,-39" duration="6"/>
+    <item time="6" type="Alpha" target="n7_tsak" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="6" type="Alpha" target="n8_tsak" tween="true" startValue="0" endValue="1" duration="7"/>
+    <item time="8" type="Alpha" target="n12_tsak" tween="true" startValue="0" endValue="0.5" duration="14"/>
+    <item time="8" type="Alpha" target="n9_tsak" tween="true" startValue="0" endValue="0.5" duration="14"/>
+    <item time="14" type="Alpha" target="n13_tsak" tween="true" startValue="0.6" endValue="0.5" duration="5" ease="Linear"/>
+    <item time="14" type="Alpha" target="n2_tsak" tween="true" startValue="0" endValue="1" duration="14"/>
+    <item time="14" type="XY" target="n2_tsak" tween="true" startValue="-,58" endValue="-,33" duration="14" ease="Quint.Out"/>
+    <item time="18" type="Alpha" target="n13_tsak" tween="true" startValue="0.5" endValue="0.6" duration="5" ease="Linear"/>
+    <item time="23" type="Alpha" target="n13_tsak" tween="true" startValue="0.6" endValue="0.5" duration="5"/>
+    <item time="28" type="Alpha" target="n13_tsak" tween="true" startValue="0.5" endValue="0.6" duration="4" ease="Linear"/>
+  </transition>
+  <transition name="out">
+    <item time="0" type="Alpha" target="n0_tsak" tween="true" startValue="1" endValue="1" duration="2"/>
+    <item time="0" type="Alpha" target="n10_tsak" tween="true" startValue="0.2" endValue="0" duration="2"/>
+    <item time="0" type="Alpha" target="n11_tsak" tween="true" startValue="0.2" endValue="0" duration="2"/>
+    <item time="0" type="Alpha" target="n12_tsak" tween="true" startValue="0.5" endValue="0" duration="2"/>
+    <item time="0" type="Alpha" target="n13_tsak" tween="true" startValue="0.6" endValue="0.2" duration="2"/>
+    <item time="0" type="Alpha" target="n1_tsak" tween="true" startValue="1" endValue="1" duration="2"/>
+    <item time="0" type="Alpha" target="n2_tsak" tween="true" startValue="1" endValue="1" duration="2"/>
+    <item time="0" type="Alpha" target="n3_tsak" tween="true" startValue="1" endValue="1" duration="2"/>
+    <item time="0" type="Alpha" target="n5_tsak" tween="true" startValue="1" endValue="1" duration="2"/>
+    <item time="0" type="Alpha" target="n6_tsak" tween="true" startValue="1" endValue="0" duration="2"/>
+    <item time="0" type="Alpha" target="n7_tsak" tween="true" startValue="1" endValue="0" duration="2"/>
+    <item time="0" type="Alpha" target="n8_tsak" tween="true" startValue="1" endValue="0" duration="2"/>
+    <item time="0" type="Alpha" target="n9_tsak" tween="true" startValue="0.5" endValue="0" duration="2"/>
+    <item time="0" type="Scale" target="n5_tsak" tween="true" startValue="1,1" endValue="1,0.46000000834465027" duration="2"/>
+    <item time="2" type="Alpha" target="n0_tsak" tween="true" startValue="1" endValue="0" duration="2"/>
+    <item time="2" type="Alpha" target="n13_tsak" tween="true" startValue="0.2" endValue="0" duration="2"/>
+    <item time="2" type="Alpha" target="n17_lpm2" tween="true" startValue="1" endValue="0" duration="2"/>
+    <item time="2" type="Alpha" target="n1_tsak" tween="true" startValue="1" endValue="0" duration="2"/>
+    <item time="2" type="Alpha" target="n2_tsak" tween="true" startValue="1" endValue="0" duration="1"/>
+    <item time="2" type="Scale" target="n5_tsak" tween="true" startValue="1,0.46000000834465027" endValue="1,0.009999999776482582" duration="3" ease="Quint.Out"/>
+    <item time="4" type="Alpha" target="n5_tsak" tween="true" startValue="1" endValue="0" duration="2"/>
+  </transition>
+</component>

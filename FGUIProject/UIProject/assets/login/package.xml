@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="xigti88c">
+  <resources>
+    <component id="8prx3l" name="LoginServerStateComp.xml" path="/widget/component/"/>
+    <component id="9p794u" name="loginGroupCell.xml" path="/widget/component/"/>
+    <component id="ewjw44" name="PvSkipBtn.xml" path="/widget/component/"/>
+    <component id="fvx32u" name="LoginBtnServer.xml" path="/widget/component/"/>
+    <component id="m4fo54" name="OneStoreMaskComp.xml" path="/view/"/>
+    <component id="mgu81l" name="LoginItemServerUser.xml" path="/widget/component/"/>
+    <component id="mgu81m" name="LoginItemServerUserIcon.xml" path="/widget/component/"/>
+    <component id="qvil3u" name="noticeBtn.xml" path="/widget/component/"/>
+    <component id="8prx3e" name="LoginServerMyCell.xml" path="/widget/component/" exported="true"/>
+    <component id="8prx3h" name="LoginServerCell.xml" path="/widget/component/" exported="true"/>
+    <component id="8prx3i" name="LoginServerListPop.xml" path="/view/" exported="true"/>
+    <component id="8prx3m" name="LoginMyMainICell.xml" path="/widget/component/" exported="true"/>
+    <component id="8prx3o" name="LoginAllMainICell.xml" path="/widget/component/" exported="true"/>
+    <component id="8prx3p" name="LoginSubTabCell.xml" path="/widget/component/" exported="true"/>
+    <component id="9yxb1b" name="LoginAccountPop.xml" path="/view/" exported="true"/>
+    <component id="9yxb1i" name="LoginAntiIndulgeComp.xml" path="/widget/component/" exported="true"/>
+    <component id="dxtn4p" name="LoginStageLevelPop.xml" path="/view/" exported="true"/>
+    <component id="ewjw42" name="PvPlayLayer.xml" path="/view/" exported="true"/>
+    <component id="eypq4v" name="LoginVoicePop.xml" path="/view/" exported="true"/>
+    <component id="fvx32h" name="LoginLayer.xml" path="/view/" exported="true"/>
+    <component id="rvig2y" name="LoginLanguageItem.xml" path="/widget/component/" exported="true"/>
+    <component id="rvig2z" name="LoginLanguageProBar.xml" path="/widget/component/" exported="true"/>
+    <component id="rvig4d" name="LoginLanguagePop.xml" path="/view/" exported="true"/>
+    <component id="tnoo4x" name="LoginAntiIndulgePreComp.xml" path="/widget/component/" exported="true"/>
+    <image id="8prx3f" name="pic_dl_fwqfengexian.png" path="/img/" scale="9grid" scale9grid="192,0,81,0"/>
+    <image id="8prx3g" name="bg_dl_xuanzenidefwqdi.png" path="/img/"/>
+    <image id="8prx3k" name="bg_dl_wodefwqdi.png" path="/img/"/>
+    <image id="8prx3n" name="icon_dl_xuanzejiantou.png" path="/img/"/>
+    <image id="dxtn4o" name="pic_16.png" path="/img/"/>
+    <image id="e9ys52" name="pic_kr_19.png" path="/img/"/>
+    <image id="ewjw43" name="icon_tiaoguo.png" path="/img/"/>
+    <image id="ewjw45" name="btn_gongneng.png" path="/img/"/>
+    <image id="fvx32k" name="btn_dl_gg.png" path="/img/"/>
+    <image id="fvx32m" name="icon_dl_fenqudianjizhuangtai_1.png" path="/img/"/>
+    <image id="fvx32n" name="icon_dl_fenqudianjizhuangtai_2.png" path="/img/"/>
+    <image id="fvx32o" name="icon_dl_fuwuqizhuangtai_1.png" path="/img/"/>
+    <image id="fvx32p" name="icon_dl_fuwuqizhuangtai_2.png" path="/img/"/>
+    <image id="fvx32q" name="icon_dl_fuwuqizhuangtai_3.png" path="/img/"/>
+    <image id="fvx32r" name="icon_dl_fuwuqizhuangtai_4.png" path="/img/"/>
+    <image id="fvx32t" name="bg_dl_xuanzedi.png" path="/img/" scale="9grid" scale9grid="98,15,1,30"/>
+    <image id="fvx32v" name="bg_dl_lvdi.png" path="/img/" scale="9grid" scale9grid="5,5,10,10"/>
+    <image id="jdap4z" name="pic_kr_12.png" path="/img/"/>
+    <image id="m4fo55" name="onestore.png" path="/img/"/>
+    <image id="oiks4w" name="icon_dl_yuyin.png" path="/img/"/>
+    <image id="oqti57" name="icon_dl_jiechu.png" path="/img/"/>
+    <image id="rvig4c" name="icon_dl_yuyan.png" path="/img/"/>
+    <image id="rvig4g" name="progress_sz_2.png" path="/img/"/>
+    <image id="rvig4h" name="btn_sz_close.png" path="/img/"/>
+    <image id="rvig4i" name="btn_sz_gengxin.png" path="/img/"/>
+    <image id="rvig4j" name="btn_sz_jixu.png" path="/img/"/>
+    <image id="rvig4k" name="btn_sz_xiazai.png" path="/img/"/>
+    <image id="rvig4l" name="btn_sz_xuanzekuang_1.png" path="/img/"/>
+    <image id="rvig4m" name="btn_sz_xuanzekuang_2.png" path="/img/"/>
+    <image id="rvig4n" name="btn_sz_zanting.png" path="/img/"/>
+    <image id="vnbf4q" name="pic_criware.png" path="/img/"/>
+    <image id="vnbf4s" name="bg_heisedi.png" path="/img/" scale="9grid" scale9grid="40,111,80,3"/>
+    <image id="w0e53y" name="pic_dl_line.png" path="/img/"/>
+    <image id="w0e53z" name="icon_dl_donghua.png" path="/img/"/>
+    <image id="w0e540" name="icon_dl_gonggao.png" path="/img/"/>
+    <image id="w0e541" name="icon_dl_zhanghao.png" path="/img/"/>
+    <image id="s81t4b" name="icon_dl_qingli.png" path="/img/" exported="true"/>
+  </resources>
+  <publish name="login">
+    <atlas name="Default" index="0"/>
+  </publish>
+</packageDescription>

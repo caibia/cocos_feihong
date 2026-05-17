@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="376,572" remark="app.view.module.tip.view.QualityTipBg">
+  <displayList>
+    <image id="n20_nwyx" name="n20" src="p1v6ibp1" fileName="img/bg_tips_4.png" xy="0,0" size="376,572">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n21_nwyx" name="qualityLoader" xy="6,6" size="13,130"/>
+  </displayList>
+</component>

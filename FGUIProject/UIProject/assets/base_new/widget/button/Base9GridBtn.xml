@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="66,34" pivot="0.5,0.5" remark="app.view.base.button.BaseBtn" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <controller name="hideText" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n0_rm39" name="icon" xy="0,0" size="66,34" fill="scaleFree">
+      <relation target="" sidePair="width-width,height-height"/>
+    </loader>
+    <loader id="n4_f83t" name="midIcon" xy="8,2" pivot="0.5,0.5" size="50,30" fill="scaleFree">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <text id="n1_rm39" name="title" xy="9,1" size="48,32" font="Source Han Sans CN" fontSize="22" color="#f2f2f2" leading="0" align="center" vAlign="middle" autoSize="shrink" singleLine="true" text="">
+      <gearDisplay controller="hideText" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+  </displayList>
+  <Button/>
+</component>

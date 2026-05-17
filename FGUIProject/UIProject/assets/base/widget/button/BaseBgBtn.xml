@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="56,61" pivot="0.5,0.5" remark="app.view.base.button.BaseBtn" margin="0,33560579,16779264,184555008" extention="Button">
+  <controller name="button" pages="0,up,1,down" selected="0"/>
+  <controller name="bgType" pages="0,布阵,1,结算,2,styleTop,3,styleTop,4,,5,topbar,6,topbar" selected="0"/>
+  <displayList>
+    <loader id="n1_urvd" name="bgLoader" xy="0,1" size="56,61" url="ui://x6gj81kpurvd77" fill="scaleFree">
+      <gearSize controller="bgType" pages="0,1,2,3,4,5,6" values="56,61,1,1|94,105,1,1|76,76,1,1|52,56,1,1|46,46,1,1|152,43,1,1|70,43,1,1"/>
+      <gearIcon controller="bgType" pages="0,1,2,3,4,5" values="ui://x6gj81kpurvd77|ui://x6gj81kpurvd78|ui://x6gj81kphcbyse3|ui://x6gj81kphcbyse4|ui://x6gj81kpurvd7b|ui://x6gj81kpurvd7g" default="ui://x6gj81kpurvd7g"/>
+    </loader>
+    <loader id="n0_urvd" name="icon" xy="3,14" pivot="0.5,0.5" size="50,30">
+      <gearXY controller="bgType" pages="0,1,2,3,4,5,6" values="3,14|22,38|13,24|1,13|-2,8|11,5|10,6"/>
+    </loader>
+    <component id="n3_urvd" name="funcUnlockComp" src="jl0c1q" fileName="widget/component/BaseFuncUnlockComp.xml" xy="35,21"/>
+    <text id="n4_x57x" name="title" xy="-25,54" size="106,52" font="Source Han Sans CN" fontSize="24" color="#ffffff" align="center" vAlign="middle" autoSize="none" singleLine="true" text="按 钮">
+      <gearDisplay controller="bgType" pages="1,5"/>
+      <gearXY controller="bgType" pages="0,1,2,3,4,5,6" values="-25,54|-6,88|-15,57|-27,31|-30,37|40,-5|-18,32"/>
+      <gearText controller="bgType" pages="5" values="返 回" default="按 钮"/>
+    </text>
+  </displayList>
+  <Button/>
+  <relation target="n1_urvd" sidePair="width-width,height-height"/>
+</component>

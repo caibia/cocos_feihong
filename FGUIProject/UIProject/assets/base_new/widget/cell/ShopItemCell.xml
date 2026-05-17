@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="214,264" remark="app.view.base.cell.ShopItemCell">
+  <controller name="type" pages="0,,1,,2,,3,,4," selected="0"/>
+  <controller name="corner" pages="2,,0,,3,,1," selected="0"/>
+  <controller name="isUnBuy" pages="0,,1," selected="0"/>
+  <controller name="bgState" pages="0,,1," selected="0"/>
+  <controller name="isShopUnLock" pages="0,,1," selected="0"/>
+  <controller name="isTimeLimit" pages="0,,1," selected="0"/>
+  <controller name="isFrag" pages="0,,1," selected="0"/>
+  <controller name="LUState" pages="0,,2,,1," selected="0"/>
+  <controller name="showWedding" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n0_pfm0" name="itemBg" xy="0,0" size="214,264" url="ui://kvb3znepqpxg1o">
+      <gearIcon controller="bgState" pages="1" values="ui://kvb3znepi1l0kk2n2" default="ui://kvb3znepqpxg1o"/>
+    </loader>
+    <loader id="n27_xtvm" name="qualityBg" xy="107,88" pivot="0.5,0.5" anchor="true" size="124,28" alpha="0.50" fill="scaleFree"/>
+    <component id="n36_fgi2" name="effectBg" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="107,88" size="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <loader id="n20_ptka" name="item" xy="107,88" pivot="0.5,0.5" anchor="true" size="50,30" scale="0.8,0.8" align="center" vAlign="middle"/>
+    <component id="n38_ork1" name="weddingKnight" src="f68q1emiggp" fileName="widget/button/wedding/BaseWeddingKnightIcon.xml" xy="134,110" pivot="0.5,0.5" anchor="true" scale="0.5,0.5">
+      <gearDisplay controller="showWedding" pages="1"/>
+    </component>
+    <component id="n37_fgi2" name="effectIcon" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="107,88" size="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <image id="n32_pdi4" name="n32" src="g76cseb" pkg="x6gj81kp" xy="7,7">
+      <gearDisplay controller="isFrag" pages="1"/>
+    </image>
+    <image id="n34_i2gg" name="n34" src="i2ggwkk338" fileName="img/bg_sd_weishoucang.png" xy="147,11" size="59,22">
+      <gearDisplay controller="LUState" pages="1"/>
+      <relation target="n35_i2gg" sidePair="leftext-left"/>
+    </image>
+    <text id="n35_i2gg" name="n35" xy="200,22" pivot="1,0.5" anchor="true" size="46,22" font="Source Han Sans CN" fontSize="14" color="#323232" leading="0" text="已配置">
+      <gearDisplay controller="LUState" pages="1"/>
+    </text>
+    <image id="n23_ihwb" name="comfortBgImg" src="hps0ibnr" fileName="img/bg_black_02.png" xy="23,129" size="64,22" group="n26_ihwb"/>
+    <loader id="n24_ihwb" name="comfortIconLoader" xy="22,128" pivot="0.5,0.5" size="24,24" scale="0.54,0.54" group="n26_ihwb" align="center" vAlign="middle"/>
+    <text id="n25_ihwb" name="comfortTxt" xy="68,140" pivot="0.5,0.5" anchor="true" size="34,29" group="n26_ihwb" font="Source Han Sans CN" fontSize="20" color="#47dfa7" align="center" vAlign="middle" text=""/>
+    <group id="n26_ihwb" name="comfortGroup" xy="22,125" size="65,29" advanced="true"/>
+    <image id="n9_vi11" name="tipBg" src="hps0ibnr" fileName="img/bg_black_02.png" xy="107,192" pivot="0.5,0" anchor="true" size="190,22" alpha="0.80"/>
+    <richtext id="n4_rvkg" name="tips" xy="107,201" pivot="0.5,0.5" anchor="true" size="190,26" font="Source Han Sans CN" fontSize="16" color="#f2f2f2" leading="0" letterSpacing="-1" align="center" vAlign="middle" autoSize="shrink" ubb="true" text=""/>
+    <image id="n8_vi11" name="n8" src="hfacibmi" fileName="img/pic_line_04.png" xy="106,226" size="2,24" alpha="0.50">
+      <gearDisplay controller="type" pages="3"/>
+    </image>
+    <loader id="n10_fcmj" name="n10" xy="11,26" pivot="0,0.5" anchor="true" size="58,22" touchable="false" fill="scaleFree">
+      <gearDisplay controller="corner" pages="0,3,1"/>
+      <gearXY controller="corner" pages="2,0,3,1" values="11,26|11,26|11,26|7,26"/>
+      <gearIcon controller="corner" pages="2,0,3,1" values="null|ui://kw1l1k0dqpxg36|ui://kw1l1k0dqpxg35|ui://kvb3znepf8d8gibvw"/>
+      <relation target="n12_fcmj" sidePair="width-width"/>
+    </loader>
+    <image id="n18_qpxg" name="n18" src="hps0ibnr" fileName="img/bg_black_02.png" xy="131,129" size="60,22"/>
+    <text id="n17_qpxg" name="num" xy="161,139" pivot="0.5,0.5" anchor="true" size="24,29" font="Source Han Sans CN" fontSize="20" color="#f2f2f2" text="10"/>
+    <text id="n3_rvkg" name="nameTxt" xy="108,194" pivot="0.5,1" anchor="true" size="200,47" font="Source Han Serif CN" fontSize="20" color="#323232" leading="-5" letterSpacing="-1" align="center" vAlign="middle" autoSize="shrink" text=""/>
+    <richtext id="n12_fcmj" name="cornerTxt" xy="15,24" pivot="0,0.5" anchor="true" size="44,26" font="Novecento wide" fontSize="18" color="#ffffff" align="center" vAlign="middle" ubb="true" singleLine="true" text="">
+      <gearDisplay controller="corner" pages="1"/>
+    </richtext>
+    <image id="n29_e9fi" name="n29" src="e9fikk2vb" fileName="img/bg_sd_shengyushijiandi_2.png" xy="99,11" size="108,22" group="n31_e9fi">
+      <relation target="n30_e9fi" sidePair="leftext-left"/>
+    </image>
+    <text id="n30_e9fi" name="limitTimeTxt" xy="207,22" pivot="1,0.5" anchor="true" size="108,24" group="n31_e9fi" fontSize="16" color="#f2f2f2" vAlign="middle" text=""/>
+    <group id="n31_e9fi" name="n31" xy="99,10" size="108,24" advanced="true">
+      <gearDisplay controller="isTimeLimit" pages="1"/>
+    </group>
+    <component id="n6_vi11" name="oneCostComp" src="vi11b" fileName="widget/component/ShopCostComp.xml" xy="91,238" pivot="0.5,0.5" anchor="true" size="78,37" touchable="false" group="n19_ga1h">
+      <gearDisplay controller="type" pages="0,1,2,3"/>
+      <gearXY controller="type" pages="0,1,2,3" values="91,238|36,238|87,238|38,238" default="91,238"/>
+      <gearColor controller="bgState" pages="1" values="#323232" default="#ffffff"/>
+      <Label titleColor="#ffffff"/>
+    </component>
+    <component id="n7_vi11" name="twoCostComp" src="vi11b" fileName="widget/component/ShopCostComp.xml" xy="148,238" pivot="0.5,0.5" anchor="true" size="78,37" touchable="false" group="n19_ga1h">
+      <gearDisplay controller="type" pages="1,3"/>
+      <gearXY controller="type" pages="0,1,2,3" values="148,238|137,238|148,238|145,238" default="148,238"/>
+      <gearColor controller="bgState" pages="1" values="#323232" default="#ffffff"/>
+      <Label titleColor="#ffffff"/>
+    </component>
+    <group id="n19_ga1h" name="n19" xy="52,219" size="135,37" advanced="true">
+      <gearDisplay controller="isUnBuy" pages="0"/>
+    </group>
+    <text id="n28_e9fi" name="freeTxt" xy="107,237" pivot="0.5,0.5" anchor="true" size="200,46" fontSize="20" color="#f2f2f2" leading="-4" letterSpacing="-1" align="center" vAlign="middle" autoSize="shrink" text="成就兑换"/>
+    <image id="n14_fxqy" name="n14" src="nf6u4" fileName="img/bg_black_01.png" xy="7,7" size="200,250" alpha="0.70">
+      <gearDisplay controller="isUnBuy" pages="1"/>
+      <gearDisplay2 controller="isShopUnLock" pages="0" condition="1"/>
+    </image>
+    <text id="n16_fxqy" name="limitTxt" xy="107,238" pivot="0.5,0.5" anchor="true" size="200,48" fontSize="20" color="#ffffff" leading="-4" letterSpacing="-1" align="center" vAlign="middle" autoSize="shrink" text="">
+      <gearDisplay controller="isUnBuy" pages="1"/>
+      <gearDisplay2 controller="isShopUnLock" pages="1" condition="0"/>
+    </text>
+    <graph id="n21_llwv" name="touchBg" xy="8,48" size="200,140" alpha="0" visible="false" type="rect"/>
+    <graph id="n46_qzho" name="buyBg" xy="7,195" size="200,62" alpha="0" visible="false" type="rect"/>
+    <image id="n43_qzho" name="n43" src="qzho1v5dsv3" fileName="img/shopCar/pic_sd_btjb.png" xy="7,15" group="n45_qzho"/>
+    <text id="n44_qzho" name="attentNameTxt" xy="7,11" size="80,30" group="n45_qzho" font="Source Han Serif CN" fontSize="20" color="#f2f2f2" align="center" vAlign="middle" autoSize="shrink" text="魔城"/>
+    <group id="n45_qzho" name="attentGroup" xy="7,11" size="80,30" advanced="true"/>
+    <component id="n42_qzho" name="attentCheckBtn" src="qzho1v5dsv4" fileName="widget/cell/ShopCheckBtn.xml" xy="185,36"/>
+    <component id="n33_bpff" name="redPointComp" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="203,11"/>
+  </displayList>
+</component>

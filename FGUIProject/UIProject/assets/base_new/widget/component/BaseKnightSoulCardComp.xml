@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="368,528" remark="app.view.base.component.BaseKnightSoulCardComp">
+  <controller name="isOwn" pages="0,,1," selected="0"/>
+  <controller name="type" pages="0,,1," selected="0"/>
+  <controller name="unShowName" pages="0,,1," selected="0"/>
+  <displayList>
+    <loader id="n3_lw08" name="qualityBg" xy="184,264" pivot="0.5,0.5" anchor="true" size="368,528"/>
+    <component id="n1_amy9" name="knightCutComp" src="ed0j1emigfi" fileName="widget/component/BaseKnightSoulCutComp.xml" xy="1,-1" pivot="0.5,0.5"/>
+    <loader id="n6_lw08" name="qualityFg" xy="0,0" size="368,528"/>
+    <component id="n9_qa0k" name="eff" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="184,264" size="0,0"/>
+    <loader id="n2_lw08" name="group" xy="268,21" size="86,86"/>
+    <text id="n5_lw08" name="nameTxt" xy="23,454" pivot="1,0.5" size="326,39" font="Source Han Serif CN" fontSize="28" color="#f2f2f2" align="right" autoSize="shrink" text="">
+      <gearDisplay controller="unShowName" pages="0"/>
+    </text>
+    <image id="n7_nm2y" name="n7" src="nf6u4" fileName="img/bg_black_01.png" xy="184,264" pivot="0.5,0.5" anchor="true" size="358,518" alpha="0.50">
+      <gearDisplay controller="isOwn" pages="0,1"/>
+      <gearLook controller="isOwn" pages="0,1" values="0.50,0,0,0|0.00,0,0,0"/>
+    </image>
+    <component id="n8_qa0k" name="act" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="184,264" size="0,0"/>
+    <component id="n10_7i6m" name="act2" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="184,264" size="0,0"/>
+  </displayList>
+  <transition name="activate" options="4">
+    <item time="0" type="Alpha" target="n7_nm2y" value="0.5"/>
+    <item time="0" type="Alpha" target="n8_qa0k" tween="true" startValue="1" endValue="0" duration="14"/>
+    <item time="16" type="Alpha" target="n7_nm2y" label="cut" tween="true" startValue="0.5" endValue="0" duration="16" ease="Linear"/>
+  </transition>
+  <transition name="enter" options="4">
+    <item time="0" type="Alpha" target="n9_qa0k" tween="true" startValue="0" endValue="1" duration="48"/>
+  </transition>
+</component>

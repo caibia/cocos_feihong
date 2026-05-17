@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="110,110" remark="app.view.base.button.BaseBtn;app.view.base.component.BaseMulTeamFormationSuccubaComp" extention="Button">
+  <controller name="isEmpty" pages="0,,1," selected="0"/>
+  <controller name="isOther" pages="0,,1," selected="0"/>
+  <displayList>
+    <image id="n69_jr2h" name="n69" src="jjdh1v5dsrv" fileName="widget/component/images/pic_mnzj_zd_tx_1.png" xy="55,55" pivot="0.5,0.5" anchor="true" scale="0.7,0.7"/>
+    <image id="n62_v90e" name="addImg" src="jjdh1v5dsrw" fileName="widget/component/images/pic_mnzj_ai_touxiangjia.png" xy="55,55" pivot="0.5,0.5" anchor="true" scale="0.7,0.7">
+      <gearDisplay controller="isEmpty" pages="1"/>
+      <gearDisplay2 controller="isOther" pages="0" condition="0"/>
+    </image>
+    <component id="n66_v90e" name="succubaIcon" src="jjdh1v5dsrx" fileName="widget/component/BaseMulTeamFormationSuccubaIcon.xml" xy="56,55" pivot="0.5,0.5" anchor="true" scale="0.7,0.7" touchable="false">
+      <gearDisplay controller="isEmpty" pages="0"/>
+    </component>
+    <component id="n64_v90e" name="starComp" src="v6znibjq" fileName="widget/component/BaseStarComp.xml" xy="20,82" scale="0.4,0.6" touchable="false">
+      <gearDisplay controller="isEmpty" pages="0"/>
+    </component>
+    <component id="n68_nfhr" name="redPointComp" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="90,16"/>
+  </displayList>
+  <Button/>
+</component>

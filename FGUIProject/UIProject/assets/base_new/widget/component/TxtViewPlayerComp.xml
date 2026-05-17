@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="240,40" pivot="0.5,0.5" margin="0,16783363,16779264,184555009" opaque="false">
+  <controller name="showBtn" pages="0,,1," selected="0"/>
+  <displayList>
+    <image id="n5_abjw" name="n5" src="f7to1emigep" fileName="img/bg_gg_tishi.png" xy="0,0" pivot="0.5,0.5" size="240,40" alpha="0.70"/>
+    <text id="n6_f7to" name="title" xy="120,19" pivot="0.5,0.5" anchor="true" size="144,29" font="Source Han Sans CN" fontSize="20" color="#f2f2f2" align="center" vAlign="middle" text="有玩家查看了你"/>
+  </displayList>
+  <transition name="in" options="4">
+    <item time="0" type="Alpha" target="n5_abjw" tween="true" startValue="0" endValue="0.7" duration="6"/>
+    <item time="0" type="Alpha" target="n6_f7to" value="0"/>
+    <item time="0" type="Scale" target="n5_abjw" tween="true" startValue="0.10000000149011612,1" endValue="1,1" duration="6"/>
+    <item time="2" type="Alpha" target="n6_f7to" tween="true" startValue="0" endValue="1" duration="6"/>
+  </transition>
+  <transition name="out" options="4">
+    <item time="0" type="Alpha" target="n5_abjw" tween="true" startValue="0.7" endValue="0" duration="5"/>
+    <item time="0" type="Alpha" target="n6_f7to" tween="true" startValue="1" endValue="0" duration="3"/>
+    <item time="0" type="Scale" target="n5_abjw" tween="true" startValue="1,1" endValue="1,0.009999999776482582" duration="5"/>
+  </transition>
+</component>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="90,90" pivot="0.5,0.5" extention="Button">
+  <displayList>
+    <loader id="n24_w63w" name="bgLoader" xy="6,6" pivot="0.5,0.5" size="78,78" url="ui://kvb3zneptaaxkk2xs" align="center" vAlign="middle" fill="scaleFree"/>
+    <loader id="n19_6eco" name="icon" xy="45,45" pivot="0.5,0.5" anchor="true" size="86,86"/>
+    <text id="n18_pk1b" name="title" xy="45,94" pivot="0.5,0.5" anchor="true" size="88,42" font="Source Han Serif CN" fontSize="16" color="#f2f2f2" leading="-4" letterSpacing="-1" align="center" autoSize="shrink" strokeColor="#d7234f" text="自选建构"/>
+    <text id="n22_qyi7" name="timeTxt" xy="45,116" pivot="0.5,0.5" anchor="true" size="90,26" visible="false" font="Source Han Serif CN" fontSize="14" color="#f2f2f2" leading="-3" letterSpacing="-1" align="center" vAlign="middle" autoSize="shrink" strokeColor="#d7234f" text="00:00:00"/>
+    <component id="n20_6eco" name="redPointComp" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="74,22">
+      <relation target="" sidePair="left-right,bottom-top"/>
+    </component>
+    <component id="n25_qxtl" name="redPointCompNew" src="n7cvkk2qg" fileName="widget/redPoint/BaseRedPointComp.xml" xy="74,28">
+      <relation target="" sidePair="left-right,bottom-top"/>
+    </component>
+    <component id="n23_qyi7" name="effectComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="48,40" size="10,10"/>
+  </displayList>
+  <Button/>
+  <transition name="enterPushGift">
+    <item time="0" type="Alpha" target="n18_pk1b" value="0"/>
+    <item time="0" type="Alpha" target="n22_qyi7" value="0"/>
+    <item time="0" type="Alpha" target="n24_w63w" value="0"/>
+    <item time="0" type="Scale" target="n24_w63w" value="0.800000011920929,0.800000011920929"/>
+    <item time="10" type="Alpha" target="n18_pk1b" tween="true" startValue="0" endValue="1" duration="10"/>
+    <item time="10" type="Alpha" target="n22_qyi7" tween="true" startValue="0" endValue="1" duration="10"/>
+    <item time="12" type="Alpha" target="n24_w63w" tween="true" startValue="0" endValue="1" duration="10"/>
+    <item time="12" type="Scale" target="n24_w63w" tween="true" startValue="0.800000011920929,0.800000011920929" endValue="1,1" duration="10"/>
+  </transition>
+</component>
