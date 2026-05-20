@@ -5,7 +5,6 @@
     <component id="9p794u" name="loginGroupCell.xml" path="/widget/component/"/>
     <component id="ewjw44" name="PvSkipBtn.xml" path="/widget/component/"/>
     <component id="fvx32u" name="LoginBtnServer.xml" path="/widget/component/"/>
-    <component id="m4fo54" name="OneStoreMaskComp.xml" path="/view/"/>
     <component id="mgu81l" name="LoginItemServerUser.xml" path="/widget/component/"/>
     <component id="mgu81m" name="LoginItemServerUserIcon.xml" path="/widget/component/"/>
     <component id="qvil3u" name="noticeBtn.xml" path="/widget/component/"/>
@@ -20,7 +19,7 @@
     <component id="dxtn4p" name="LoginStageLevelPop.xml" path="/view/" exported="true"/>
     <component id="ewjw42" name="PvPlayLayer.xml" path="/view/" exported="true"/>
     <component id="eypq4v" name="LoginVoicePop.xml" path="/view/" exported="true"/>
-    <component id="fvx32h" name="LoginLayer.xml" path="/view/" exported="true"/>
+    <component id="fvx32h" name="LoginView.xml" path="/view/" exported="true"/>
     <component id="rvig2y" name="LoginLanguageItem.xml" path="/widget/component/" exported="true"/>
     <component id="rvig2z" name="LoginLanguageProBar.xml" path="/widget/component/" exported="true"/>
     <component id="rvig4d" name="LoginLanguagePop.xml" path="/view/" exported="true"/>

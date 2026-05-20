@@ -5,7 +5,7 @@
   "__editorExtras__": {},
   "_native": "",
   "_effectAsset": {
-    "__uuid__": "df8a9b34-00f8-4928-93e9-91e8adf01854",
+    "__uuid__": "b8f7cf1e-d8fe-49e9-abd2-fe8d45f62b86",
     "__expectedType__": "cc.EffectAsset"
   },
   "_techIdx": 0,
@@ -24,8 +24,6 @@
     }
   ],
   "_props": [
-    {
-      "blur": 0.15
-    }
+    {}
   ]
 }

@@ -30,7 +30,9 @@ export class GVideoPlayer extends GObject {
         
         this._videoPlayer = this._node.addComponent(VideoPlayer);
         // this._videoPlayer.fullScreenOnAwake = true;
-        // this._videoPlayer.stayOnBottom = true;
+        // web 平台 video 是 DOM 元素，默认渲染在 canvas 之上会盖住 UI。
+        // 打开 stayOnBottom 让 video 沉到 canvas 之下，UI 才能浮在视频之上。
+        this._videoPlayer.stayOnBottom = true;
         this._videoPlayer.loop = true;
         this._videoPlayer.playOnAwake = true;
     }

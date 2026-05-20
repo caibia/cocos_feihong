@@ -5,14 +5,12 @@
   "__editorExtras__": {},
   "_native": "",
   "_effectAsset": {
-    "__uuid__": "3507be36-1379-4bc7-8c8e-0ff0fb38447d",
+    "__uuid__": "a258933f-b131-42f0-b13e-746293a64db3",
     "__expectedType__": "cc.EffectAsset"
   },
   "_techIdx": 0,
   "_defines": [
-    {
-      "USE_TEXTURE": true
-    }
+    {}
   ],
   "_states": [
     {

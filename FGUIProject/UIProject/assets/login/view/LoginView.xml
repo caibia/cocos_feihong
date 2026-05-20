@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1334,750">
+  <displayList>
+    <component id="n115_yunh" name="effComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" pkg="kvb3znep" xy="667,1101" size="0,0">
+      <relation target="" sidePair="center-center"/>
+    </component>
+    <component id="n97_g1hn" name="bgComp" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" pkg="kvb3znep" xy="667,375" size="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+    <image id="n130_i3vj" name="n130" src="x3ocgibv1" fileName="img/bg_zm_mask_2.png" pkg="kvb3znep" xy="3,-2" pivot="0.5,0.5" size="1332,751" visible="false" alpha="0.4">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <loader id="n79_fvx3" name="logonImg" xy="279,175" pivot="0.5,0.5" size="804,246">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader>
+    <graph id="n107_sie6" name="globalLoginComp" xy="0,0" size="1334,750" alpha="0" type="rect">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <component id="n81_fvx3" name="serverBtn" src="fvx32u" fileName="widget/component/LoginBtnServer.xml" xy="438,578" group="n53_p6cb"/>
+    <group id="n53_p6cb" name="group0" xy="438,578" size="458,33" advanced="true">
+      <relation target="" sidePair="center-center,top-bottom"/>
+    </group>
+    <image id="n96_w0e5" name="n96" src="vnbf4s" fileName="img/bg_heisedi.png" xy="0,642" size="1334,108" alpha="0.5">
+      <relation target="" sidePair="width-width,top-bottom"/>
+    </image>
+    <text id="n91_w0e5" name="n91" xy="667,525" pivot="0.5,0.5" anchor="true" size="182,39" group="n94_w0e5" fontSize="28" color="#f2f2f2" letterSpacing="2" text="点击进入游戏"/>
+    <image id="n92_w0e5" name="n92" src="w0e53y" fileName="img/pic_dl_line.png" xy="322,525" size="230,2" group="n94_w0e5">
+      <relation target="n91_w0e5" sidePair="right-left"/>
+    </image>
+    <image id="n93_w0e5" name="n93" src="w0e53y" fileName="img/pic_dl_line.png" xy="783,525" size="230,2" group="n94_w0e5" flip="hz">
+      <relation target="n91_w0e5" sidePair="left-right"/>
+    </image>
+    <group id="n94_w0e5" name="n94" xy="322,505" size="691,39" advanced="true">
+      <relation target="" sidePair="center-center,top-bottom"/>
+    </group>
+    <component id="n116_rvig" name="languageBtn" src="qvil3u" fileName="widget/component/noticeBtn.xml" xy="1255,119" group="n77_fvx3">
+      <Button title="语言" icon="ui://xigti88crvig4c"/>
+    </component>
+    <component id="n90_qvil" name="noticeBtn" src="qvil3u" fileName="widget/component/noticeBtn.xml" xy="1255,199" group="n77_fvx3">
+      <Button title="公告" icon="ui://xigti88cw0e540"/>
+    </component>
+    <component id="n89_qvil" name="movieBtn" src="qvil3u" fileName="widget/component/noticeBtn.xml" xy="1255,279" group="n77_fvx3">
+      <Button title="动画" icon="ui://xigti88cw0e53z"/>
+    </component>
+    <component id="n132_eypq" name="voiceBtn" src="qvil3u" fileName="widget/component/noticeBtn.xml" xy="1255,359" group="n77_fvx3">
+      <Button title="语音" icon="ui://xigti88coiks4w"/>
+    </component>
+    <group id="n77_fvx3" name="n77" xy="1255,119" size="49,300" advanced="true" layout="2" lineGap="20" excludeInvisibles="true">
+      <relation target="" sidePair="right-right,top-top"/>
+    </group>
+  </displayList>
+  <transition name="loop">
+    <item time="0" type="Alpha" target="n94_w0e5" tween="true" startValue="1" endValue="0.3" duration="24" ease="Linear" repeat="-1" yoyo="true"/>
+  </transition>
+  <transition name="enter" autoPlay="true">
+    <item time="0" type="Alpha" target="n53_p6cb" value="0"/>
+    <item time="0" type="Alpha" target="n77_fvx3" value="0"/>
+    <item time="0" type="Alpha" target="n79_fvx3" value="0"/>
+    <item time="0" type="Alpha" target="n94_w0e5" value="0"/>
+    <item time="0" type="Alpha" target="n96_w0e5" value="0"/>
+    <item time="0" type="Scale" target="n79_fvx3" value="1,1"/>
+    <item time="0" type="Scale" target="n97_g1hn" tween="true" startValue="3,3" endValue="1,1" duration="40" ease="Quint.Out"/>
+    <item time="5" type="Alpha" target="n79_fvx3" tween="true" startValue="0" endValue="1" duration="35" ease="Quint.Out"/>
+    <item time="5" type="Scale" target="n79_fvx3" tween="true" startValue="3,3" endValue="1,1" duration="35" ease="Quint.Out"/>
+    <item time="10" type="Alpha" target="n94_w0e5" tween="true" startValue="0" endValue="1" duration="41"/>
+    <item time="14" type="Alpha" target="n53_p6cb" tween="true" startValue="0" endValue="1" duration="34"/>
+    <item time="15" type="Alpha" target="n96_w0e5" tween="true" startValue="0" endValue="0.5" duration="35"/>
+    <item time="17" type="Alpha" target="n77_fvx3" tween="true" startValue="0" endValue="1" duration="34"/>
+  </transition>
+</component>

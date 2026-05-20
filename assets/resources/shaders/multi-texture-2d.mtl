@@ -5,7 +5,7 @@
   "__editorExtras__": {},
   "_native": "",
   "_effectAsset": {
-    "__uuid__": "f292c0be-7d64-49ba-bb6f-b4158fef413b",
+    "__uuid__": "907ef88d-bdf3-4811-a9e1-d4c56bc23f39",
     "__expectedType__": "cc.EffectAsset"
   },
   "_techIdx": 0,
@@ -27,51 +27,6 @@
     }
   ],
   "_props": [
-    {
-      "texture0": {
-        "__uuid__": "175eb329-b313-4a8a-bec8-43f9a09e76ea@6c48a",
-        "__expectedType__": "cc.Texture2D"
-      },
-      "texture1": {
-        "__uuid__": "1f2bc4ec-1740-4bcb-8c06-e1d3b4232f23@6c48a",
-        "__expectedType__": "cc.Texture2D"
-      },
-      "texture2": {
-        "__uuid__": "d286b7d4-2a6a-4de6-8a3c-aac9479c273c@6c48a",
-        "__expectedType__": "cc.Texture2D"
-      },
-      "texture3": {
-        "__uuid__": "6fc27a74-d2d3-40fd-95c1-50aac6bac89f@6c48a",
-        "__expectedType__": "cc.Texture2D"
-      },
-      "texture4": {
-        "__uuid__": "8e1e4647-b5ca-4825-a9a1-9720f718e20e@6c48a",
-        "__expectedType__": "cc.Texture2D"
-      },
-      "texture5": {
-        "__uuid__": "bee004bf-1d8e-4557-8aeb-006eedab2cce@6c48a",
-        "__expectedType__": "cc.Texture2D"
-      },
-      "texture6": {
-        "__uuid__": "326bc385-d160-4938-83f0-3b0c689fa05d@6c48a",
-        "__expectedType__": "cc.Texture2D"
-      },
-      "texture7": {
-        "__uuid__": "f7043a0a-76ab-474b-a57a-a592f26c0a91@6c48a",
-        "__expectedType__": "cc.Texture2D"
-      },
-      "texture8": {
-        "__uuid__": "2a75517d-8d8f-45eb-a976-5660c8709802@6c48a",
-        "__expectedType__": "cc.Texture2D"
-      },
-      "texture9": {
-        "__uuid__": "b8750759-1037-4677-b7a0-7b5f2692cf92@6c48a",
-        "__expectedType__": "cc.Texture2D"
-      },
-      "texture10": {
-        "__uuid__": "baa8e3b4-0476-42e0-8ef3-40e447162cdd@6c48a",
-        "__expectedType__": "cc.Texture2D"
-      }
-    }
+    {}
   ]
 }
