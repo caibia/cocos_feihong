@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="328,248" pivot="0.5,0.5" remark="app.view.base.text.BaseEmptyText" margin="0,768,1392967936,268451072" extention="Label">
-  <displayList>
-    <loader id="n1_rlzz" name="icon" xy="0,0" size="328,248" url="ui://kvb3znephps0ibns"/>
-    <text id="n2_rlzz" name="title" xy="164,176" pivot="0.5,1" anchor="true" size="440,97" font="Source Han Serif CN" fontSize="36" color="#808080" leading="-5" letterSpacing="-1" align="center" vAlign="bottom" autoSize="shrink" text=""/>
-    <text id="n3_rlzz" name="englishText" xy="164,181" pivot="0.5,0.5" anchor="true" size="321,19" font="Novecento wide" fontSize="12" color="#808080" letterSpacing="5" text="NONE NONE NONE NONE NONE "/>
-  </displayList>
-</component>

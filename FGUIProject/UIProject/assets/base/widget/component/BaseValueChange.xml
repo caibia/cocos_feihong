@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="10,33" remark="app.view.base.component.BaseValueChange" extention="Label">
-  <controller name="valueState" pages="0,,1," selected="0"/>
-  <displayList>
-    <text id="n0_svka" name="title" xy="0,0" size="10,32" fontSize="26" color="#f26657" strokeColor="#32241d" strokeSize="1" text="">
-      <gearColor controller="valueState" pages="1" values="#f26657,#32241d" default="#bcd959,#32241d"/>
-    </text>
-  </displayList>
-</component>

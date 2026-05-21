@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="176,220" remark="app.view.base.component.BaseWeddingKnightIcon">
-  <displayList>
-    <image id="n4_ktcs" name="n4" src="ktcs1emiggg" fileName="img/wedding/pic_yht_sy_rukoudi1_1.png" xy="0,0"/>
-    <component id="n7_ktcs" name="knightIcon" src="ktcs1emiggm" fileName="widget/button/wedding/BaseWeddingMask.xml" xy="91,100"/>
-    <component id="n10_sv07" name="eff2" src="v5sxibk8" fileName="widget/component/BasePlaceHolderComp.xml" xy="87,122" size="1,1"/>
-    <image id="n5_ktcs" name="n5" src="ktcs1emiggh" fileName="img/wedding/pic_yht_sy_rukoudi1_2.png" xy="0,0"/>
-  </displayList>
-</component>

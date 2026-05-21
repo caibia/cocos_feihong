@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="200,33" extention="Label">
-  <displayList>
-    <image id="n4_nmal" name="bgImage" src="pt46gibw0" fileName="img/btn_lzzm_kuaisuchayue.png" xy="-6,-7" pivot="0.5,0.5"/>
-    <loader id="n5_nmal" name="logo" xy="7,4" size="18,22" url="ui://kvb3zneppt46gibw1"/>
-    <text id="n3_7lyw" name="title" xy="30,0" pivot="0,0.5" size="164,29" font="Source Han Serif CN" fontSize="20" color="#f2f2f2" letterSpacing="-1" align="center" vAlign="middle" autoSize="shrink" text="战斗记录"/>
-  </displayList>
-</component>

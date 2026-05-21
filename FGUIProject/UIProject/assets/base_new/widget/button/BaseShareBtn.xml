@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="60,68" pivot="0.5,0.5" extention="Button">
-  <displayList>
-    <loader id="n1_k2me" name="shareLoader" xy="0,0" size="60,68" url="ui://kvb3znep7id5kk2n8"/>
-    <loader id="n2_k2me" name="n2" xy="10,14" size="40,40" url="ui://kvb3znepkvo3ibkv"/>
-  </displayList>
-  <Button downEffect="scale" downEffectValue="1.02"/>
-</component>

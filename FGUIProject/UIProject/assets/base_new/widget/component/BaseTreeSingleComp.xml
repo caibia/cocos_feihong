@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="176,300" remark="app.view.base.component.TreeSingleComp">
-  <displayList>
-    <list id="n0_msof" name="treeList" xy="0,0" size="176,300" overflow="scroll" defaultItem="ui://kvb3znepmsofgibvs" autoItemSize="true">
-      <relation target="" sidePair="width-width,height-height"/>
-    </list>
-  </displayList>
-</component>

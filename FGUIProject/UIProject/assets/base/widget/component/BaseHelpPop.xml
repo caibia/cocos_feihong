@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="762,466" pivot="0.5,0.5" margin="0,768,1527185664,268451072">
-  <displayList>
-    <component id="n9_dlaf" name="bgPanel" src="doxuibmd" pkg="kvb3znep" xy="0,0" size="762,466"/>
-    <list id="n4_ft1p" name="textList" xy="36,88" size="692,354" group="n10_f7dd" overflow="scroll" scrollBarFlags="128" lineGap="10" defaultItem="ui://x6gj81kprdw4sex" autoItemSize="true"/>
-    <group id="n10_f7dd" name="content" xy="36,88" size="692,354" advanced="true"/>
-  </displayList>
-</component>

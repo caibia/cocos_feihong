@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="362,32" extention="Label">
-  <displayList>
-    <image id="n94_n8wv" name="icon" src="nf6uc" fileName="img/bg_white_01.png" xy="0,0" size="362,32"/>
-    <text id="n95_n8wv" name="title" xy="169,16" pivot="0.5,0.5" anchor="true" size="320,32" font="Source Han Sans CN" fontSize="22" color="#323232" leading="0" align="center" vAlign="middle" autoSize="shrink" text=""/>
-    <image id="n97_n8wv" name="n0" src="oezyibkc" fileName="img/btn_xiaotishi.png" xy="336,8" size="18,18"/>
-  </displayList>
-</component>

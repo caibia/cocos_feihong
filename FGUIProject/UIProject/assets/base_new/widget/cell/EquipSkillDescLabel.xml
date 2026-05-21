@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="377,62" overflow="scroll" scrollBarFlags="384" extention="Label">
-  <displayList>
-    <text id="n19_ub1h" name="title" xy="0,0" size="377,26" font="Source Han Sans CN" fontSize="18" color="#323232" leading="0" autoSize="height" text="">
-      <relation target="" sidePair="rightext-right"/>
-    </text>
-  </displayList>
-</component>

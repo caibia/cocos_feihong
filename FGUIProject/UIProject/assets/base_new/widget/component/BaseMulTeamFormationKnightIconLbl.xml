@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="154,92" overflow="hidden" extention="Label">
-  <displayList>
-    <loader id="n22_jm0g" name="icon" xy="84,116" pivot="0.5,0.5" anchor="true" size="280,512" scale="0.6,0.6" align="center" vAlign="middle">
-      <relation target="" sidePair="center-center,middle-middle"/>
-    </loader>
-  </displayList>
-</component>

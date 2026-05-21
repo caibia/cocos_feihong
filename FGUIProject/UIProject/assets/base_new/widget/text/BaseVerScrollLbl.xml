@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="564,56" overflow="scroll" extention="Label">
-  <displayList>
-    <text id="n1_r85o" name="title" xy="0,0" size="564,56" font="Source Han Sans CN" fontSize="20" color="#323232" vAlign="middle" autoSize="height" text="">
-      <relation target="" sidePair="width-width"/>
-    </text>
-  </displayList>
-</component>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="48,48" overflow="hidden" extention="Label">
-  <displayList>
-    <image id="n0_jr2h" name="n0" src="jr2h1emigk3" fileName="img/pic_mnzj_yc_monvjineng2.png" xy="-8,-8"/>
-    <loader id="n1_jr2h" name="icon" xy="24,24" pivot="0.5,0.5" anchor="true" size="50,50" scale="0.6,0.6"/>
-  </displayList>
-</component>

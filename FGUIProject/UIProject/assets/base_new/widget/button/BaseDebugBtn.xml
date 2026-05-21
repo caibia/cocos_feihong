@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<component size="80,80" pivot="0.5,0.5" remark="app.view.base.button.BaseBtn" margin="0,512,1376190720,268451072" extention="Button">
-  <displayList>
-    <graph id="n0_gn4c" name="n0" xy="15,15" size="50,50" type="eclipse" lineColor="#ff24bd81" fillColor="#ff24bd81"/>
-    <text id="n1_gn4c" name="n1" xy="49,49" pivot="0.5,0.5" anchor="true" size="19,32" fontSize="22" align="center" vAlign="middle" text="D"/>
-  </displayList>
-  <Button/>
-</component>
