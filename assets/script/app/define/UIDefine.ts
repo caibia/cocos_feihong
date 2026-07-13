@@ -3,8 +3,6 @@ import { BlockView } from "../../app/module/alert/BlockView";
 // import HotUpdateView from "../../app/module/hotUpdate/HotUpdateView";
 // import DialogView from "../module/dialog/DialogView";
 import LoginView from "../../app/module/login/LoginView";
-import LoginServerListPopView from "../../app/module/login/LoginServerListPopView";
-import PvPlayView from "../../app/module/login/PvPlayView";
 import NetLoadingView from "../../app/module/netLoading/NetLoadingView";
 import XComponent from "../../base/ui/XComponent";
 
@@ -21,8 +19,6 @@ export const enum LAYER_CONST {
 
 export const UINAME = {
     LoginView: "LoginView",
-    LoginServerListPopView: "LoginServerListPopView",
-    PvPlayView: "PvPlayView",
     // HotUpdateView: "HotUpdateView",
     // DialogView: "DialogView",
     NetLoadingView: "NetLoadingView",
@@ -51,8 +47,6 @@ export type UIDefineMap = { [name: string]: UIDefineType } & Record<UINameType, 
 /** UI实例类型映射：用于 UIMgr.getUI(name) 按 name 推导具体返回类型 */
 export type UIInstanceMap = {
     [UINAME.LoginView]: LoginView;
-    [UINAME.LoginServerListPopView]: LoginServerListPopView;
-    [UINAME.PvPlayView]: PvPlayView;
     // [UINAME.HotUpdateView]: HotUpdateView;
     // [UINAME.DialogView]: DialogView;
     [UINAME.NetLoadingView]: NetLoadingView;
@@ -67,7 +61,6 @@ export type UIInstanceMap = {
 type UISpecificArgMap = {
     [UINAME.BlockView]: IUIArg.IBlockViewArg;
     // [UINAME.DialogView]: IUIArg.IDialogViewArg;
-    [UINAME.PvPlayView]: IUIArg.IPvPlayViewArg;
 };
 
 /**
@@ -87,8 +80,6 @@ export default class UIDefine {
     public static initUI() {
         let define: UIDefineMap = {} as UIDefineMap;
         define[UINAME.LoginView] = { ctrl: LoginView, fullscreen: true, layer: LAYER_CONST.BOTTOM, cache: CACHETYPE_ENUM.TIME1, };
-        define[UINAME.LoginServerListPopView] = { ctrl: LoginServerListPopView, fullscreen: false, layer: LAYER_CONST.WINDOW, cache: CACHETYPE_ENUM.NONE, };
-        define[UINAME.PvPlayView] = { ctrl: PvPlayView, fullscreen: true, layer: LAYER_CONST.TOP, cache: CACHETYPE_ENUM.NONE, };
         // define[UINAME.HotUpdateView] = { ctrl: HotUpdateView, fullscreen: true, layer: LAYER_CONST.TOP, cache: CACHETYPE_ENUM.NONE, };
         // define[UINAME.DialogView] = { ctrl: DialogView, fullscreen: false, layer: LAYER_CONST.WINDOW, cache: CACHETYPE_ENUM.NONE, };
         define[UINAME.NetLoadingView] = { ctrl: NetLoadingView, fullscreen: false, layer: LAYER_CONST.TOP, cache: CACHETYPE_ENUM.NONE, };
