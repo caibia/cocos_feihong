@@ -1,13 +1,12 @@
-import { GComponent } from "../../fairyGUI/GComponent";
+﻿import { GComponent } from "../../fairyGUI/GComponent";
 import { GLoader } from "../../fairyGUI/GLoader";
 import { GObject } from "../../fairyGUI/GObject";
 import RedPointDB from "../data/RedPointDB";
 import XConst from "../define/XConst";
 import ObserveUnit from "./ObserveUnit";
-// 0Common 公共包移除后暂不用：待回填 RedPointCom 时恢复
-// import { XNODEPOOL_KEY } from "../define/XNodePoolDefine";
-// import { XResourcesUrl } from "../define/XResourcesUrl";
+import { XNODEPOOL_KEY } from "../define/XNodePoolDefine";
 import NodePoolMgr from "../manager/NodePoolMgr";
+import { XResConst } from "../define/XResConst";
 
 /**
  * 红点单元，负责红点监听、显示绑定和释放。
@@ -121,10 +120,7 @@ export default class RedPointUnit {
                 return child as GLoader;
             }
         }
-        // 0Common 公共包已移除，RedPointCom 暂不可用；待新公共包就绪后取消注释
-        // let redpoint: GComponent = NodePoolMgr.inst.get(XNODEPOOL_KEY.RED_POINT_POOL, XResourcesUrl.COM_PACKAGE, "RedPointCom") as GComponent;
-        let redpoint: GComponent = null;
-        if (!redpoint) return null;
+        let redpoint: GComponent = NodePoolMgr.inst.get(XNODEPOOL_KEY.RED_POINT_POOL, XResConst.COM_PACKAGE, "RedPointCom") as GComponent;
         redpoint.name = XConst.RED_POINT_NAME;
         targetCom.addChild(redpoint);
         if (scale) {

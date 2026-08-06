@@ -13,10 +13,14 @@ export const enum EVENTNAME {
     BEFORE_SCENE_CHANGE = "BEFORE_SCENE_CHANGE",
     /**场景切换 { sceneName: MainScene, oldSceneName: LoginScene } */
     AFTER_SCENE_CHANGE = "AFTER_SCENE_CHANGE",
-    /**UI销毁 { name: "LoginView", isWindow: true }*/
+    /**UI隐藏 { name: string, isWindow: boolean, isCache: boolean }*/
+    UI_ONHIDE = "UI_ONHIDE",
+    /**UI销毁 { name: string, isWindow: boolean }*/
     UI_ONDESTROY = "UI_ONDESTROY",
-    /**UI打开 { name: "LoginView" } */
+    /**UI打开 { name: string } */
     UI_ONSHOW = "UI_ONSHOW",
+    /**播放音效 { url: "audio/button_click" } */
+    PLAY_SOUND = "PLAY_SOUND",
 
     /** 登录：服务器列表加载完成 */
     SERVER_LIST_READY = "SERVER_LIST_READY",
@@ -26,19 +30,4 @@ export const enum EVENTNAME {
     LOGIN_SUCCESS = "LOGIN_SUCCESS",
     /** 登录：登录失败 { code } */
     LOGIN_FAIL = "LOGIN_FAIL",
-}
-/** 自定义事件参数 */
-export interface EventDataMap {
-    [EVENTNAME.SOCKET_CONNECTTED]: undefined;
-    [EVENTNAME.SOCKET_DISCONNECTTED]: undefined;
-    [EVENTNAME.SOCKET_ERROR]: undefined;
-    [EVENTNAME.TIME_SCALE_CHANGE]: undefined;
-    [EVENTNAME.BEFORE_SCENE_CHANGE]: { newSceneName: string; oldSceneName: string };
-    [EVENTNAME.AFTER_SCENE_CHANGE]: { sceneName: string; oldSceneName: string };
-    [EVENTNAME.UI_ONDESTROY]: { name: string; isWindow: boolean };
-    [EVENTNAME.UI_ONSHOW]: { name: string };
-    [EVENTNAME.SERVER_LIST_READY]: undefined;
-    [EVENTNAME.SERVER_CHANGED]: { serverId: number };
-    [EVENTNAME.LOGIN_SUCCESS]: { account: string; serverId: number };
-    [EVENTNAME.LOGIN_FAIL]: { code: number };
 }

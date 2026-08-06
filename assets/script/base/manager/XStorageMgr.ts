@@ -5,11 +5,10 @@
 */
 
 import { sys } from "cc";
-import { StorageDataMap } from "../../app/define/StorageDefine";
 import TimerMgr, { ITimer } from "./TimerMgr";
 import XDEBUGLOG from "../debug/XDEBUGLOG";
 
-type StorageKey = keyof StorageDataMap;
+type StorageKey = keyof IStorage.DataMap;
 
 export default class XStorageMgr {
 	/**延迟存储计时器 */
@@ -38,7 +37,7 @@ export default class XStorageMgr {
 	 * @param data 数据
 	 * @param isNoDelay 是否立即存储
 	 */
-	public setItem<K extends StorageKey>(key: K, data: StorageDataMap[K], isNoDelay?: boolean): void {
+	public setItem<K extends StorageKey>(key: K, data: IStorage.DataMap[K], isNoDelay?: boolean): void {
 		if (typeof data === "number" && Number.isNaN(data)) {
 			XDEBUGLOG.warn("本地存储数据为NaN", key);
 			return;
@@ -57,6 +56,8 @@ export default class XStorageMgr {
 
 	/**删除本地存储 */
 	public removeItem<K extends StorageKey>(key: K) {
+		delete this._allStorage[key];
+		delete this._saveKeyMap[key];
 		sys.localStorage.removeItem(key);
 	}
 
@@ -91,17 +92,22 @@ export default class XStorageMgr {
 	 * @param key 
 	 * @returns 
 	 */
-	public getItem<K extends StorageKey>(key: K): StorageDataMap[K] | null | undefined {
+	public getItem<K extends StorageKey>(key: K): IStorage.DataMap[K] | null | undefined {
 		let value = this._allStorage[key];
-		if (value) return value.data as StorageDataMap[K];
+		if (value) return value.data as IStorage.DataMap[K];
 		if (key in this._allStorage) {
 			return;
 		}
 		let data = sys.localStorage.getItem(key);
 		if (!data) return null;
-		value = JSON.parse(data);
+		try {
+			value = JSON.parse(data);
+		} catch (error) {
+			XDEBUGLOG.warn(`本地存储解析失败: ${key}`);
+			return null;
+		}
 		this._allStorage[key] = value;
-		return value.data as StorageDataMap[K];
+		return value.data as IStorage.DataMap[K];
 	}
 
 	public clear(): void {

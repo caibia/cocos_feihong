@@ -84,11 +84,7 @@
 ## 相关文档
 
 - 项目约束总纲：[AGENTS.md](AGENTS.md)
-- 模块设计方案（命名：`xxx的设计方案.md`）：[docs/设计方案/](docs/设计方案/)
-- 模块稳定实现规范：`docs/规范/模块/<模块名>稳定实现规范.md`
 - 代码规范 skill：[Angents/Skills/code-style/SKILL.md](Angents/Skills/code-style/SKILL.md)
-- 模块（new/edit/refactor）规则 skill：[Angents/Skills/module-model/SKILL.md](Angents/Skills/module-model/SKILL.md)
-- 文档检查 skill：[Angents/Skills/check-doc/SKILL.md](Angents/Skills/check-doc/SKILL.md)
 - FGUI 转换/还原规则：[CONVERTO_FGUI.md](CONVERTO_FGUI.md)
 
 ## 当前仓库现状说明

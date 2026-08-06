@@ -1,4 +1,3 @@
-
 const enum FRAME_TYPE {
 	FPS_30 = 30,
 	FPS_60 = 60,
@@ -22,6 +21,12 @@ export default class XConst {
 	public static FPS_UTIME = 1000 / XConst.FPS;
 	/** 是否在后台 */
 	public static inBackground: boolean = false;
+	/** 登录网关 IP */
+	public static LOGIN_GATEWAY_IP = "127.0.0.1";
+	/** 登录网关端口 */
+	public static LOGIN_GATEWAY_PORT = 17001;
+	/** 是否启用热更检测 */
+	public static ENABLE_HOT_UPDATE_CHECK = false;
 	/** 是否刘海屏 */
 	public static IS_LIUHAI = false;
 	/** 刘海屏顶部高度 */
@@ -29,5 +34,3 @@ export default class XConst {
 	/** 刘海屏底部高度 */
 	public static BOTTOM_LIUHAI_HEIGHT = 0;
 }
-
-window["XConst"] = XConst;

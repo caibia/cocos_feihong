@@ -1,4 +1,4 @@
-import { Asset, assetManager, Color, ImageAsset, isValid, Node, resources, Sprite, SpriteFrame, Texture2D, UITransform, Vec2 } from "cc";
+import { Asset, assetManager, Color, ImageAsset, isValid, Node, Sprite, SpriteFrame, Texture2D, UITransform, Vec2 } from "cc";
 import { MovieClip } from "./display/MovieClip";
 import { AlignType, VertAlignType, LoaderFillType, FillMethod, FillOrigin, PackageItemType, ObjectPropID } from "./FieldTypes";
 import { GComponent } from "./GComponent";
@@ -8,22 +8,20 @@ import { PackageItem } from "./PackageItem";
 import { UIConfig } from "./UIConfig";
 import { UIPackage } from "./UIPackage";
 import { ByteBuffer } from "./utils/ByteBuffer";
+import ResMgr from "../base/manager/ResMgr";
+import { XResConst } from "../base/define/XResConst";
 
 /**
  * 资源加载组件，负责显示包内图片、外部纹理或组件内容，并处理对齐与错误占位。
  */
 export class GLoader extends GObject {
-    /** 外部资源 URL 的全局引用计数（仅统计 external，不含 ui://） 所有Gloader 公用一张表 */
+    /** 外部资源 URL 引用计数 */
     private static _externalUrlRefMap: Map<string, number> = new Map();
 
-    /**
-     * 底层 `MovieClip` 显示对象；静态图片和序列帧资源最终都会落在这里显示。
-     */
+    /** 底层显示对象 */
     public _content: MovieClip;
 
-    /**
-     * 当前资源地址；支持 `ui://` 包资源、外部路径以及业务层自定义加载协议。
-     */
+    /** 当前资源地址 */
     protected _url: string;
     /**
      * 水平对齐方式。
@@ -89,14 +87,26 @@ export class GLoader extends GObject {
      * 容器节点上的 `UITransform` 组件。
      */
     private _containerUITrans: UITransform;
-    /** 当前 GLoader 绑定的 external url，用于切换/销毁时做 -1 */
+    /** 当前外部资源地址 */
     private _externalUrlRefKey: string | null = null;
-    /** 当前 GLoader 持有的外部 SpriteFrame 引用，用于 decRef 释放 */
+    /** 当前外部纹理帧 */
     private _externalSpriteFrame: SpriteFrame | null = null;
+    /** 当前加载序号 */
+    private _loadVersion: number = 0;
+    /** 当前加载中的 resources 资源地址 */
+    private _loadingResourceUrl: string = "";
+    /** 当前持有的 resources 资源地址 */
+    private _managedResourceUrl: string = "";
+    /** 当前持有的 resources 加载序号 */
+    private _managedResourceVersion: number = 0;
+    /** 当前加载中的 FGUI 资源地址 */
+    private _loadingPackageUrl: string = "";
+    /** 当前持有的 FGUI 包名 */
+    private _managedPackageName: string = "";
+    /** 当前持有的 FGUI 加载序号 */
+    private _managedPackageVersion: number = 0;
 
-    /**
-     * 静态errorSign对象池。
-     */
+    /** 错误占位对象池 */
     private static _errorSignPool: GObjectPool = new GObjectPool();
 
     /**
@@ -130,13 +140,10 @@ export class GLoader extends GObject {
      * 释放当前 Loader 持有的外部资源引用、组件内容和底层显示对象状态。
      */
     public dispose(): void {
-        this.releaseExternalRef();
-        if (this._contentItem == null) {
-            if (this._content.spriteFrame)
-                this.freeExternal(this._content.spriteFrame);
+        if (this.isDisposed) {
+            return;
         }
-        if (this._content2)
-            this._content2.dispose();
+        this.clearContent();
         super.dispose();
     }
 
@@ -159,9 +166,9 @@ export class GLoader extends GObject {
         this.updateGear(7);
     }
     /**
-     * 设置图片
-     * @param url 
-     * @param bundleStr 远程包名称
+     * 设置资源地址和资源包名称
+     * @param url 资源地址
+     * @param bundleStr 资源包名称
      */
     public setUrlWithBundle(url: string, bundleStr: string = ''): void {
         this.bundle = bundleStr
@@ -186,12 +193,15 @@ export class GLoader extends GObject {
     }
 
     /**
-     * 预留给业务层覆写的自定义 URL 加载入口；默认实现为空。
+     * 加载自定义资源地址
+     * @param url 资源地址
+     * @param succFn 加载成功回调
+     * @param setUrlBl 是否设置资源地址
      */
-    public async loadByUrl(url: string, succFn?, setUrlBl = true) { }
+    public async loadByUrl(url: string, succFn?: Function, setUrlBl: boolean = true): Promise<void> { }
 
     /**
-     * 以图标接口形式返回当前资源地址，便于与其他 GUI 组件统一访问。
+     * 以图标接口形式返回当前资源地址。
      */
     public get icon(): string | null {
         return this._url;
@@ -453,14 +463,59 @@ export class GLoader extends GObject {
      */
     protected loadContent(): void {
         this.clearContent();
+        const url = this._url;
+        const loadVersion = ++this._loadVersion;
 
-        if (!this._url)
+        if (!url)
             return;
 
-        if (this._url.startsWith("ui://"))
-            this.loadFromPackage(this._url);
+        if (url.startsWith("ui://"))
+            void this.loadFromPackageAsync(url, loadVersion);
         else
             this.loadExternal();
+    }
+
+    /**
+     * 加载 FGUI 包后显示包内资源。
+     * @param url 包内资源地址。
+     * @param loadVersion 加载序号。
+     */
+    private async loadFromPackageAsync(url: string, loadVersion: number): Promise<void> {
+        const pkgName = this.getPackageNameFromUrl(url);
+        if (!pkgName) {
+            this.setErrorState();
+            return;
+        }
+        const pkgUrl = XResConst.getUIPackageUrl(pkgName);
+        const owner = this.node.uuid;
+        const isCommonPackage = XResConst.RES_COMMON_PACKAGEARR.indexOf(pkgName) !== -1;
+        if (!isCommonPackage && this._loadingPackageUrl === url && this._managedPackageName === pkgName) {
+            return;
+        }
+        this._loadingPackageUrl = url;
+        if (!isCommonPackage) {
+            this._managedPackageName = pkgName;
+            this._managedPackageVersion = loadVersion;
+        }
+        await ResMgr.inst.loadFGUIPackage(pkgUrl, owner);
+        if (this._loadingPackageUrl === url) {
+            this._loadingPackageUrl = "";
+        }
+        if (this.isDisposed || this._url != url || this._loadVersion !== loadVersion) {
+            if (!isCommonPackage && this._managedPackageName === pkgName && this._managedPackageVersion === loadVersion) {
+                this.releaseFairyPackageRef(owner);
+            }
+            return;
+        }
+        if (!ResMgr.inst.isFGUIPackageExist(pkgUrl)) {
+            if (!isCommonPackage && this._managedPackageName === pkgName && this._managedPackageVersion === loadVersion) {
+                this._managedPackageName = "";
+                this._managedPackageVersion = 0;
+            }
+            this.setErrorState();
+            return;
+        }
+        this.loadFromPackage(url);
     }
 
     /**
@@ -535,13 +590,14 @@ export class GLoader extends GObject {
     protected loadExternal(): void {
         let url = this.url;
         if (!url) return;
-        // 切换 external url 前，先释放上一条 external 引用
+        if (!this.isRemoteUrl(url)) {
+            void this.loadResourceTexture(url, this._loadVersion);
+            return;
+        }
         this.releaseExternalRef();
         this._externalUrlRefKey = url;
         GLoader.retainExternalUrl(url);
         let callback = (err: Error | null, asset: Asset) => {
-            //因为是异步返回的，而这时可能url已经被改变，所以不能直接用返回的结果
-
             if (this._url != url || !isValid(this._node))
                 return;
 
@@ -587,19 +643,45 @@ export class GLoader extends GObject {
                 callback(null, tex);
             }
         }
-        else {
-            let bundle = resources;
-            //如果有设置远程包 从远程包加载
-            if (this.bundle && assetManager.bundles.has(this.bundle)) {
-                bundle = assetManager.getBundle(this.bundle);
-            }
-            bundle.load(this._url + "/spriteFrame", Asset, callback);
-        }
     }
 
-    /**GLoader不会释放用url设置的external的图片，如果在dispose时需要释放资源，需要在这里自己写。 */
+    /**
+     * 加载 resources 下的 SpriteFrame。
+     * @param url 资源地址。
+     * @param loadVersion 加载序号。
+     */
+    private async loadResourceTexture(url: string, loadVersion: number): Promise<void> {
+        if (this._loadingResourceUrl === url && this._managedResourceUrl === url) {
+            return;
+        }
+        const owner = this.node.uuid;
+        const resPath = url + "/spriteFrame";
+        this._loadingResourceUrl = url;
+        this._managedResourceUrl = url;
+        this._managedResourceVersion = loadVersion;
+        const spriteFrame = await ResMgr.inst.loadRes(resPath, SpriteFrame, owner);
+        if (this._loadingResourceUrl === url) {
+            this._loadingResourceUrl = "";
+        }
+        if (!spriteFrame) {
+            if (this._managedResourceUrl === url && this._managedResourceVersion === loadVersion) {
+                this._managedResourceUrl = "";
+                this._managedResourceVersion = 0;
+            }
+            this.setErrorState();
+            return;
+        }
+        if (this.isDisposed || this._url != url || this._loadVersion !== loadVersion) {
+            if (this._managedResourceUrl === url && this._managedResourceVersion === loadVersion) {
+                this.releaseManagedResourceRef(owner);
+            }
+            return;
+        }
+        this.onExternalLoadSuccess(spriteFrame);
+    }
+
+    /** 释放外部纹理引用 */
     protected freeExternal(texture: SpriteFrame): void {
-        // external 资源由 releaseExternalRef 统一释放
     }
 
     /**
@@ -616,10 +698,7 @@ export class GLoader extends GObject {
         this.updateLayout();
     }
 
-    /**
-     * 处理外部资源加载失败后的降级显示逻辑。
-     * @param err 加载错误对象。
-     */
+    /** 处理外部资源加载失败 */
     protected onExternalLoadFailed(): void {
         this.setErrorState();
     }
@@ -754,8 +833,9 @@ export class GLoader extends GObject {
      */
     private clearContent(): void {
         this.clearErrorState();
-        // 清内容时同步释放 external 引用，避免 url 频繁切换时泄漏
         this.releaseExternalRef();
+        this.releaseManagedResourceRef();
+        this.releaseFairyPackageRef();
 
         if (!this._contentItem) {
             var texture: SpriteFrame = this._content.spriteFrame;
@@ -773,6 +853,56 @@ export class GLoader extends GObject {
     }
 
     /**
+     * 解析 FGUI 包名。
+     * @param url 包内资源地址。
+     */
+    private getPackageNameFromUrl(url: string): string {
+        const packageItem = UIPackage.getItemByURL(url);
+        if (packageItem?.owner) {
+            return packageItem.owner.name;
+        }
+        const pos = url.lastIndexOf("/");
+        if (pos <= 5) {
+            return "";
+        }
+        return url.substring(5, pos);
+    }
+
+    /**
+     * 判断是否为远程纹理地址。
+     * @param url 资源地址。
+     */
+    private isRemoteUrl(url: string): boolean {
+        return url.startsWith("http://") || url.startsWith("https://") || url.startsWith("/") || url.startsWith("data:image/");
+    }
+
+    /**
+     * 释放当前 resources 资源引用。
+     * @param owner 资源持有者。
+     */
+    private releaseManagedResourceRef(owner?: string): void {
+        if (!this._managedResourceUrl) {
+            return;
+        }
+        ResMgr.inst.releaseRes(this._managedResourceUrl + "/spriteFrame", SpriteFrame, owner || this.node.uuid);
+        this._managedResourceUrl = "";
+        this._managedResourceVersion = 0;
+    }
+
+    /**
+     * 释放当前 FGUI 包引用。
+     * @param owner 资源持有者。
+     */
+    private releaseFairyPackageRef(owner?: string): void {
+        if (!this._managedPackageName) {
+            return;
+        }
+        ResMgr.inst.unloadFGUIPakcageRef(this._managedPackageName, owner || this.node.uuid);
+        this._managedPackageName = "";
+        this._managedPackageVersion = 0;
+    }
+
+    /**
      * 增加外部 URL 的全局引用计数。
      * @param url 外部资源地址。
      */
@@ -781,7 +911,11 @@ export class GLoader extends GObject {
         this._externalUrlRefMap.set(url, ref + 1);
     }
 
-    /** 返回释放后的剩余引用数 */
+    /**
+     * 减少外部 URL 的全局引用计数
+     * @param url 外部资源地址
+     * @returns 剩余引用数
+     */
     private static releaseExternalUrl(url: string): number {
         const ref = this._externalUrlRefMap.get(url) || 0;
         if (ref <= 1) {
@@ -794,12 +928,11 @@ export class GLoader extends GObject {
     }
 
     /**
-     * 为当前对象持有的外部资源增加引用。
-     * @param url 外部资源地址。
+     * 增加当前外部纹理帧引用
+     * @param sf 外部纹理帧
      */
     private retainExternalAsset(sf: SpriteFrame): void {
         if (!sf) return;
-        // 单个 GLoader 对资源持有一份引用，避免其它 loader 先释放导致失效
         sf.addRef();
         this._externalSpriteFrame = sf;
     }
@@ -815,7 +948,6 @@ export class GLoader extends GObject {
         GLoader.releaseExternalUrl(key);
 
         if (this._externalSpriteFrame) {
-            // 释放当前 loader 自己持有的资源引用
             this._externalSpriteFrame.decRef();
             this._externalSpriteFrame = null;
         }
@@ -832,7 +964,7 @@ export class GLoader extends GObject {
     }
 
     /**
-     * 在锚点变化后重新计算内容布局，保证容器定位与显示区域一致。
+     * 在锚点变化后重新计算内容布局。
      */
     protected handleAnchorChanged(): void {
         super.handleAnchorChanged();

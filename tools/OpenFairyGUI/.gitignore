@@ -1,0 +1,42 @@
+node_modules/
+referer/
+release/
+restore/
+**/dist/
+/[Oo]bj/
+
+# Local AI/tooling config
+.claude/
+
+# Editor settings
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test and build caches
+coverage/
+.nyc_output/
+.turbo/
+*.tsbuildinfo
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+docs/public/api/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# AI agent
+AGENTS.md
+.omx

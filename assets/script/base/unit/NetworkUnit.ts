@@ -43,10 +43,11 @@ export default class NetworkUnit {
      * 发送协议。
      * @param protoName 协议名
      * @param msg 协议数据
+     * @param isShowNetLoading 是否显示网络加载界面
      * @returns 是否发送成功
      */
-    public send<T extends ProtoName>(protoName: T, msg: ProtoDataMap[T]): boolean {
-        return NetWorkMgr.inst.send(protoName, msg);
+    public send<T extends ProtoName>(protoName: T, msg: ProtoDataMap[T], isShowNetLoading: boolean = false): boolean {
+        return NetWorkMgr.inst.send(protoName, msg, isShowNetLoading);
     }
 
     /**

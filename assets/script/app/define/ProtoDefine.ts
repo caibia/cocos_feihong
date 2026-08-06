@@ -1,5 +1,5 @@
 /**
- * 该文件由 extensions/proto/export-proto.js 自动生成。
+ * 该文件由 tools/proto/export-proto.js 自动生成。
  * 请勿手动修改。
  */
 
@@ -17,3 +17,9 @@ export interface ProtoDataMap {
     /** 登录响应 */
     [ProtName.S2C_LOGIN]: IS2CProto.ILogin;
 }
+
+/** 协议名 -> protobuf 类型全名 */
+export const PROTO_MESSAGE_NAME_MAP: Record<ProtName, string> = {
+    [ProtName.C2S_LOGIN]: "C2SLogin",
+    [ProtName.S2C_LOGIN]: "S2CLogin",
+};

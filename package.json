@@ -5,9 +5,12 @@
   "creator": {
     "version": "3.8.8"
   },
+  "scripts": {
+    "export-proto": "node tools/proto/export-proto.js"
+  },
   "dependencies": {
     "pako": "^2.1.0",
-    "protobufjs": "^8.0.1",
+    "protobufjs": "^8.4.2",
     "save": "^2.9.0",
     "typescript": "^5.9.3"
   },

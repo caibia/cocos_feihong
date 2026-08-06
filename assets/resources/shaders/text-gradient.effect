@@ -1,0 +1,88 @@
+// 文本竖向渐变 effect —— 纯材质实现，不依赖逐顶点色，原生(JSB)同样生效。
+// 用法：Label(CacheMode.NONE/BITMAP) 整段文字渲成一张贴图，uv0.y 0→1 即文字 上→下，
+// 片元用 mix(topColor, bottomColor, uv0.y) 上色。配合 GTextField 解析 UBB [color=@预设] 时挂上本材质并传两色。
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: sprite-vs:vert
+      frag: text-gradient-fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        topColor:    { value: [1, 1, 1, 1], editor: { type: color } }
+        bottomColor: { value: [1, 1, 1, 1], editor: { type: color } }
+        # flipY=1 时翻转渐变方向（不同字体/CacheMode 下贴图 uv 原点可能上下相反，按需在材质里改）
+        flipY:       { value: 0.0 }
+}%
+
+CCProgram sprite-vs %{
+  precision highp float;
+  #include <builtin/uniforms/cc-global>
+  #if USE_LOCAL
+    #include <builtin/uniforms/cc-local>
+  #endif
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 v_light;
+  out vec2 uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1);
+
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+
+    pos = cc_matViewProj * pos;
+
+    uv0 = a_texCoord;
+    v_light = a_color;
+    return pos;
+  }
+}%
+
+CCProgram text-gradient-fs %{
+  precision highp float;
+  #include <builtin/internal/alpha-test>
+
+  in vec4 v_light;
+  in vec2 uv0;
+  #pragma builtin(local)
+  layout(set = 2, binding = 12) uniform sampler2D cc_spriteTexture;
+
+  uniform GradientColors {
+    vec4 topColor;
+    vec4 bottomColor;
+    float flipY;
+  };
+
+  vec4 frag () {
+    vec4 o = vec4(1, 1, 1, 1);
+    o *= texture(cc_spriteTexture, uv0);   // 字体覆盖率在 alpha（TTF rgb 为白）
+
+    ALPHA_TEST(o);
+
+    float t = clamp(uv0.y, 0.0, 1.0);
+    t = mix(t, 1.0 - t, step(0.5, flipY)); // flipY!=0 时翻转
+    vec4 grad = mix(topColor, bottomColor, t);
+
+    o.rgb *= grad.rgb;   // 用渐变色染色
+    o.a   *= grad.a;
+    o *= v_light;        // 仍乘节点色/透明度，保证淡入淡出、置灰联动
+
+    return o;
+  }
+}%

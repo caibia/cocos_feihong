@@ -16,14 +16,3 @@
     /** 登录：上次登录时间戳 */
     LOGIN_LAST_TIME = "login_last_time",
 }
-
-export interface StorageDataMap {
-    [STORAGE_TYPE.MUSIC_SOUND]: IStorage.IMusicSound;
-    [STORAGE_TYPE.HOT_UPDATE_SEARCH_PATHS]: string[];
-    [STORAGE_TYPE.LOGIN_PV_PLAYED]: boolean;
-    [STORAGE_TYPE.LOGIN_LAW_AGREED]: boolean;
-    [STORAGE_TYPE.LOGIN_MUTE]: boolean;
-    [STORAGE_TYPE.LOGIN_LAST_SERVER_ID]: number;
-    [STORAGE_TYPE.LOGIN_LAST_ACCOUNT]: string;
-    [STORAGE_TYPE.LOGIN_LAST_TIME]: number;
-}

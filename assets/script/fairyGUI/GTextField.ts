@@ -9,18 +9,39 @@ import { ByteBuffer } from "./utils/ByteBuffer";
 import { ToolSet } from "./utils/ToolSet";
 import { defaultParser } from "./utils/UBBParser";
 import { GComponent } from "./GComponent";
-// 0Common 公共包移除后暂不用：待回填 ScrollLabelCom 时恢复
-// import { XResourcesUrl } from "../base/define/XResourcesUrl";
 import ExtendColor, { GradientColorInfoArr } from "../base/extend/ExtendColor";
 import Extend from "../base/extend/Extend";
+
+/** 带 UBB 颜色状态的 Label。 */
+type LabelWithUbbState = Label & {
+    /** 是否启用 UBB 顶点色。 */
+    $useUBB?: boolean,
+    /** UBB 文本所属对象。 */
+    $ubbOwner?: GTextField,
+    /** UBB 颜色区间。 */
+    $ubbColorArr?: GradientColorInfoArr,
+};
+
 /**
  * 文本组件，负责普通文本、模板文本、UBB 解析、自动尺寸以及底层 `Label` 渲染同步。
  */
 export class GTextField extends GObject {
     /**
+     * Cocos 统一颜色填充模式。
+     */
+    private static readonly _FILL_COLOR_TYPE_COLOR = 0;
+    /**
+     * Cocos 顶点颜色填充模式。
+     */
+    private static readonly _FILL_COLOR_TYPE_VERTEX = 1;
+    /**
      * UBB 顶点色补丁已注入标记。
      */
     private static _UBB_ASSEMBLER_PATCHED = "__x_ubb_vertex_color_patched__";
+    /**
+     * UBB 渲染数据补丁已注入标记。
+     */
+    private static _UBB_RENDER_DATA_PATCHED = "__x_ubb_render_data_patched__";
     /**
      * 底层 `Label` 组件；文本内容、排版、缓存模式和顶点色补丁都直接作用在这里。
      */
@@ -87,9 +108,21 @@ export class GTextField extends GObject {
      */
     protected _scrollLabCom: GComponent;
     /**
-     * 初始化时记录的默认颜色。
+     * 当前文本对应的 UBB 颜色区间。
      */
-    private _initColor: Color;
+    private _ubbColorArr?: GradientColorInfoArr;
+    /**
+     * UBB 组装器补丁的重试标记。
+     */
+    private _ubbPatchRetryPending: boolean = false;
+    /**
+     * UBB 组装器补丁的重试次数。
+     */
+    private _ubbPatchRetryCount: number = 0;
+    /**
+     * UBB 顶点色重刷的重试标记。
+     */
+    private _ubbColorRefreshPending: boolean = false;
 
     /**
      * 初始化默认文本状态，并创建底层 `Label` 与尺寸监听。
@@ -155,6 +188,11 @@ export class GTextField extends GObject {
         return this._font;
     }
 
+    /** 判断当前字体是否走原生 TTF 渲染链路。 */
+    public get isNativeTTF(): boolean {
+        return false;
+    }
+
     /**
      * 设置字体标识，并重新解析底层字体资源。
      * @param value 字体标识或资源路径。
@@ -214,7 +252,6 @@ export class GTextField extends GObject {
      * @param value 文本颜色。
      */
     public set color(value: Color) {
-        if (!this._initColor) this._initColor = value.clone();
         this._color.set(value);
         this.updateGear(4);
         this.updateFontColor();
@@ -580,6 +617,13 @@ export class GTextField extends GObject {
         return this._uiTrans.width;
     }
 
+    /** 获取文本内容在当前排版下的实际高度 */
+    public get textHeight(): number {
+        this.ensureSizeCorrect();
+
+        return this._uiTrans.height;
+    }
+
     /**
      * 确保当前尺寸缓存已完成刷新并可安全读取。
      */
@@ -591,73 +635,151 @@ export class GTextField extends GObject {
     }
 
     /**
-     * 判断当前字体是否走原生 TTF 渲染链路。
+     * 切换文本缓存模式，并同步 UBB 变色需要的颜色填充方式。
+     * @param cacheMode 文本缓存模式。
      */
-    public get isNativeTTF() {
-        return false;
-    }
-
-    /** 如果要用到 UBB 变色，必须用 setXCacheMode 来切换 cacheMode */
-    public setXCacheMode(cacheMode: CacheMode) {
-        if (this._label.cacheMode == cacheMode) {
+    public setXCacheMode(cacheMode: CacheMode): void {
+        if (cacheMode === CacheMode.CHAR) {
+            this.setLabelFillColorType(GTextField._FILL_COLOR_TYPE_VERTEX);
+        } else {
+            this.setLabelFillColorType(GTextField._FILL_COLOR_TYPE_COLOR);
+        }
+        if (this._label.cacheMode === cacheMode) {
             this.tryPatchLabelAssembler();
+            if (this._ubbColorArr && this._ubbColorArr.length > 0) {
+                this.scheduleUbbColorRefresh();
+            }
             return;
         }
-        if (cacheMode == CacheMode.NONE || cacheMode == CacheMode.BITMAP) {
-            // 整个文本作为一个整体，总共占用 4 个顶点
+        if (cacheMode === CacheMode.NONE || cacheMode === CacheMode.BITMAP) {
+            // 整段文本使用同一组顶点。
             this._label.cacheMode = CacheMode.NONE;
             this.assignFontColor(this._label, this._color);
-        } else if (cacheMode == CacheMode.CHAR) {
-            // CHAR 模式下每个字符独立占用 4 个顶点，可实现 UBB 分段变色
+        } else if (cacheMode === CacheMode.CHAR) {
+            // 每个字符使用独立顶点。
             this._label.cacheMode = CacheMode.CHAR;
         }
         this.tryPatchLabelAssembler();
-    }
-
-    /** 给当前 Label 组装器打补丁：保留 UBB 顶点色，不被引擎统一色覆盖 */
-    private tryPatchLabelAssembler(): void {
-        const assembler: any = (this._label as any)?._assembler;
-        if (!assembler || assembler[GTextField._UBB_ASSEMBLER_PATCHED]) return;
-        const rawFillBuffers = assembler.fillBuffers;
-        if (typeof rawFillBuffers !== "function") return;
-        assembler.fillBuffers = function (comp: Label, renderer: any): void {
-            if ((comp as any)["$useUBB"]) {
-                const owner = (comp as any)["$ubbOwner"] as GTextField;
-                const colorArr = (comp as any)["$ubbColorArr"] as GradientColorInfoArr;
-                if (owner && colorArr && colorArr.length > 0) {
-                    ExtendColor.gradientColorByChar(owner, colorArr);
-                }
-            }
-            rawFillBuffers.call(this, comp, renderer);
-            if (!(comp as any)["$useUBB"]) return;
-            GTextField.applyUBBVertexColorToVB(comp);
-        };
-        assembler[GTextField._UBB_ASSEMBLER_PATCHED] = true;
+        if (this._ubbColorArr && this._ubbColorArr.length > 0) {
+            this.scheduleUbbColorRefresh();
+        }
     }
 
     /**
-     * 把UBBVertex颜色到VB结果应用到当前对象。
+     * 设置底层 Label 的颜色填充模式。
+     * @param value Cocos 颜色填充模式。
      */
-    private static applyUBBVertexColorToVB(comp: Label): void {
-        // fillBuffers 后把逐顶点颜色写回 vb，避免引擎统一色覆盖 UBB 颜色/渐变。
-        const renderData: any = (comp as any).renderData;
-        if (!renderData || !renderData.chunk || !renderData.data) return;
-        const vData: Float32Array = renderData.chunk.vb;
-        const dataList: any[] = renderData.data;
-        const vertexCount: number = renderData.vertexCount || 0;
-        const stride: number = renderData.floatStride || 9;
-        const colorOffset = 5;
-        const opacity = comp.node?._uiProps?.opacity ?? 1;
-        for (let i = 0; i < vertexCount; i++) {
-            const vert = dataList[i];
-            const vc: Color | undefined = vert?.color;
-            if (!vc) continue;
-            const baseOffset = vert?.vertexOffset != null ? (vert.vertexOffset + colorOffset) : (i * stride + colorOffset);
-            vData[baseOffset] = vc.r / 255;
-            vData[baseOffset + 1] = vc.g / 255;
-            vData[baseOffset + 2] = vc.b / 255;
-            vData[baseOffset + 3] = (vc.a / 255) * opacity;
+    private setLabelFillColorType(value: number): void {
+        const label = this._label as unknown as { setFillColorType: (value: number) => void };
+        label.setFillColorType(value);
+    }
+
+    /**
+     * 把 UBB 顶点色写入当前 Label。
+     * @param comp 底层 Label 组件。
+     */
+    private static applyUbbColor(comp: Label): void {
+        const label = comp as LabelWithUbbState;
+        if (!label.$useUBB) return;
+        const owner = label.$ubbOwner;
+        const colorArr = label.$ubbColorArr;
+        if (!owner || !colorArr || colorArr.length === 0) return;
+        owner.setLabelFillColorType(GTextField._FILL_COLOR_TYPE_VERTEX);
+        ExtendColor.gradientColorByChar(owner, colorArr);
+    }
+
+    /**
+     * 清空 Label 上的 UBB 颜色状态。
+     * @param label 底层 Label 组件。
+     */
+    private static clearUbbColorState(label: LabelWithUbbState): void {
+        delete label.$ubbOwner;
+        delete label.$ubbColorArr;
+    }
+
+    /**
+     * 给当前 Label 组装器打补丁，保留 UBB 顶点色。
+     */
+    private tryPatchLabelAssembler(): void {
+        const assembler: any = (this._label as any)?._assembler;
+        if (!assembler) {
+            if (this._ubbEnabled) this.scheduleTryPatchLabelAssembler();
+            return;
         }
+        let hasPatched = false;
+        if (!assembler[GTextField._UBB_RENDER_DATA_PATCHED]) {
+            const rawUpdateRenderData = assembler.updateRenderData;
+            if (typeof rawUpdateRenderData === "function") {
+                assembler.updateRenderData = function (comp: Label): void {
+                    rawUpdateRenderData.call(this, comp);
+                    GTextField.applyUbbColor(comp);
+                };
+                assembler[GTextField._UBB_RENDER_DATA_PATCHED] = true;
+                hasPatched = true;
+            }
+        }
+        if (assembler[GTextField._UBB_ASSEMBLER_PATCHED]) {
+            if (hasPatched) this._ubbPatchRetryCount = 0;
+            return;
+        }
+        const rawFillBuffers = assembler.fillBuffers;
+        if (typeof rawFillBuffers !== "function") {
+            if (!hasPatched && this._ubbEnabled) this.scheduleTryPatchLabelAssembler();
+            return;
+        }
+        assembler.fillBuffers = function (comp: Label, renderer: any): void {
+            rawFillBuffers.call(this, comp, renderer);
+            GTextField.applyUbbColor(comp);
+        };
+        assembler[GTextField._UBB_ASSEMBLER_PATCHED] = true;
+        this._ubbPatchRetryCount = 0;
+    }
+
+    /**
+     * 安排下一帧重试 UBB 组装器补丁。
+     */
+    private scheduleTryPatchLabelAssembler(): void {
+        if (this._ubbPatchRetryPending || this._ubbPatchRetryCount >= 3) return;
+        this._ubbPatchRetryPending = true;
+        this._ubbPatchRetryCount++;
+        this._partner.callLater(() => {
+            this._ubbPatchRetryPending = false;
+            this.tryPatchLabelAssembler();
+        });
+    }
+
+    /**
+     * 安排下一帧重新写入 UBB 顶点色。
+     */
+    private scheduleUbbColorRefresh(): void {
+        if (this._ubbColorRefreshPending) return;
+        if (!this._ubbEnabled || !this._ubbColorArr || this._ubbColorArr.length === 0) return;
+        if (this._label.cacheMode !== CacheMode.CHAR) return;
+        this._ubbColorRefreshPending = true;
+        this._partner.callLater(() => {
+            this._ubbColorRefreshPending = false;
+            this.refreshUbbColor();
+        });
+    }
+
+    /**
+     * 重新写入当前文本的 UBB 顶点色。
+     */
+    private refreshUbbColor(): void {
+        if (!this._label || !this._ubbEnabled || !this._ubbColorArr || this._ubbColorArr.length === 0) return;
+        if (this._label.cacheMode !== CacheMode.CHAR) return;
+
+        this._ubbPatchRetryCount = 0;
+        this.tryPatchLabelAssembler();
+        this._label.updateRenderData(true);
+
+        const renderData: any = (this._label as any).renderData;
+        if (!renderData || !renderData.chunk || !renderData.data) {
+            this.scheduleUbbColorRefresh();
+            return;
+        }
+
+        ExtendColor.gradientColorByChar(this, this._ubbColorArr);
     }
 
     /**
@@ -665,72 +787,68 @@ export class GTextField extends GObject {
      */
     protected updateText(): void {
         this.tryPatchLabelAssembler();
-        if (this._label) {
-            if (this._ubbEnabled) {
-                (this._label as any)["$useUBB"] = true;
-            } else {
-                delete (this._label as any)["$useUBB"];
-                delete (this._label as any)["$ubbOwner"];
-                delete (this._label as any)["$ubbColorArr"];
-            }
+        ExtendColor.clearGradientMaterial(this);
+        const label = this._label as LabelWithUbbState;
+        if (this._ubbEnabled) {
+            label.$useUBB = true;
+        } else {
+            delete label.$useUBB;
+            GTextField.clearUbbColorState(label);
         }
         var text2: string = this._text;
         if (this._templateVars)
             text2 = this.parseTemplate(text2);
-        if (this.isNativeTTF) {
-            // nativeTTF 时，顶点数据在 C++ 层装配，TS 无法直接修改
-            if (this._grayed) {
-                // TODO: 置灰时，要把所有 UBB 颜色去掉
-                text2 = defaultParser.parse(text2, true);
-            }
-            text2 = defaultParser.parse(text2, true);
-            this._label.string = text2;
-        } else {
-            if (this._label && !this._ubbEnabled) delete (this._label as any)["$useUBB"];
-            this.assignFontColor(this._label, this.color);
-            let colorArr: GradientColorInfoArr;
-            if (this._ubbEnabled) {
-                // TODO: 在原生 Label 基础上扩展，支持文本分段变色
-                colorArr = [];
-                text2 = defaultParser.parse(text2, true, colorArr);
-                if (!Extend.isEmpty(colorArr)) {
-                    // 初始文本有颜色时，多次设置 UBB 只有第一次是正确的
-                    let baseColor = this._initColor.clone();
-                    // TODO: Canvas 渲染下，如果文字本身有颜色，贴图也会带色
-                    // TODO: 会导致顶点色叠乘后偏暗
-                    // TODO: 先统一设为白色，再借助 colorArr 实现默认颜色
-                    // this.color = Color.WHITE;
-                    this.assignFontColor(this._label, Color.WHITE);
-                    this.setXCacheMode(CacheMode.CHAR);
-                    // TODO: 先把所有字染成 this._color
-                    let color = this._color;
-                    if (this._grayed) {
-                        // TODO: 置灰时去掉中间的其他颜色，只保留整体灰色
-                        color = ToolSet.toGrayedColor(color);
-                        colorArr = [];
-                    }
-                    // TODO: 计算字符数量时，\n 不占用顶点
-                    let noEmptyStr = text2.replace(/\n/g, "");
-                    // TODO: 不带 [color] 标签的部分，使用原始颜色
-                    colorArr.unshift({ color: baseColor, start: 0, end: noEmptyStr.length });
+        this.assignFontColor(this._label, this.color);
+        let colorArr: GradientColorInfoArr;
+        if (this._ubbEnabled) {
+            colorArr = [];
+            text2 = defaultParser.parse(text2, true, colorArr);
+            const noEmptyStr = text2.replace(/\n/g, "");
+            if (colorArr.length === 1
+                && typeof colorArr[0].color === "string"
+                && colorArr[0].start === 0
+                && colorArr[0].end === noEmptyStr.length
+                && ExtendColor.applyGradientMaterial(this, colorArr[0].color as string)) {
+                delete label.$useUBB;
+                GTextField.clearUbbColorState(label);
+                this._ubbColorArr = null;
+                this._label.string = text2;
+                if (this._autoSize == AutoSizeType.Both || this._autoSize == AutoSizeType.Height) {
+                    this._sizeDirty = true;
+                    this.ensureSizeCorrect();
                 }
+                return;
+            }
+            if (!Extend.isEmpty(colorArr)) {
+                const baseColor = this._grayed ? ToolSet.toGrayedColor(this._color) : this._color;
+                // Label 本体使用白色，实际文本色由顶点色写入。
+                this.assignFontColor(this._label, Color.WHITE);
+                this.setXCacheMode(CacheMode.CHAR);
+                if (this._grayed) {
+                    colorArr = [];
+                }
+                // 换行符不生成字符顶点。
+                // 没有 UBB 颜色标签的片段使用文本默认颜色。
+                colorArr.unshift({ color: baseColor, start: 0, end: noEmptyStr.length });
             } else {
                 this.setXCacheMode(CacheMode.NONE);
             }
-            this._label.string = text2;
-            // TODO:
-            if (this._autoSize == AutoSizeType.Both || this._autoSize == AutoSizeType.Height) {
-                this._sizeDirty = true;
-                this.ensureSizeCorrect();
-            }
-            if (!Extend.isEmpty(colorArr)) {
-                (this._label as any)["$ubbOwner"] = this;
-                (this._label as any)["$ubbColorArr"] = colorArr;
-                ExtendColor.gradientColorByChar(this, colorArr);
-            } else {
-                delete (this._label as any)["$ubbOwner"];
-                delete (this._label as any)["$ubbColorArr"];
-            }
+            this._ubbColorArr = !Extend.isEmpty(colorArr) ? colorArr : null;
+        } else {
+            this.setXCacheMode(CacheMode.NONE);
+            this._ubbColorArr = null;
+        }
+        this._label.string = text2;
+        if (this._autoSize == AutoSizeType.Both || this._autoSize == AutoSizeType.Height) {
+            this._sizeDirty = true;
+            this.ensureSizeCorrect();
+        }
+        if (!Extend.isEmpty(colorArr)) {
+            label.$ubbOwner = this;
+            label.$ubbColorArr = colorArr;
+            this.refreshUbbColor();
+        } else {
+            GTextField.clearUbbColorState(label);
         }
     }
 
@@ -769,6 +887,7 @@ export class GTextField extends GObject {
      */
     protected updateFont() {
         this.assignFont(this._label, this._realFont);
+        this.scheduleUbbColorRefresh();
     }
 
     /**
@@ -776,6 +895,7 @@ export class GTextField extends GObject {
      */
     protected updateFontColor() {
         this.assignFontColor(this._label, this._color);
+        this.scheduleUbbColorRefresh();
     }
 
     /**
@@ -823,6 +943,7 @@ export class GTextField extends GObject {
             this._label.fontSize = this._fontSize;
             this._label.lineHeight = this._fontSize + this._leading;
         }
+        this.scheduleUbbColorRefresh();
     }
 
     /**
@@ -843,6 +964,7 @@ export class GTextField extends GObject {
             this._label.overflow = Label.Overflow.CLAMP;
             this._uiTrans.setContentSize(this._width, this._height);
         }
+        this.scheduleUbbColorRefresh();
     }
 
     /**
@@ -887,6 +1009,7 @@ export class GTextField extends GObject {
         }
         else if (this._autoSize == AutoSizeType.Height)
             this._uiTrans.width = this._width;
+        this.scheduleUbbColorRefresh();
     }
 
     /**
@@ -895,6 +1018,22 @@ export class GTextField extends GObject {
     protected handleGrayedChanged(): void {
         this.updateFontColor();
         this.updateStrokeColor();
+        this.scheduleUbbColorRefresh();
+    }
+
+    /**
+     * 在透明度变化后重新写入 UBB 顶点色。
+     */
+    protected handleAlphaChanged(): void {
+        this.scheduleUbbColorRefresh();
+    }
+
+    /**
+     * 在可见状态变化后重新写入 UBB 顶点色。
+     */
+    public handleVisibleChanged(): void {
+        super.handleVisibleChanged();
+        this.scheduleUbbColorRefresh();
     }
 
     /**
@@ -1014,34 +1153,8 @@ export class GTextField extends GObject {
 
     /** 设置为垂直滚动文本 */
     public setVerticalScrollText() {
-        // 0Common 公共包移除后 ScrollLabelCom 暂不可用，待回填时取消注释
+        // 当前项目未提供 ScrollLabelCom 公共包，保持显式不可用。
         return;
-        // if (!this._scrollLabCom) {
-        //     this._scrollLabCom = UIPackage.createObject(XResourcesUrl.COM_PACKAGE, "ScrollLabelCom") as GComponent;
-        //     this._scrollLabCom.x = this.x;
-        //     this._scrollLabCom.y = this.y;
-        //     this._scrollLabCom.width = this.width;
-        //     this._scrollLabCom.height = this.height;
-        //     this._scrollLabCom.relations.copyFrom(this._relations);
-        //     this._scrollLabCom.group = this.group;
-        //     this.parent.addChild(this._scrollLabCom);
-        //     // 把 fgui 里的 controller 赋值
-        //     for (let i = 0; i < 10; i++) {
-        //         let gear = this.getGear(i);
-        //         if (gear) {
-        //             // @ts-ignore
-        //             this._scrollLabCom._gears[i] = gear;
-        //             gear._owner = this._scrollLabCom;
-        //         }
-        //     }
-        //     this.removeFromParent();
-        //     this._scrollLabCom.addChild(this);
-        //     this.x = 0;
-        //     this.y = 0;
-        //     this.autoSize = AutoSizeType.Height;
-        // }
-        // this._scrollLabCom.visible = this.visible;
-        // this._scrollLabCom.scrollPane.touchEffect = this.height > this._scrollLabCom.height;
     }
 }
 

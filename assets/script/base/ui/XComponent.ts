@@ -1,4 +1,4 @@
-/**
+﻿/**
 *Author  : XW
 *Desc    : 界面扩展基类，整合 UI 适配、资源依赖、运行单元与生命周期封装
 */
@@ -15,8 +15,8 @@ import XDEBUGLOG from "../debug/XDEBUGLOG";
 import UIMgr from "../manager/UIMgr";
 import { GRoot } from "../../fairyGUI/GRoot";
 import ObserveUnit from "../unit/ObserveUnit";
-import { XResourcesUrl } from "../define/XResourcesUrl";
-import { ExtendScreenShot } from "../extend/ExtendScreenShot";
+import { XResConst } from "../define/XResConst";
+import { ScreenShotMgr } from "../manager/ScreenShotMgr";
 import MaterialMgr from "../manager/MaterialMgr";
 import GestureUnit from "../unit/GestureUnit";
 import TimerUnit from "../unit/TimerUnit";
@@ -170,7 +170,8 @@ export default class XComponent extends GComponent {
 			this.blurLoader.name = "blurLoader";
 			this.blurLoader.setPivot(0, 0, true);
 			this.blurLoader.setPosition(0, 0);
-			this.blurLoader.autoSize = true;
+			this.blurLoader.autoSize = false;
+			this.blurLoader.fill = LoaderFillType.ScaleFree;
 			this.blurLoader.align = AlignType.Center;
 			this.blurLoader.verticalAlign = VertAlignType.Middle;
 			this.addChildAt(this.blurLoader, 0);
@@ -183,8 +184,9 @@ export default class XComponent extends GComponent {
 			y = y + this.height * this.pivotY;
 		}
 		this.blurLoader.setPosition(x, y);
+		this.blurLoader.setSize(GRoot.inst.width, GRoot.inst.height);
 		MaterialMgr.inst.resetToLastMaterial(this.blurLoader._content);
-		await ExtendScreenShot.inst.takeScreenShot(this.blurLoader);
+		await ScreenShotMgr.inst.takeScreenShot(this.blurLoader);
 	}
 
 	/**
@@ -199,7 +201,7 @@ export default class XComponent extends GComponent {
 			this.blockBg = new GLoader();
 			this.blockBg.name = "blockBg";
 			this.blockBg.fill = LoaderFillType.ScaleFree;
-			this.blockBg.url = XResourcesUrl.ALL_BLACK_IMGURL;
+			this.blockBg.url = XResConst.ALL_BLACK_IMGURL;
 			this.blockBg.touchable = true;
 			this.blockBg.width = XConst.REAL_SCREEN_WIDTH * 5;
 			this.blockBg.height = XConst.REAL_SCREEN_HEIGHT * 5;
@@ -265,16 +267,13 @@ export default class XComponent extends GComponent {
 				this.y = GRoot.inst.height >> 1;
 			}
 		} else if (this.uiAdaptType == UIADAPT_TYPE.FguiAlwaysFullScreen) {			/** 始终全屏，由FGUI设置适配方式 */
-			// this.setPivot(0.5, 0.5, true);
-			// this.setSize(GRoot.inst.width, GRoot.inst.height);
-			// this.x = GRoot.inst.width >> 1;
-			// this.y = GRoot.inst.height >> 1;
 			this.setPivot(0.5, 0.5, true);
 			let liuhaiTop = this.ignoreTopLiuhai ? 0 : XConst.TOP_LIUHAI_HEIGHT;
 			let liuhaiBottom = this.ignoreBottomLiuhai ? 0 : XConst.BOTTOM_LIUHAI_HEIGHT;
-			let height = XConst.REAL_SCREEN_HEIGHT - liuhaiTop - liuhaiBottom;
-			this.setSize(XConst.REAL_SCREEN_WIDTH, height);
-			this.x = XConst.REAL_SCREEN_WIDTH >> 1;
+			let width = GRoot.inst.width;
+			let height = GRoot.inst.height - liuhaiTop - liuhaiBottom;
+			this.setSize(width, height);
+			this.x = width >> 1;
 			this.y = (height >> 1) + liuhaiTop;
 		}
 	}
@@ -341,10 +340,7 @@ export default class XComponent extends GComponent {
 	}
 
 	public clearByCache() {
-		if (this.blurLoader && this.blurLoader.texture) {
-			this.blurLoader.texture.texture.destroy();
-			this.blurLoader.texture = undefined;
-		}
+		this.clearBlurTexture();
 		if (this._observeUnit) {
 			this._observeUnit.pause();
 		}
@@ -363,13 +359,15 @@ export default class XComponent extends GComponent {
 		super.clearByCache();
 	}
 
+	/** 进入缓存时的处理 */
+	public onCache(): void {
+		this.clearByCache();
+	}
+
 	public dispose() {
 		let uuid: string = this.node.uuid;
 		if (this.blurLoader) {
-			if (this.blurLoader.texture) {
-				this.blurLoader.texture.texture.destroy();
-				this.blurLoader.texture = undefined;
-			}
+			this.clearBlurTexture();
 			this.blurLoader.dispose();
 			this.blurLoader = undefined;
 		}
@@ -416,5 +414,15 @@ export default class XComponent extends GComponent {
 			let pkgName = pkgs[i];
 			ResMgr.inst.unloadFGUIPakcageRef(pkgName, uuid);
 		}
+	}
+
+	/** 清理景深背景纹理 */
+	private clearBlurTexture(): void {
+		if (!this.blurLoader || !this.blurLoader.texture) {
+			return;
+		}
+		const spriteFrame = this.blurLoader.texture;
+		this.blurLoader.texture = undefined;
+		ScreenShotMgr.inst.releaseScreenShot(spriteFrame);
 	}
 }

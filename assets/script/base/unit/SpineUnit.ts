@@ -3,9 +3,18 @@
 *Desc    : Spine 播放单元，负责 Spine 资源加载、播放、暂停和释放
 */
 
+import { sp } from "cc";
 import { GComponent } from "../../fairyGUI/GComponent";
 import { GLoader3D } from "../../fairyGUI/GLoader3D";
 import { SpineMgr } from "../manager/SpineMgr";
+
+/** Spine 播放选项 */
+export interface ISpinePlayOptions {
+	/** 是否根据资源原始尺寸调整 GLoader3D */
+	autoSize?: boolean;
+	/** 已加载的骨骼数据 */
+	asset?: sp.SkeletonData;
+}
 
 export class SpineUnit {
 	/** 是否在clearByCache时不要清理spine */
@@ -28,8 +37,9 @@ export class SpineUnit {
 	 * @param animation 动画名
 	 * @param loop 是否循环播放
 	 * @param callback 回调函数 (l3d: GLoader3D) => void
+	 * @param options 播放选项
 	 */
-	public async play(url: string, parent: GComponent, x?: number, y?: number, loader3D?: GLoader3D, animation: string = "animation", loop: boolean = true, callback?: (l3d: GLoader3D) => void): Promise<GLoader3D> {
+	public async play(url: string, parent: GComponent, x?: number, y?: number, loader3D?: GLoader3D, animation: string | null = "animation", loop: boolean = true, callback?: (l3d: GLoader3D) => void, options: ISpinePlayOptions = {}): Promise<GLoader3D> {
 		if (!loader3D) {
 			loader3D = new GLoader3D();
 			loader3D.spineUnitCreated = true;
@@ -39,25 +49,35 @@ export class SpineUnit {
 		}
 		loader3D.spineUrl = url;
 		//这里每次都要调用，确保引用计数加1
-		let sk = await SpineMgr.inst.loadSpine(url);
+		let sk = options.asset || await SpineMgr.inst.loadSpine(url);
 		//异步需要判断下是不是当前url加载完成
-		if (loader3D.spineUrl != url) { return; }
-		if (this._isDestroyed) return;
+		if (!sk) {
+			loader3D.spineUrl = undefined;
+			return;
+		}
+		if (loader3D.spineUrl != url || this._isDestroyed) {
+			SpineMgr.inst.releaseSpine(url);
+			return;
+		}
 		// 加载资源过程中 外部已调用删除操作
-		if (!loader3D.node) { return; }
+		if (!loader3D.node) {
+			SpineMgr.inst.releaseSpine(url);
+			return;
+		}
 		if (!loader3D.parent) {
 			parent.addChild(loader3D);
 		}
 		this._allLoader3D[loader3D.node.uuid] = loader3D;
-		//这里只是先设置一个保底值避免不能显示，最终size会根据spine文件自动设置
-		loader3D.setSize(50, 50);
-		if (x) loader3D.x = x;
-		if (y) loader3D.y = y;
+		if (loader3D.spineUnitCreated) {
+			loader3D.setSize(50, 50);
+		}
+		if (x !== null && x !== undefined) loader3D.x = x;
+		if (y !== null && y !== undefined) loader3D.y = y;
 		loader3D.animationName = animation;
-		loader3D.autoSize = true;
+		loader3D.autoSize = options.autoSize !== false;
 		loader3D.loop = loop;
 		loader3D.touchable = false;
-		loader3D.url = url;
+		loader3D.setExternalSpine(url, sk, false);
 		loader3D.playing = true;
 		callback && callback(loader3D);
 		return loader3D;

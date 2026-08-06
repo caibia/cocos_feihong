@@ -6,22 +6,25 @@
 import { Director, director, screen, view } from "cc";
 import LanguageMgr from "../manager/LanguageMgr";
 import { DEBUG } from "cc/env";
+import XDEBUGLOG from "../debug/XDEBUGLOG";
 
 export default class Extend {
 
 	/**
-	 * 断言对象有效；断言失败时抛出异常。
+	 * 断言对象有效。
 	 * @param obj 要检查的对象。
-	 * @param errmsg 断言失败时的附加错误信息。
+	 * @param errmsg 断言失败时的日志信息。
 	 */
-	public static assert(obj: any, errmsg?: string) {
+	public static assert(obj: any, errmsg?: string): boolean {
 		if (obj === undefined || obj === null || obj === false) {
 			let msg = "assertion fail";
 			if (errmsg) {
 				msg = msg + " : " + errmsg;
 			}
-			throw new Error(msg);
+			XDEBUGLOG.warn(msg);
+			return false;
 		}
+		return true;
 	}
 
 	/**
@@ -347,5 +350,3 @@ export default class Extend {
 		return view.getScaleX();
 	}
 }
-
-window["Extend"] = Extend;

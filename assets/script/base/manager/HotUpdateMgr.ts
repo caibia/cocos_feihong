@@ -1,50 +1,7 @@
 import { assetManager, game, JsonAsset, native, sys } from "cc";
 import XDEBUGLOG from "../debug/XDEBUGLOG";
-import { HotUpdateConfig } from "../define/HotUpdateDefine";
 import XStorageMgr from "./XStorageMgr";
 import { STORAGE_TYPE } from "../../app/define/StorageDefine";
-
-/**
- * 热更新下载进度信息
- */
-export interface HotUpdateProgressInfo {
-    /** 引擎返回的状态消息（可能为空） */
-    message: string;
-    /** 当前进度百分比，范围 0~1 */
-    percent: number;
-    /** 已下载文件数 */
-    downloadedFiles: number;
-    /** 总文件数 */
-    totalFiles: number;
-    /** 已下载字节数 */
-    downloadedBytes: number;
-    /** 总字节数 */
-    totalBytes: number;
-}
-
-/**
- * 热更新执行结果（下载阶段）
- */
-export interface HotUpdateResult {
-    /** true 表示本次流程被跳过（配置关闭/平台不支持/忙碌等） */
-    skipped: boolean;
-    /** true 表示更新已成功完成并触发重启 */
-    updated: boolean;
-    /** 非成功场景的原因标识，便于日志和排查 */
-    reason?: string;
-}
-
-/**
- * 热更新检测结果（仅检查阶段）
- */
-export interface HotUpdateCheckResult {
-    /** true 表示本次检测被跳过 */
-    skipped: boolean;
-    /** true 表示检测到新版本，需要进入下载更新 */
-    needUpdate: boolean;
-    /** 检测跳过或无需更新时的原因标识 */
-    reason?: string;
-}
 
 type HotUpdateState = "idle" | "checking" | "updating";
 
@@ -76,11 +33,11 @@ export default class HotUpdateMgr {
     private _pendingSearchPaths: string[] | null = null;
 
     /** checkNeedUpdate Promise 的 resolve 引用 */
-    private _resolveCheck: ((value: HotUpdateCheckResult) => void) | null = null;
+    private _resolveCheck: ((value: IHotUpdate.CheckResult) => void) | null = null;
     /** startHotUpdate Promise 的 resolve 引用 */
-    private _resolveUpdate: ((value: HotUpdateResult) => void) | null = null;
+    private _resolveUpdate: ((value: IHotUpdate.Result) => void) | null = null;
     /** 下载进度回调（由外部 UI 传入） */
-    private _onProgress: ((info: HotUpdateProgressInfo) => void) | null = null;
+    private _onProgress: ((info: IHotUpdate.ProgressInfo) => void) | null = null;
 
     /**
      * 应用之前保存的 searchPaths。
@@ -102,15 +59,15 @@ export default class HotUpdateMgr {
 
     /**
      * 仅检测是否需要热更新，不执行下载。
-     * 供 LoginView 调用。
+     * 供热更新界面调用。
      */
-    public async checkNeedUpdate(config: HotUpdateConfig): Promise<HotUpdateCheckResult> {
+    public async checkNeedUpdate(config: IHotUpdate.Config): Promise<IHotUpdate.CheckResult> {
         const pre = await this.prepare(config);
         if (pre) return pre;
 
         this._state = "checking";
         try {
-            return await new Promise<HotUpdateCheckResult>((resolve) => {
+            return await new Promise<IHotUpdate.CheckResult>((resolve) => {
                 this._resolveCheck = resolve;
                 this._assetsManager.setEventCallback(this.onCheckNeedEvent.bind(this));
                 this._assetsManager.checkUpdate();
@@ -128,7 +85,7 @@ export default class HotUpdateMgr {
      * 执行下载更新。
      * 建议在 checkNeedUpdate 返回 needUpdate=true 后调用。
      */
-    public async startHotUpdate(config: HotUpdateConfig, onProgress?: (info: HotUpdateProgressInfo) => void): Promise<HotUpdateResult> {
+    public async startHotUpdate(config: IHotUpdate.Config, onProgress?: (info: IHotUpdate.ProgressInfo) => void): Promise<IHotUpdate.Result> {
         const key = this.getConfigKey(config);
         if (!this._preparedForUpdate || this._preparedConfigKey !== key) {
             const check = await this.checkNeedUpdate(config);
@@ -147,7 +104,7 @@ export default class HotUpdateMgr {
         this._state = "updating";
         this._onProgress = onProgress || null;
         try {
-            return await new Promise<HotUpdateResult>((resolve) => {
+            return await new Promise<IHotUpdate.Result>((resolve) => {
                 this._resolveUpdate = resolve;
                 this._assetsManager.setEventCallback(this.onUpdateEvent.bind(this));
                 this._assetsManager.update();
@@ -168,9 +125,9 @@ export default class HotUpdateMgr {
      * 兼容旧调用：检测并直接更新。
      */
     public async checkAndUpdate(
-        config: HotUpdateConfig,
-        onProgress?: (info: HotUpdateProgressInfo) => void
-    ): Promise<HotUpdateResult> {
+        config: IHotUpdate.Config,
+        onProgress?: (info: IHotUpdate.ProgressInfo) => void
+    ): Promise<IHotUpdate.Result> {
         const check = await this.checkNeedUpdate(config);
         if (check.skipped) {
             return { skipped: true, updated: false, reason: check.reason };
@@ -202,7 +159,7 @@ export default class HotUpdateMgr {
         return true;
     }
 
-    private async prepare(config: HotUpdateConfig): Promise<HotUpdateCheckResult | null> {
+    private async prepare(config: IHotUpdate.Config): Promise<IHotUpdate.CheckResult | null> {
         if (!config.enable) {
             return { skipped: true, needUpdate: false, reason: "disabled" };
         }
@@ -356,7 +313,7 @@ export default class HotUpdateMgr {
         }
     }
 
-    private getConfigKey(config: HotUpdateConfig): string {
+    private getConfigKey(config: IHotUpdate.Config): string {
         return `${config.packageUrl}|${config.storageDir}|${config.manifestResourcePath}`;
     }
 
@@ -377,12 +334,12 @@ export default class HotUpdateMgr {
         return !!asset.md5;
     }
 
-    private resolveCheckSafe(result: HotUpdateCheckResult): void {
+    private resolveCheckSafe(result: IHotUpdate.CheckResult): void {
         if (!this._resolveCheck) return;
         this._resolveCheck(result);
     }
 
-    private resolveUpdateSafe(result: HotUpdateResult): void {
+    private resolveUpdateSafe(result: IHotUpdate.Result): void {
         if (!this._resolveUpdate) return;
         this._resolveUpdate(result);
     }
@@ -399,7 +356,9 @@ export default class HotUpdateMgr {
                         resolve(null);
                         return;
                     }
-                    resolve(asset.json as Record<string, any>);
+                    const data = asset.json as Record<string, any>;
+                    assetManager.releaseAsset(asset);
+                    resolve(data);
                 });
             });
         });

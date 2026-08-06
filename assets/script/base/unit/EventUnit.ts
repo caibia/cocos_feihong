@@ -5,16 +5,22 @@
 
 import { Component, Node, game } from "cc";
 import { GObject } from "../../fairyGUI/GObject";
-import EventMgr, { EventCallBack, EventName } from "../manager/EventMgr";
+import EventMgr from "../manager/EventMgr";
 import { FEvent } from "../../fairyGUI/event/Event";
 import XDEBUGLOG from "../debug/XDEBUGLOG";
 import { Controller } from "../../fairyGUI/Controller";
 import { GList } from "../../fairyGUI/GList";
 import TimerMgr, { ITimer } from "../manager/TimerMgr";
+import { XResConst } from "../define/XResConst";
+import { EVENTNAME } from "../../app/define/EventDefine";
+
+/** 点击事件最小间隔 */
+const CLICK_EVENT_INTERVAL_MS = 300;
 
 type Dispatcher = Node | GObject | Component | Controller;
-type Listener = { dispatcher: any, event: string, callback: Function, targetObj: any };
-type GlobalListener = { callback: EventCallBack<any>, target?: any };
+type EventCallback = (...any: any[]) => void | Function;
+type Listener = { dispatcher: any, event: string, callback: EventCallback, targetObj: any, sourceCallback?: EventCallback, sourceTargetObj?: any };
+type GlobalListener = { callback: IEvent.CallBack<any>, target?: any };
 
 export default class EventUnit {
 	/**事件警告阈值 */
@@ -22,7 +28,7 @@ export default class EventUnit {
 	/** 当前单元注册的本地事件监听列表 */
 	private _allListener: Listener[];
 	/** 当前单元注册的全局事件映射表 */
-	private _globalEventMap: Partial<Record<EventName, GlobalListener[]>>;
+	private _globalEventMap: Partial<Record<IEvent.Name, GlobalListener[]>>;
 	/**长按事件数据 [uuid] = timer*/
 	private _longTouchTimer: { [uuid: string]: ITimer };
 	/**双击事件数据 */
@@ -37,13 +43,13 @@ export default class EventUnit {
 	}
 
 	/**
-	 * 监听点击事件
+	 * 监听点击事件并播放通用点击音效
 	 * @param dispatcher 监听目标
 	 * @param callback 回调
 	 * @param targetObj 回调对象
 	 */
-	public addClickEvent(dispatcher: GObject, callback: (...any: any[]) => void | Function, targetObj: any) {
-		this._addEvent(dispatcher, FEvent.CLICK, callback, targetObj);
+	public addClickEvent(dispatcher: GObject, callback: EventCallback, targetObj: any): void {
+		this._addEvent(dispatcher, FEvent.CLICK, callback, targetObj, true);
 	}
 
 	/**
@@ -65,7 +71,7 @@ export default class EventUnit {
 	 */
 	public addDoubleClickEvent(dispatcher: GObject, callback: Function, thisObj: any) {
 		this._doubleClickTimerDict ||= {};
-		this.addClickEvent(dispatcher, () => {
+		this._addEvent(dispatcher, FEvent.CLICK, () => {
 			if (!dispatcher.node) return;
 			let uuid = dispatcher.node.uuid;
 			let curTime = game.totalTime;
@@ -115,7 +121,7 @@ export default class EventUnit {
 	 * @param callback 回调
 	 * @param targetObj 回调对象
 	 */
-	public addGlobalEventListener<T extends EventName>(event: T, callback: EventCallBack<T>, targetObj: any) {
+	public addGlobalEventListener<T extends IEvent.Name>(event: T, callback: IEvent.CallBack<T>, targetObj: any) {
 		if (!this._globalEventMap[event]) {
 			this._globalEventMap[event] = [];
 		}
@@ -195,9 +201,9 @@ export default class EventUnit {
 	 * @param event 事件名称
 	 * @param callback 回调
 	 * @param thisObj 回调对象
-	 * @returns 
+	 * @param shouldPlayClickSound 是否播放通用点击音效
 	 */
-	private _addEvent(dispatcher: Dispatcher, event: string, callback: (...any: any[]) => void | Function, thisObj: any) {
+	private _addEvent(dispatcher: Dispatcher, event: string, callback: EventCallback, thisObj: any, shouldPlayClickSound: boolean = false): void {
 		if (!dispatcher) {
 			XDEBUGLOG.error("target不能传null空值");
 			return;
@@ -211,8 +217,23 @@ export default class EventUnit {
 			XDEBUGLOG.warn("重复监听事件", event);
 			return;
 		}
-		node.on(event, callback, thisObj);
-		let listener: Listener = { dispatcher: dispatcher, event: event, callback: callback, targetObj: thisObj };
+		let eventCallback: EventCallback = callback;
+		let eventTarget = thisObj;
+		if (shouldPlayClickSound) {
+			let lastClickTime = -CLICK_EVENT_INTERVAL_MS;
+			eventCallback = (...args: any[]) => {
+				const now = game.totalTime;
+				if (now - lastClickTime < CLICK_EVENT_INTERVAL_MS) {
+					return;
+				}
+				lastClickTime = now;
+				EventMgr.inst.dispatchEvent(EVENTNAME.PLAY_SOUND, { url: XResConst.AUDIO_MAP.buttonClick });
+				callback.call(thisObj, ...args);
+			};
+			eventTarget = this;
+		}
+		node.on(event, eventCallback, eventTarget);
+		let listener: Listener = { dispatcher: dispatcher, event: event, callback: eventCallback, targetObj: eventTarget, sourceCallback: callback, sourceTargetObj: thisObj };
 		this.pushListener(listener);
 	}
 
@@ -224,11 +245,11 @@ export default class EventUnit {
 	 * @param thisObj 回调对象
 	 * @returns boolean
 	 */
-	private isRepeat(dispatcher: Dispatcher, event: string, callback: (...any: any[]) => void | Function, thisObj: any) {
+	private isRepeat(dispatcher: Dispatcher, event: string, callback: EventCallback, thisObj: any): boolean {
 		let l: Listener;
 		for (let i = 0; i < this._allListener.length; i++) {
 			l = this._allListener[i];
-			if (l.dispatcher == dispatcher && l.event == event && l.callback == callback && l.targetObj == thisObj)
+			if (l.dispatcher === dispatcher && l.event === event && (l.sourceCallback || l.callback) === callback && (l.sourceTargetObj || l.targetObj) === thisObj)
 				return true;
 		}
 		return false;
@@ -258,11 +279,11 @@ export default class EventUnit {
 			}
 		}
 		for (let eventName in this._globalEventMap) {
-			const typedEventName = eventName as EventName;
+			const typedEventName = eventName as IEvent.Name;
 			let eventQueue: GlobalListener[] = this._globalEventMap[typedEventName];
 			if (!eventQueue) continue;
 			for (let i = 0; i < eventQueue.length; i++) {
-				EventMgr.inst.removeListener(typedEventName, eventQueue[i].callback as EventCallBack<any>, eventQueue[i].target);
+				EventMgr.inst.removeListener(typedEventName, eventQueue[i].callback as IEvent.CallBack<any>, eventQueue[i].target);
 			}
 		}
 	}
@@ -278,11 +299,11 @@ export default class EventUnit {
 			}
 		}
 		for (let eventName in this._globalEventMap) {
-			const typedEventName = eventName as EventName;
+			const typedEventName = eventName as IEvent.Name;
 			let eventQueue: GlobalListener[] = this._globalEventMap[typedEventName];
 			if (!eventQueue) continue;
 			for (let i = 0; i < eventQueue.length; i++) {
-				EventMgr.inst.addEventListener(typedEventName, eventQueue[i].callback as EventCallBack<any>, eventQueue[i].target);
+				EventMgr.inst.addEventListener(typedEventName, eventQueue[i].callback as IEvent.CallBack<any>, eventQueue[i].target);
 			}
 		}
 	}
@@ -293,16 +314,15 @@ export default class EventUnit {
 	 * @param event 事件名称
 	 * @param callback 回调
 	 * @param thisObj 回调对象
-	 * @returns 
 	 */
-	public removeEvent(dispatcher: Dispatcher, event: string, callback: (...any: any[]) => void | Function, thisObj: any) {
+	public removeEvent(dispatcher: Dispatcher, event: string, callback: EventCallback, thisObj: any): void {
 		if (!this._allListener) return;
 		let l: Listener;
 		for (let i = 0; i < this._allListener.length; i++) {
 			l = this._allListener[i];
-			if (l.dispatcher == dispatcher && l.event == event && l.callback == callback && l.targetObj == thisObj) {
+			if (l.dispatcher === dispatcher && l.event === event && (l.sourceCallback || l.callback) === callback && (l.sourceTargetObj || l.targetObj) === thisObj) {
 				let node = (dispatcher instanceof GObject || dispatcher instanceof Component) ? dispatcher.node : dispatcher;
-				node && node.off(event, callback, thisObj);
+				node && node.off(event, l.callback, l.targetObj);
 				this._allListener.splice(i, 1);
 				return;
 			}
@@ -320,11 +340,11 @@ export default class EventUnit {
 		this._allListener = [];
 
 		for (let eventName in this._globalEventMap) {
-			const typedEventName = eventName as EventName;
+			const typedEventName = eventName as IEvent.Name;
 			let eventQueue: GlobalListener[] = this._globalEventMap[typedEventName];
 			if (!eventQueue) continue;
 			for (let i = 0; i < eventQueue.length; i++) {
-				EventMgr.inst.removeListener(typedEventName, eventQueue[i].callback as EventCallBack<any>, eventQueue[i].target);
+				EventMgr.inst.removeListener(typedEventName, eventQueue[i].callback as IEvent.CallBack<any>, eventQueue[i].target);
 			}
 		}
 		this._globalEventMap = {};

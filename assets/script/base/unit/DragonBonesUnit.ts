@@ -43,10 +43,19 @@ export class DragonBonesUnit {
 		//这里每次都要调用，确保引用计数加1
 		let sk = await DragonBonesMgr.inst.loadDragonBones(url);
 		//异步需要判断下是不是当前url加载完成
-		if (loader3D.dragonBonesUrl != url) { return; }
-		if (this._isDestroyed) return;
+		if (!sk) {
+			loader3D.dragonBonesUrl = undefined;
+			return;
+		}
+		if (loader3D.dragonBonesUrl != url || this._isDestroyed) {
+			DragonBonesMgr.inst.releaseDragonBones(url);
+			return;
+		}
 		// 加载资源过程中 外部已调用删除操作
-		if (!loader3D.node) { return; }
+		if (!loader3D.node) {
+			DragonBonesMgr.inst.releaseDragonBones(url);
+			return;
+		}
 		if (!loader3D.parent) {
 			parent.addChild(loader3D);
 		}
@@ -57,7 +66,7 @@ export class DragonBonesUnit {
 		loader3D.autoSize = true;
 		loader3D.loop = loop;
 		loader3D.touchable = false;
-		loader3D.url = url;
+		loader3D.setExternalDragonBones(url, sk.ske, sk.tex);
 		loader3D.playing = true;
 		if (x && y) loader3D.setPosition(x, y);
 		complete && complete(loader3D);

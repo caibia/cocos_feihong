@@ -1,0 +1,7 @@
+interface:
+  display_name: "FGUI MCP"
+  short_description: "FairyGUI MCP 使用规范、操作边界与流程"
+  default_prompt: "Use $fgui-mcp to modify FairyGUI UI components, controllers, resources, and previews."
+
+policy:
+  allow_implicit_invocation: true

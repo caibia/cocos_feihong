@@ -8,7 +8,14 @@ import BaseData from "../data/BaseData";
 import XDEBUGLOG from "../debug/XDEBUGLOG";
 import XConst from "../define/XConst";
 
-export type ObserveFunc = { obFunc: Function, obCallThis: any, obArgs: any[] };
+export type ObserveFunc = {
+    /**观察者回调 */
+    obFunc: Function,
+    /**回调对象 */
+    obCallThis: any,
+    /**回调参数 */
+    obArgs: any[],
+}
 
 export default class ObserveMgr {
 
@@ -24,6 +31,14 @@ export default class ObserveMgr {
 
     constructor() {
         this._observeFunMap = {};
+    }
+
+    /**
+     * 获取观察函数名称。
+     * @param subFunc 被观察函数
+     */
+    private getObserveName(subFunc: Function): string {
+        return subFunc ? (subFunc["_obName"] || subFunc.name || "") : "";
     }
 
     /**
@@ -60,7 +75,7 @@ export default class ObserveMgr {
      */
     public addObserve(subFunc: Function, obFunc: Function, obCallThis: any, ...args: any[]): void {
         if (!subFunc || !obFunc) return;
-        let obName: string = subFunc["_obName"];
+        let obName: string = this.getObserveName(subFunc);
         if (!obName) return;
         let funcs = this._observeFunMap[obName];
         if (!funcs) this._observeFunMap[obName] = funcs = [];
@@ -78,7 +93,7 @@ export default class ObserveMgr {
      */
     public removeObserve(subFunc: Function, obFunc: Function, obCallThis: any): void {
         if (!subFunc || !obFunc) return;
-        let obName: string = subFunc.name;;
+        let obName: string = this.getObserveName(subFunc);
         if (!obName) return;
         let funcs = this._observeFunMap[obName];
         if (!funcs) return;
@@ -170,13 +185,14 @@ export default class ObserveMgr {
             }
         }
         if (callClass[funcName]["_obName"]) return;
+        let observeName = `${callClass.constructor?.name || callClass.name || "Anonymous"}.${funcName}`;
         //重写函数 
         callClass[funcName] = (...arg: any) => {
             //调用原始函数
             let reArg = isStatic ? baseFunc(...arg) : baseFunc.apply(callClass, arg);
             //处理观察者绑定的函数
             if (reArg == XConst.OBSERVE_RETURN) return;
-            let funcs = this._observeFunMap[funcName] || [];
+            let funcs = this._observeFunMap[observeName] || [];
             for (let fun of funcs) {
                 if (fun.obCallThis["$_Pause"]) continue;
                 let time1 = Date.now();
@@ -189,6 +205,6 @@ export default class ObserveMgr {
                 }
             }
         }
-        callClass[funcName]["_obName"] = funcName;
+        callClass[funcName]["_obName"] = observeName;
     }
 }

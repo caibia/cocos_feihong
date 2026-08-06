@@ -91,5 +91,3 @@ export default class ExtendAlgorithm {
         ExtendAlgorithm._quickSort(arr, index + 1, high, compare);
     }
 }
-
-window["ExtendAlgorithm"] = ExtendAlgorithm;

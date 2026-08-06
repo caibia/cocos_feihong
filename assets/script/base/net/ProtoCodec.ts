@@ -3,17 +3,10 @@
  *Desc    : protobuf 编解码管理器（仅支持 protobuf）
  */
 
-import * as protobufNamespace from "protobufjs";
-import { ProtoDataMap } from "../../app/define/ProtoDefine";
-import { PROTO_MESSAGE_NAME_MAP, PROTO_SCHEMA_JSON } from "../../app/define/ProtoSchema";
+import type * as protobufNamespace from "protobufjs";
+import { PROTO_MESSAGE_NAME_MAP, ProtoDataMap } from "../../app/define/ProtoDefine";
 import XDEBUGLOG from "../debug/XDEBUGLOG";
-
-type ProtobufModule = typeof import("protobufjs");
-
-// 兼容 ESM 引入 CJS 场景，避免 protobuf.Root 在运行时为 undefined。
-const protobuf: ProtobufModule = ((protobufNamespace as unknown as { default?: ProtobufModule }).default
-    ?? (protobufNamespace as unknown as { "module.exports"?: ProtobufModule })["module.exports"]
-    ?? (protobufNamespace as unknown as ProtobufModule));
+import ProtoBinLoader from "./ProtoBinLoader";
 
 /** 协议名类型约束 */
 export type ProtoName = keyof ProtoDataMap & string;
@@ -34,6 +27,8 @@ export default class ProtoCodec {
 
     /** protobuf root */
     private _root: protobufNamespace.Root | null = null;
+    /** 初始化任务 */
+    private _initPromise: Promise<void> | null = null;
     /** 协议名到消息类型映射 */
     private _typeMap: Map<ProtoName, protobufNamespace.Type> = new Map();
 
@@ -45,33 +40,46 @@ export default class ProtoCodec {
         return this._inst;
     }
 
-    /**
-     * 初始化 protobuf 反射结构。
-     */
-    public init(): void {
+    /** 初始化 protobuf 反射结构 */
+    public async init(): Promise<void> {
         if (this._root) {
             return;
         }
+        if (this._initPromise) {
+            return this._initPromise;
+        }
+        this._initPromise = this.loadProtoBin();
+        try {
+            await this._initPromise;
+        } catch (err) {
+            this._initPromise = null;
+            throw err;
+        }
+    }
 
-        if (!protobuf.Root || typeof protobuf.Root.fromJSON !== "function") {
-            const exportKeys = Object.keys(protobufNamespace as unknown as Record<string, unknown>);
-            XDEBUGLOG.error(`protobuf 初始化失败，未找到 Root.fromJSON，当前导出键=${exportKeys.join(",")}`);
-            return;
+    /** 加载 protobuf 二进制描述 */
+    private async loadProtoBin(): Promise<void> {
+        const root = await ProtoBinLoader.inst.loadRoot();
+        const protoMap = PROTO_MESSAGE_NAME_MAP as Record<string, string>;
+        const protoNames = Object.keys(protoMap);
+        if (protoNames.length === 0) {
+            XDEBUGLOG.error("protobuf 协议映射为空");
+            throw new Error("protobuf 协议映射为空");
         }
 
-        const root = protobuf.Root.fromJSON(PROTO_SCHEMA_JSON as unknown as protobufNamespace.INamespace);
-        const protoMap = PROTO_MESSAGE_NAME_MAP as Record<string, string>;
-
-        for (const protoName of Object.keys(protoMap)) {
+        const typeMap = new Map<ProtoName, protobufNamespace.Type>();
+        for (const protoName of protoNames) {
             const messageName = protoMap[protoName];
             try {
                 const messageType = root.lookupType(messageName);
-                this._typeMap.set(protoName as ProtoName, messageType);
+                typeMap.set(protoName as ProtoName, messageType);
             } catch (err) {
                 XDEBUGLOG.error(`初始化协议类型失败: 协议=${protoName}, 消息=${messageName}`, err);
+                throw err;
             }
         }
 
+        this._typeMap = typeMap;
         this._root = root;
         XDEBUGLOG.net("protobuf 编解码器初始化完成", `协议数量=${this._typeMap.size}`);
     }
@@ -169,7 +177,7 @@ export default class ProtoCodec {
             }) as ProtoDataMap[ProtoName];
             return {
                 protoName: protoName as ProtoName,
-                msg,
+                msg: this.stripFailedResponse(msg),
             };
         } catch (err) {
             XDEBUGLOG.error("接收失败，protobuf 解码异常", protoName, err);
@@ -183,8 +191,23 @@ export default class ProtoCodec {
      * @returns protobuf 类型
      */
     private getMessageType(protoName: ProtoName): protobufNamespace.Type | null {
-        this.init();
+        if (!this._root) {
+            XDEBUGLOG.error("protobuf 尚未初始化", protoName);
+            return null;
+        }
         return this._typeMap.get(protoName) || null;
+    }
+
+    /**
+     * 裁剪失败响应字段。
+     * @param msg 协议数据
+     */
+    private stripFailedResponse<T extends ProtoName>(msg: ProtoDataMap[T]): ProtoDataMap[T] {
+        const record = msg as unknown as Record<string, unknown>;
+        if (typeof record.code !== "number" || record.code === 0) {
+            return msg;
+        }
+        return { code: record.code } as ProtoDataMap[T];
     }
 
     /**
@@ -213,5 +236,3 @@ export default class ProtoCodec {
         return text;
     }
 }
-
-window["ProtoCodec"] = ProtoCodec;

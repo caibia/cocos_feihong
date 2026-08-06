@@ -345,9 +345,12 @@ export class GComboBox extends GComponent {
      * 获取内部实际承载文本显示的文本对象。
      */
     public getTextField(): GTextField {
+        if (!this._titleObject)
+            return null;
+
         if (this._titleObject instanceof GTextField)
             return this._titleObject;
-        else if ('getTextField' in this._titleObject)
+        else if ("getTextField" in this._titleObject)
             return (<any>this._titleObject).getTextField();
         else
             return null;

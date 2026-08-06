@@ -3,7 +3,7 @@
 *Desc    : 观察者单元，负责观察事件注册、暂停恢复与释放
 */
 
-import ObserveMgr, { ObserveFunc } from "../manager/ObserveMgr";
+import ObserveMgr from "../manager/ObserveMgr";
 
 export default class ObserveUnit {
 

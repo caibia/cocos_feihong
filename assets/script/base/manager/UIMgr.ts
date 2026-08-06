@@ -1,4 +1,4 @@
-
+﻿
 /**
 *Author  : XW
 *Desc    : 
@@ -8,25 +8,20 @@ import UIDefine, { CACHETYPE_ENUM, LAYER_CONST, UIDefineType, UINAME, UIArgMap, 
 import XComponent from "../ui/XComponent"
 import XDEBUGLOG from "../debug/XDEBUGLOG";
 import ResMgr from "./ResMgr";
-import { XResourcesUrl } from "../define/XResourcesUrl";
+import { XResConst } from "../define/XResConst";
 import { GComponent } from "../../fairyGUI/GComponent";
 import { GRoot } from "../../fairyGUI/GRoot";
 import { GObject } from "../../fairyGUI/GObject";
-// 0Common 公共包移除后暂不用：待回填 AlertLabelTip / DialogView / 点击特效 时恢复
-// import AlertLabelTip from "../../app/module/alert/AlertLabelTip";
-// import NodePoolMgr from "./NodePoolMgr";
-// import { XNODEPOOL_KEY } from "../define/XNodePoolDefine";
-// import LanguageMgr from "./LanguageMgr";
+import NodePoolMgr from "./NodePoolMgr";
+import { XNODEPOOL_KEY } from "../define/XNodePoolDefine";
 import SceneMgr from "./SceneMgr";
 import { ExtendTime } from "../extend/ExtendTime";
 import TimerMgr from "./TimerMgr";
 import EventMgr from "./EventMgr";
 import { EVENTNAME } from "../../app/define/EventDefine";
 import XWindow from "../ui/XWindow";
-// 0Common 点击特效相关 cc 模块占位
-// import { EventTouch, NodeEventType, Tween, game, tween } from "cc";
-// import { GLoader3D } from "../../fairyGUI/GLoader3D";
-import { TextAsset, resources } from "cc";
+import { EventTouch, NodeEventType, TextAsset, Tween, game, tween } from "cc";
+import { GLoader3D } from "../../fairyGUI/GLoader3D";
 import { UIPackage } from "../../fairyGUI/UIPackage";
 
 type FinishCallback<T extends UINameType = UINameType> = (ui: UIInstanceMap[T]) => void;
@@ -52,6 +47,16 @@ export default class UIMgr {
     private lastBlurName: UINameType
     /** 全屏遮挡使用的隐藏原因 key，用于 hideByReason/forceUnHide 与场景显隐的统一标识 */
     private _UIFullScreen: string = "UIFullScreen";
+    /** 界面进场等待使用的隐藏原因 */
+    private _UIEntering: string = "UIEntering";
+    /** 全屏遮挡检测执行中的 Promise */
+    private _fullScreenCheckPromise: Promise<void> | null = null;
+    /** 全屏遮挡检测执行中的互斥锁 */
+    private _checkingFullScreen = false;
+    /** 全屏遮挡执行中收到的重检标记 */
+    private _needFullScreenRecheck = false;
+    /** 被全屏界面临时隐藏的 UI */
+    private _fullScreenHiddenMap: Partial<Record<UINameType, boolean>>;
     /** 景深检测执行中的互斥锁，避免并发执行 checkDepthOfFieldImpl */
     private _checkingDepthOfField = false;
     /** 执行中若再次收到检测请求则置位，当前轮结束后立刻补跑一次 */
@@ -71,6 +76,7 @@ export default class UIMgr {
         this._uiCache = {};
         this._uiMapArg = {};
         this._loadingShowMap = {};
+        this._fullScreenHiddenMap = {};
         this._layers = [];
         this._showIndex = 0;
         let parent: GRoot = GRoot.inst;
@@ -89,60 +95,8 @@ export default class UIMgr {
         return this._layers[idx];
     }
 
-    /**
-     * 显示文本提示 例如：UIMgr.inst.showLabelTip(10001, ["你好，欢迎来到游戏"]);
-     * @param id 提示ID
-     * @param params 提示参数
-     */
-    public showLabelTip(id: number | string, params?: any[]) {
-        // 0Common 公共包移除后 AlertLabelTip 暂不可用
-        XDEBUGLOG.warn("[UIMgr] showLabelTip 公共控件未就绪", id, params);
-        // let alertLabelTip: AlertLabelTip = NodePoolMgr.inst.get(XNODEPOOL_KEY.ALERT_LABELTIP_POOL, XResourcesUrl.COM_PACKAGE, "AlertLabelTip", AlertLabelTip) as AlertLabelTip;
-        // let layer: GComponent = this._layers[LAYER_CONST.TOP];
-        // layer.addChild(alertLabelTip);
-        // alertLabelTip.onCreate();
-        // alertLabelTip.onRefresh({ id: id, params: params });
-    }
-
-    /**
-     * 显示调试文本提示
-     * @param str 调试文本
-     */
-    public showDebugLabelTip(str: string) {
-        // 0Common 公共包移除后 AlertLabelTip 暂不可用
-        XDEBUGLOG.warn("[UIMgr] showDebugLabelTip 公共控件未就绪", str);
-        // let alertLabelTip: AlertLabelTip = NodePoolMgr.inst.get(XNODEPOOL_KEY.ALERT_LABELTIP_POOL, XResourcesUrl.COM_PACKAGE, "AlertLabelTip", AlertLabelTip) as AlertLabelTip;
-        // let layer: GComponent = this._layers[LAYER_CONST.TOP];
-        // layer.addChild(alertLabelTip);
-        // alertLabelTip.onCreate();
-        // alertLabelTip.onRefresh({ debugTxt: str });
-    }
-
     public showNetLoading() {
         UIMgr.inst.show(UINAME.NetLoadingView);
-    }
-
-    /**
-     * 显示二次确认框
-     * @param title 标题
-     * @param content 内容
-     * @param okFunc 确定回调
-     * @param cancelFunc 取消回调
-     * @param okText 确定文本
-     * @param cancelText 取消文本
-     */
-    public showDialog(title: string, content: string, okFunc?: () => void, cancelFunc?: () => void, okText?: string, cancelText?: string) {
-        // 0Common 公共包移除后 DialogView 暂不可用
-        XDEBUGLOG.warn("[UIMgr] showDialog DialogView 未就绪", title, content);
-        // let args: IUIArg.IDialogViewArg = {
-        //     title: title || LanguageMgr.get(1002301),
-        //     content: content,
-        //     okFunc: okFunc,
-        //     cancelFunc: cancelFunc,
-        //     okBtnText: okText || LanguageMgr.get(1002302),
-        //     cancelBtnText: cancelText || LanguageMgr.get(1002303)
-        // }
-        // this.show(UINAME.DialogView, args);
     }
 
     /**获取最顶层UI */
@@ -167,7 +121,6 @@ export default class UIMgr {
         // [UINAME.GuideSpeakView]: true,
         // [UINAME.GuideBlockView]: true,
         // [UINAME.GuideSlideView]:true,
-        ["AlertLabelTip"]: true,
     }
     /**
      * 检测一个界面是否在最上层(基本是做为弱指引的判断接口的)
@@ -215,37 +168,48 @@ export default class UIMgr {
         return true;
     }
 
-    /**检测全屏界面 */
-    public checkFullScreen() {
-        /** 顶层ui所在的层。低于这个层级的ui都要隐藏， -1表示没有全屏界面 */
-        let topLayerIdx = -1;
-        /** 顶层ui所在的child索引。低于这个child索引的ui都要隐藏 */
-        let topChildIdx = -1;
-        /** 顶层UI */
-        let topUiName: string;
-        let topUi: XComponent;
-        for (let i = LAYER_CONST.MAX; i >= 0; i--) {
-            let layer = this._layers[i];
-            for (let j = layer._children.length - 1; j >= 0; j--) {
-                let child = layer._children[j];
-                if (child instanceof XComponent && child.UINAME) {
-                    if (child.UINAME == UINAME.NetLoadingView) continue;
-                    if (child.isLoading) continue;
-                    if (child.hideBottom) {
-                        topLayerIdx = i;
-                        topChildIdx = j;
-                        topUiName = child.UINAME;
-                        topUi = child;
-                        break;
+    /** 检测全屏界面 */
+    public checkFullScreen(): Promise<void> {
+        if (this._checkingFullScreen) {
+            this._needFullScreenRecheck = true;
+            return this._fullScreenCheckPromise || Promise.resolve();
+        }
+        this._checkingFullScreen = true;
+        this._fullScreenCheckPromise = this.checkFullScreenImpl();
+        return this._fullScreenCheckPromise;
+    }
+
+    /** 执行全屏界面检测 */
+    private async checkFullScreenImpl(): Promise<void> {
+        try {
+            /** 顶层ui所在的层。低于这个层级的ui都要隐藏， -1表示没有全屏界面 */
+            let topLayerIdx = -1;
+            /** 顶层ui所在的child索引。低于这个child索引的ui都要隐藏 */
+            let topChildIdx = -1;
+            /** 顶层UI */
+            let topUiName: string;
+            let topUi: XComponent;
+            for (let i = LAYER_CONST.MAX; i >= 0; i--) {
+                let layer = this._layers[i];
+                for (let j = layer._children.length - 1; j >= 0; j--) {
+                    let child = layer._children[j];
+                    if (child instanceof XComponent && child.UINAME) {
+                        if (child.UINAME == UINAME.NetLoadingView) continue;
+                        if (child.isLoading) continue;
+                        if (child.hideBottom) {
+                            topLayerIdx = i;
+                            topChildIdx = j;
+                            topUiName = child.UINAME;
+                            topUi = child;
+                            break;
+                        }
                     }
                 }
+                if (topLayerIdx >= 0) break;
             }
-            if (topLayerIdx >= 0) break;
-        }
-        let hideChange = this.fullScreenHideInfo.topUiName != topUiName;
-        if (hideChange) {
-            //顶层以下的所有ui都隐藏
-            //顶层以上的ui都取消隐藏
+            let hideChange = this.fullScreenHideInfo.topUiName != topUiName;
+            let promiseArr: Promise<void>[] = [];
+            //顶层以下的所有ui都隐藏，顶层以上的ui都取消隐藏
             for (let i = 0; i <= LAYER_CONST.MAX; i++) {
                 let layer = this._layers[i];
                 for (let j = 0; j < layer._children.length; j++) {
@@ -254,27 +218,97 @@ export default class UIMgr {
                     let isVisible = i > topLayerIdx || (i == topLayerIdx && j >= topChildIdx);
                     if (child instanceof XComponent && child.UINAME == UINAME.NetLoadingView) continue;
                     XDEBUGLOG.ui(`全屏界面---${child.name} ----> ${isVisible})`);
-                    child.hideByReason(this._UIFullScreen, isVisible);
+                    if (child instanceof XComponent && child.UINAME) {
+                        if (isVisible) {
+                            if (this._fullScreenHiddenMap[child.UINAME]) {
+                                promiseArr.push(this.restoreFullScreenHiddenUI(child));
+                            } else {
+                                child.hideByReason(this._UIFullScreen, true);
+                            }
+                        } else if (!this._fullScreenHiddenMap[child.UINAME]) {
+                            promiseArr.push(this.hideFullScreenCoveredUI(child));
+                        }
+                    } else {
+                        child.hideByReason(this._UIFullScreen, isVisible);
+                    }
                 }
             }
             /** 打开了全屏界面时，把scene隐藏掉 */
             SceneMgr.inst.setSceneVisible(this._UIFullScreen, topLayerIdx == -1);
-        }
-        this.fullScreenHideInfo.isHideBottom = topUiName != undefined;
-        if (topUiName) {
-            this.fullScreenHideInfo.topUiName = topUiName;
-            this.fullScreenHideInfo.isLoading = topUi.isLoading;
-        } else {
-            this.fullScreenHideInfo.topUiName = undefined;
-            this.fullScreenHideInfo.isLoading = undefined;
-        }
-        if (hideChange) {
+            await Promise.all(promiseArr);
+            this.fullScreenHideInfo.isHideBottom = topUiName != undefined;
             if (topUiName) {
-                XDEBUGLOG.ui(`顶层是全屏界面${topUiName}，隐藏底层的所有ui`);
+                this.fullScreenHideInfo.topUiName = topUiName;
+                this.fullScreenHideInfo.isLoading = topUi.isLoading;
             } else {
-                XDEBUGLOG.ui(`顶层没有全屏界面，恢复所有ui的显示`);
+                this.fullScreenHideInfo.topUiName = undefined;
+                this.fullScreenHideInfo.isLoading = undefined;
+            }
+            if (hideChange) {
+                if (topUiName) {
+                    XDEBUGLOG.ui(`顶层是全屏界面${topUiName}，隐藏底层的所有ui`);
+                } else {
+                    XDEBUGLOG.ui(`顶层没有全屏界面，恢复所有ui的显示`);
+                }
+            }
+        } finally {
+            this._checkingFullScreen = false;
+            if (this._needFullScreenRecheck) {
+                this._needFullScreenRecheck = false;
+                await this.checkFullScreen();
+            } else {
+                this._fullScreenCheckPromise = null;
             }
         }
+    }
+
+    /**
+     * 隐藏被全屏界面遮挡的 UI。
+     * @param uiObj UI 实例
+     */
+    private async hideFullScreenCoveredUI(uiObj: XComponent): Promise<void> {
+        let uiName = uiObj.UINAME;
+        this._fullScreenHiddenMap[uiName] = true;
+        if (uiObj.layerIndex === LAYER_CONST.WINDOW) {
+            try {
+                await uiObj.onHideAni();
+            } catch (error) {
+                XDEBUGLOG.error(`全屏遮挡关闭动画失败: ${uiName}`, error);
+            }
+        }
+        if (this._uiMap[uiName] !== uiObj || uiObj.isDisposed) {
+            delete this._fullScreenHiddenMap[uiName];
+            return;
+        }
+        uiObj.hideByReason(this._UIFullScreen, false);
+        uiObj.onCache();
+        let isWindow = uiObj instanceof XWindow;
+        EventMgr.inst.dispatchEvent(EVENTNAME.UI_ONHIDE, { name: uiName, isWindow: isWindow, isCache: true });
+    }
+
+    /**
+     * 恢复被全屏界面遮挡的 UI。
+     * @param uiObj UI 实例
+     */
+    private async restoreFullScreenHiddenUI(uiObj: XComponent): Promise<void> {
+        let uiName = uiObj.UINAME;
+        delete this._fullScreenHiddenMap[uiName];
+        if (this._uiMap[uiName] !== uiObj || uiObj.isDisposed) {
+            return;
+        }
+        uiObj.hideByReason(this._UIFullScreen, true);
+        uiObj.onRefresh(this._uiMapArg[uiName]);
+        if (uiObj.layerIndex === LAYER_CONST.WINDOW) {
+            try {
+                await uiObj.onShowAni();
+            } catch (error) {
+                XDEBUGLOG.error(`全屏遮挡打开动画失败: ${uiName}`, error);
+            }
+        }
+        if (this._uiMap[uiName] !== uiObj || uiObj.isDisposed) {
+            return;
+        }
+        EventMgr.inst.dispatchEvent(EVENTNAME.UI_ONSHOW, { name: uiName });
     }
     /**检测深度模糊 */
     public async checkDepthOfField() {
@@ -412,20 +446,18 @@ export default class UIMgr {
         let resPath = "";
         if (!input.startsWith("<")) {
             resPath = input.toLowerCase().endsWith(".xml") ? input.substring(0, input.length - 4) : input;
+            const owner = "UIMgr.switchFGUIStringsSource";
             let textAsset: TextAsset;
-            try {
-                textAsset = await ResMgr.inst.loadRes(resPath, TextAsset);
-            } catch (error) {
+            textAsset = await ResMgr.inst.loadRes(resPath, TextAsset, owner);
+            if (!textAsset) {
                 XDEBUGLOG.warn(`FGUI静态文本切换失败，资源不可用：${resPath}`);
                 return false;
             }
             xmlSource = textAsset?.text || "";
+            ResMgr.inst.releaseRes(resPath, TextAsset, owner);
             if (!xmlSource) {
                 XDEBUGLOG.warn(`FGUI静态文本切换失败，资源内容为空：${resPath}`);
                 return false;
-            }
-            if (isReleaseXmlRes) {
-                resources.release(resPath, TextAsset);
             }
         }
 
@@ -451,13 +483,12 @@ export default class UIMgr {
             XDEBUGLOG.warn(`没有定义window[${name}]`);
             return;
         }
+        let isFromCache = !!this._uiCache[name];
         //保存最新参数，始终以最新参数传到界面
         this._uiMapArg[name] = arg;
         let uiObj: XComponent = this._uiMap[name] || this._uiCache[name];
         if (uiObj && uiObj.isDisposed) {
-            uiObj.removeFromParent();
-            delete this._uiMap[name];
-            delete this._uiCache[name];
+            this.releaseUI(name, uiObj);
             uiObj = undefined;
         }
         try {
@@ -469,6 +500,8 @@ export default class UIMgr {
                     return;
                 }
                 //若ui对象本身已存在，置顶并调用onRefresh即可
+                const isFullScreenHidden = !!this._fullScreenHiddenMap[name];
+                delete this._fullScreenHiddenMap[name];
                 this._uiMap[name] = uiObj;
                 delete this._uiCache[name];
                 uiObj.showIndex = ++this._showIndex;
@@ -481,7 +514,11 @@ export default class UIMgr {
                 if (!uiObj.created) uiObj.onCreate();
                 uiObj.onStageResize();
                 uiObj.onRefresh(this._uiMapArg[name]);
-                uiObj.onShowAni();
+                const isShowValid = await this.playShowTransition(name, uiObj);
+                if (!isShowValid) {
+                    return;
+                }
+                this.onShowSuccess(name, uiObj, finishCb);
             } else {
                 const ctrl = cfg.ctrl;
                 uiObj = new ctrl();
@@ -513,22 +550,55 @@ export default class UIMgr {
                 uiObj.onCreate();
                 uiObj.onStageResize();
                 uiObj.onRefresh(this._uiMapArg[name]);
-                uiObj.onShowAni();
-                EventMgr.inst.dispatchEvent(EVENTNAME.UI_ONSHOW, { name: name });
-                finishCb && finishCb(uiObj as UIInstanceMap[T]);
+                const isShowValid = await this.playShowTransition(name, uiObj);
+                if (!isShowValid) {
+                    return;
+                }
+                this.onShowSuccess(name, uiObj, finishCb);
             }
         } catch (error) {
             XDEBUGLOG.error(`创建/刷新${name}界面失败:`, error);
-            delete this._uiMap[name];
-            delete this._uiCache[name];
-            if (uiObj) {
-                uiObj.removeFromParent();
-            }
+            this.releaseUI(name, uiObj);
             return;
         }
         this.flushPendingShow(name);
-        this.checkFullScreen();
         this.checkDepthOfField();
+    }
+
+    /**
+     * 播放界面进场流程。
+     * @param name ui名称
+     * @param uiObj ui实例
+     */
+    private async playShowTransition<T extends UINameType>(name: T, uiObj: XComponent): Promise<boolean> {
+        if (!uiObj.hideBottom) {
+            if (uiObj.layerIndex === LAYER_CONST.WINDOW) {
+                await uiObj.onShowAni();
+            }
+            return !!this._uiMap[name] && !uiObj.isDisposed;
+        }
+        uiObj.hideByReason(this._UIEntering, false);
+        await this.checkFullScreen();
+        if (!this._uiMap[name] || uiObj.isDisposed) {
+            uiObj.hideByReason(this._UIEntering, true);
+            return false;
+        }
+        uiObj.hideByReason(this._UIEntering, true);
+        if (uiObj.layerIndex === LAYER_CONST.WINDOW) {
+            await uiObj.onShowAni();
+        }
+        return !!this._uiMap[name] && !uiObj.isDisposed;
+    }
+
+    /**
+     * UI 显示成功后的通知。
+     * @param name ui名称
+     * @param uiObj ui实例
+     * @param finishCb 显示完成回调
+     */
+    private onShowSuccess<T extends UINameType>(name: T, uiObj: XComponent, finishCb?: FinishCallback<T>): void {
+        EventMgr.inst.dispatchEvent(EVENTNAME.UI_ONSHOW, { name: name });
+        finishCb && finishCb(uiObj as UIInstanceMap[T]);
     }
     /**
      * 刷新并补发“加载期间挂起”的 show 请求。
@@ -542,6 +612,22 @@ export default class UIMgr {
         delete this._loadingShowMap[name];
         this.show(name, pending.arg, pending.finishCb as FinishCallback<T>);
     }
+    /**
+     * 替换界面。
+     * @param oldName 旧 ui 名称
+     * @param newName 新 ui 名称
+     * @param arg 新 ui 参数
+     * @param finishCb 显示完成回调
+     */
+    public async replace<TOld extends UINameType, TNew extends UINameType>(oldName: TOld, newName: TNew, arg?: UIArgMap[TNew], finishCb?: FinishCallback<TNew>): Promise<void> {
+        const oldUi = this._uiMap[oldName];
+        if (oldUi && !oldUi.isDisposed && !oldUi.isLoading && oldUi.layerIndex === LAYER_CONST.WINDOW) {
+            await oldUi.onHideAni();
+        }
+        this.destroy(oldName, true, false);
+        await this.show(newName, arg, finishCb);
+    }
+
     /**
      * 获取UI
      * @param name ui名称
@@ -558,38 +644,74 @@ export default class UIMgr {
      * 销毁一个UI
      * @param name ui名称
      * @param release 是否释放
+     * @param shouldCheckFullScreen 是否检查全屏遮挡
      */
-    public destroy<T extends UINameType>(name: T, release?: boolean) {
+    public destroy<T extends UINameType>(name: T, release?: boolean, shouldCheckFullScreen: boolean = true) {
         let uiObj: XComponent = this._uiMap[name];
         if (!uiObj) {
             return;
         }
         let cfg = UIDefine.ALL_UI[name];
         if (!cfg) {
-            uiObj.dispose();
-            delete this._uiMap[name];
-            delete this._uiCache[name];
+            let isWindow = uiObj instanceof XWindow;
+            this.releaseUI(name, uiObj);
+            EventMgr.inst.dispatchEvent(EVENTNAME.UI_ONDESTROY, { name: name, isWindow: isWindow, isCache: false });
+            return;
+        }
+        if (uiObj.isLoading) {
+            let isWindow = uiObj instanceof XWindow;
+            this.releaseUI(name, uiObj);
+            EventMgr.inst.dispatchEvent(EVENTNAME.UI_ONDESTROY, { name: name, isWindow: isWindow, isCache: false });
+            XDEBUGLOG.uiDestory(`destroy ui: ${name} cache=false loading=true`);
+            this.checkDepthOfField();
+            if (shouldCheckFullScreen) {
+                void this.checkFullScreen();
+            }
             return;
         }
         let isCache = ((cfg.cache != CACHETYPE_ENUM.NONE) && !release);
 
         delete this._uiMap[name];
+        delete this._loadingShowMap[name];
+        delete this._uiMapArg[name];
         uiObj.removeFromParent();
         uiObj.node.active = false;
         uiObj.hideByReason(this._UIFullScreen, true);
         if (isCache) {
             uiObj.cacheTime = ExtendTime.getServerTime();
             this._uiCache[name] = uiObj;
-            uiObj.clearByCache();
+            uiObj.onCache();
         } else {
-            uiObj.dispose();
+            this.releaseUI(name, uiObj);
         }
         if (this.lastBlurName == name) this.lastBlurName = undefined;
         let isWindow = uiObj instanceof XWindow;
-        EventMgr.inst.dispatchEvent(EVENTNAME.UI_ONDESTROY, { name: name, isWindow: isWindow });
+        if (isCache) {
+            EventMgr.inst.dispatchEvent(EVENTNAME.UI_ONHIDE, { name: name, isWindow: isWindow, isCache: true });
+        } else {
+            EventMgr.inst.dispatchEvent(EVENTNAME.UI_ONDESTROY, { name: name, isWindow: isWindow, isCache: false });
+        }
         XDEBUGLOG.uiDestory(`destroy ui: ${name} cache=${isCache}`);
         this.checkDepthOfField();
-        this.checkFullScreen();
+        if (shouldCheckFullScreen) {
+            void this.checkFullScreen();
+        }
+    }
+
+    /**
+     * 释放 UI 实例和管理器记录。
+     * @param name ui名称
+     * @param uiObj ui实例
+     */
+    private releaseUI<T extends UINameType>(name: T, uiObj: XComponent): void {
+        delete this._uiMap[name];
+        delete this._uiCache[name];
+        delete this._uiMapArg[name];
+        delete this._loadingShowMap[name];
+        if (uiObj) {
+            uiObj.removeFromParent();
+            uiObj.dispose();
+        }
     }
 
     /**
@@ -637,7 +759,7 @@ export default class UIMgr {
         let promiseArr: Promise<void>[] = [];
         for (let i = 0; i < preloadArr.length; i++) {
             pkgName = preloadArr[i];
-            pkgPath = XResourcesUrl.getUIPackageUrl(pkgName);
+            pkgPath = XResConst.getUIPackageUrl(pkgName);
             let tpromise: Promise<void> = ResMgr.inst.loadFGUIPackage(pkgPath, uiObj.node.uuid);
             if (tpromise) {
                 promiseArr.push(tpromise);
@@ -655,11 +777,10 @@ export default class UIMgr {
             let cacheTime = uiObj.cacheTime;
             let cacheType = UIDefine.ALL_UI[name].cache;
             if (cacheType == CACHETYPE_ENUM.TIME1 && (curTime - cacheTime >= this._uiCacheReleaseTime)) {
-                if (!uiObj.created) {
-                } else {
-                    uiObj.dispose();
-                }
-                delete this._uiCache[name];
+                let uiName = name as UINameType;
+                let isWindow = uiObj instanceof XWindow;
+                this.releaseUI(name as UINameType, uiObj);
+                EventMgr.inst.dispatchEvent(EVENTNAME.UI_ONDESTROY, { name: uiName, isWindow: isWindow, isCache: false });
             }
         }
     }
@@ -682,39 +803,39 @@ export default class UIMgr {
         return isExist;
     }
     static isMoveAddEffEnable = true;
-    /** 添加点击特效。0Common 公共包移除后 Com 暂不可用，待回填后取消注释 */
+    /** 添加点击特效 */
     private addClickEff() {
-        // let layer = this.getUILayer(LAYER_CONST.MAX);
-        // let clickTime: number = 0;
-        // let clickFun = (evt: EventTouch, isMove?: boolean) => {
-        //     let currTime = game.totalTime;
-        //     if (currTime - clickTime < 80) return;
-        //     clickTime = currTime;
-        //     let worldPos = evt.getUILocation();
-        //     let localPos = layer.CCGlobalToLocal(worldPos.x, worldPos.y);
-        //     let effCom = NodePoolMgr.inst.get(XNODEPOOL_KEY.CLICK_EFF_POOL, XResourcesUrl.COM_PACKAGE, "Com").asCom;
-        //     let loader3D: GLoader3D = effCom.getChild("loader3D") as GLoader3D;
-        //     // this._dragonBonesUnit.play("dragonBones/ui/com/dianjitexiao", effCom, 0, 0, loader3D, "effect", false, (l3d: GLoader3D) => {
-        //     //     l3d.addCompleteEventListener((l3d: GLoader3D) => {
-        //     //         Tween.stopAllByTarget(effCom);
-        //     //         NodePoolMgr.inst.put(effCom);
-        //     //     });
-        //     // });
-        //     effCom.setPivot(0.5, 0.5, true);
-        //     effCom.setScale(1, 1);
-        //     effCom.setPosition(localPos.x, localPos.y);
-        //     layer.addChild(effCom);
-        //     evt.preventSwallow = true;
-        //     return effCom;
-        // }
-        // let moveFun = (evt: EventTouch) => {
-        //     if (!UIMgr.isMoveAddEffEnable) return;
-        //     let eff = clickFun(evt, true);
-        //     if (!eff) return;
-        //     tween(eff).to(0.8, { scaleX: 0.2, scaleY: 0.2 }).start();
-        // }
-        // GRoot.inst.node.on(NodeEventType.TOUCH_START, clickFun, this);
-        // GRoot.inst.node.on(NodeEventType.TOUCH_MOVE, moveFun, this);
+        let layer = this.getUILayer(LAYER_CONST.MAX);
+        let clickTime: number = 0;
+        let clickFun = (evt: EventTouch, isMove?: boolean) => {
+            let currTime = game.totalTime;
+            if (currTime - clickTime < 80) return;
+            clickTime = currTime;
+            let worldPos = evt.getUILocation();
+            let localPos = layer.CCGlobalToLocal(worldPos.x, worldPos.y);
+            let effCom = NodePoolMgr.inst.get(XNODEPOOL_KEY.CLICK_EFF_POOL, XResConst.COM_PACKAGE, "Com").asCom;
+            let loader3D: GLoader3D = effCom.getChild("loader3D") as GLoader3D;
+            // this._dragonBonesUnit.play("dragonBones/ui/com/dianjitexiao", effCom, 0, 0, loader3D, "effect", false, (l3d: GLoader3D) => {
+            //     l3d.addCompleteEventListener((l3d: GLoader3D) => {
+            //         Tween.stopAllByTarget(effCom);
+            //         NodePoolMgr.inst.put(effCom);
+            //     });
+            // });
+            effCom.setPivot(0.5, 0.5, true);
+            effCom.setScale(1, 1);
+            effCom.setPosition(localPos.x, localPos.y);
+            layer.addChild(effCom);
+            evt.preventSwallow = true;
+            return effCom;
+        }
+        let moveFun = (evt: EventTouch) => {
+            if (!UIMgr.isMoveAddEffEnable) return;
+            let eff = clickFun(evt, true);
+            if (!eff) return;
+            tween(eff).to(0.8, { scaleX: 0.2, scaleY: 0.2 }).start();
+        }
+        GRoot.inst.node.on(NodeEventType.TOUCH_START, clickFun, this);
+        GRoot.inst.node.on(NodeEventType.TOUCH_MOVE, moveFun, this);
     }
 }
 

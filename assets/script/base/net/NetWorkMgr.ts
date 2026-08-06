@@ -14,6 +14,7 @@ import ExtendString from "../extend/ExtendString";
 import EventMgr from "../manager/EventMgr";
 import TimerMgr, { ITimer } from "../manager/TimerMgr";
 import UIMgr from "../manager/UIMgr";
+import NetLoadingTracker from "./NetLoadingTracker";
 import SocketMgr from "./SocketMgr";
 
 type ProtoName = keyof ProtoDataMap & string;
@@ -55,6 +56,8 @@ export default class NetWorkMgr {
 	private _listenerMap: { [key: string | number]: { protoNameArr?: string[]; callback?: (p: string, m: any) => void } };
 	/** 协议名 -> listenerId 集合 */
 	private _listenerHandleIdMap: { [key: string]: number[] };
+	/** 网络加载界面归属记录 */
+	private _netLoadingTracker: NetLoadingTracker = new NetLoadingTracker();
 
 	private static _inst: NetWorkMgr;
 	public static get inst(): NetWorkMgr {
@@ -70,6 +73,7 @@ export default class NetWorkMgr {
 		this._listenerHandleIdMap = {};
 		this._rpcHandlerMap = {};
 		this._rpcHandlerId = 0;
+		this._netLoadingTracker.clear();
 		this._successCb = null;
 		this._failCb = null;
 		this._lastConnectIp = "";
@@ -149,6 +153,7 @@ export default class NetWorkMgr {
 		this.clearReconnectTimer();
 		this._successCb = null;
 		this._failCb = null;
+		this.clearNetLoading();
 		this.removeSocketEvent();
 		SocketMgr.inst.disconnect();
 	}
@@ -287,9 +292,17 @@ export default class NetWorkMgr {
 	 * 单向发送协议。
 	 * @param protocol 协议名
 	 * @param msg 协议内容
+	 * @param isShowNetLoading 是否显示网络加载界面
 	 */
-	public send<T extends ProtoName>(protocol: T, msg: ProtoDataMap[T]): boolean {
-		return SocketMgr.inst.send(protocol, msg);
+	public send<T extends ProtoName>(protocol: T, msg: ProtoDataMap[T], isShowNetLoading: boolean = false): boolean {
+		if (isShowNetLoading) {
+			this.showNetLoading(protocol);
+		}
+		const isSent = SocketMgr.inst.send(protocol, msg);
+		if (!isSent && isShowNetLoading) {
+			this.cancelNetLoading(protocol);
+		}
+		return isSent;
 	}
 
 	/**
@@ -298,7 +311,7 @@ export default class NetWorkMgr {
 	 * @param msg 协议体
 	 */
 	public onReceiveMessage<T extends ProtoName>(protoName: T, msg: ProtoDataMap[T]): void {
-		UIMgr.inst.destroy(UINAME.NetLoadingView);
+		this.tryCloseNetLoading(protoName);
 		const startTime = Date.now();
 		try {
 			const listenerIdArr = this._listenerHandleIdMap[protoName];
@@ -320,8 +333,8 @@ export default class NetWorkMgr {
 			}
 		} catch (e) {
 			if (DEBUG) {
-				XDEBUGLOG.warn(`接收协议 ${protoName} 处理异常`);
-				throw e;
+				XDEBUGLOG.warn(`接收协议 ${protoName} 处理异常`, e);
+				return;
 			}
 			XDEBUGLOG.warn(`接收协议 ${protoName} 处理异常`, e);
 		}
@@ -330,6 +343,43 @@ export default class NetWorkMgr {
 			const lag = dt >= 150 ? "耗时较高" : "";
 			XDEBUGLOG.warn(`${protoName} 协议处理耗时 ${dt}ms ${lag}`);
 		}
+	}
+
+	/**
+	 * 显示网络加载界面。
+	 * @param sendProtoName 发送协议名
+	 */
+	private showNetLoading(sendProtoName: string): void {
+		this._netLoadingTracker.addSendProto(sendProtoName);
+		UIMgr.inst.showNetLoading();
+	}
+
+	/**
+	 * 取消网络加载界面等待项。
+	 * @param sendProtoName 发送协议名
+	 */
+	private cancelNetLoading(sendProtoName: string): void {
+		const isMatch = this._netLoadingTracker.consumeSendProto(sendProtoName);
+		if (isMatch && !this._netLoadingTracker.hasPending()) {
+			UIMgr.inst.destroy(UINAME.NetLoadingView);
+		}
+	}
+
+	/**
+	 * 按返回协议尝试关闭网络加载界面。
+	 * @param recvProtoName 返回协议名
+	 */
+	private tryCloseNetLoading(recvProtoName: string): void {
+		const isMatch = this._netLoadingTracker.consumeReceiveProto(recvProtoName);
+		if (isMatch && !this._netLoadingTracker.hasPending()) {
+			UIMgr.inst.destroy(UINAME.NetLoadingView);
+		}
+	}
+
+	/** 清理网络加载界面 */
+	private clearNetLoading(): void {
+		this._netLoadingTracker.clear();
+		UIMgr.inst.destroy(UINAME.NetLoadingView);
 	}
 
 	/**

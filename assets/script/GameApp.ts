@@ -21,31 +21,33 @@ import XStorageMgr from './base/manager/XStorageMgr';
 import Extend from './base/extend/Extend';
 import { ProcedureQueueMgr } from './base/procedure/ProcedureQueueMgr';
 import HotUpdateMgr from './base/manager/HotUpdateMgr';
+import ProtoCodec from './base/net/ProtoCodec';
 const { ccclass } = _decorator;
 
 @ccclass('GameApp')
 export class GameApp extends Component {
-    start() {
+    public start(): void {
         GRoot.create();
         director.addPersistRootNode(this.node);
         HotUpdateMgr.inst.applySavedSearchPaths();
         this.init();
     }
 
-    public async init() {
+    public async init(): Promise<void> {
         // UIPackage.branch = "zh";
         XDEBUGLOG.init();
         TimerMgr.inst.init();
+        await ResMgr.inst.init();
         UIMgr.inst.init();
         SceneMgr.inst.init();
+        await ProtoCodec.inst.init();
         NetWorkMgr.inst.init();
         UIObjectFactoryDefine.init();
         AudioMgr.inst.init();
         await LanguageMgr.init();
         await MaterialMgr.inst.preload();
         await ConfigMgr.inst.init();
-        await ResMgr.inst.init();
-        registerFont("GameFont", "font/SourceHanSansCN-Regular");
+        await registerFont("GameFont", "font/SourceHanSansCN-Regular");
         UIConfig.defaultFont = "GameFont";
         this.initSystem();
         this.initModel();
@@ -53,13 +55,13 @@ export class GameApp extends Component {
 
     }
 
-    public initModel() {
+    public initModel(): void {
         RedPointDB.inst.init();
         UserDB.inst.init();
         LoginDB.inst.init();
     }
 
-    public initSystem() {
+    public initSystem(): void {
         screen.on('window-resize', this.onStageResize, this);
         game.on(Game.EVENT_HIDE, this.onHideToBackground, this);
         game.on(Game.EVENT_SHOW, this.onShowFromBackground, this);
@@ -67,7 +69,7 @@ export class GameApp extends Component {
         DynamicAtlasManager.instance.enabled = false;
     }
 
-    public onStageResize(width: number, height: number) {
+    public onStageResize(width: number, height: number): void {
         XDEBUGLOG.debug(`窗口大小改变: 宽度 = ${width}, 高度 = ${height}`);
         let size = screen.windowSize;
         let rw = size.width / Extend.ccviewgetScaleX;
@@ -97,19 +99,19 @@ export class GameApp extends Component {
         UIMgr.inst.onStageResize();
     }
 
-    public onHideToBackground() {
+    public onHideToBackground(): void {
         XDEBUGLOG.debug("onHideToBackground");
         XConst.inBackground = true;
         //立即写入数据，防止数据丢失
         XStorageMgr.inst.flush();
     }
 
-    public onShowFromBackground() {
+    public onShowFromBackground(): void {
         XConst.inBackground = false;
         XDEBUGLOG.debug("onShowFromBackground");
         NetWorkMgr.inst.CheckReconnect();
     }
-    public static clearAllData() {
+    public static clearAllData(): void {
         RedPointDB.inst.clearData();
         UserDB.inst.clearData();
         LoginDB.inst.clearData();

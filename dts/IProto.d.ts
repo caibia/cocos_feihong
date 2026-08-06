@@ -1,5 +1,5 @@
 /**
- * 该文件由 extensions/proto/export-proto.js 自动生成。
+ * 该文件由 tools/proto/export-proto.js 自动生成。
  * 请勿手动修改。
  */
 
@@ -17,6 +17,6 @@ declare namespace IS2CProto {
         /** 返回码，0 表示成功 */
         code: number;
         /** 登录成功后的 token */
-        token: string;
+        token?: string;
     }
 }

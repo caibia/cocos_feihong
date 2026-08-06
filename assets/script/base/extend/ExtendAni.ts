@@ -411,6 +411,3 @@ export default class ExtendAni {
         }
     }
 }
-
-
-window["ExtendAni"] = ExtendAni;

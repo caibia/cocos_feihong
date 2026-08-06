@@ -1,7 +1,7 @@
 
 /**
 *Author  : XW
-*Desc    : 
+*Desc    : 多语言文本管理
 */
 
 import { JsonAsset } from "cc";
@@ -11,10 +11,17 @@ import ResMgr from "./ResMgr";
 
 export default class LanguageMgr {
 
-	private static _cacheData: any;
+	private static _cacheData: { [id: string]: string } | null = null;
 
-	public static async init() {
-		this._cacheData = (await ResMgr.inst.loadRes("config/json/Language", JsonAsset)).json;
+	public static async init(): Promise<void> {
+		const owner = "LanguageMgr";
+		const asset = await ResMgr.inst.loadRes("config/json/Language", JsonAsset, owner);
+		if (!asset) {
+			XDEBUGLOG.error("没有语言配置：Language");
+			return;
+		}
+		this._cacheData = asset.json;
+		ResMgr.inst.releaseRes("config/json/Language", JsonAsset, owner);
 	}
 
 	/**
@@ -23,7 +30,7 @@ export default class LanguageMgr {
 	 * 例子：
 	 * Language.get(91, 1000);
 	 * */
-	public static get(id, ...args: any) {
+	public static get(id: number | string, ...args: any[]): string {
 		let cfg = this._cacheData;
 		if (!cfg) {
 			XDEBUGLOG.error("没有语言配置：Language");
@@ -40,6 +47,3 @@ export default class LanguageMgr {
 		return content;
 	}
 }
-
-
-window["LanguageMgr"] = LanguageMgr;

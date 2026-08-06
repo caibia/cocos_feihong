@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+/** 登录请求 */
+message C2SLogin {
+    /** 帐号 */
+    string account = 1;
+}
+
+/** 登录响应 */
+message S2CLogin {
+    /** 返回码，0 表示成功 */
+    uint32 code = 1;
+    /** 登录成功后的 token */
+    string token = 2;
+}

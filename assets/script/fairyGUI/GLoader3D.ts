@@ -1,11 +1,11 @@
-import { sp, dragonBones, assetManager, Color, isValid, resources, Vec2, Node, UITransform, Asset, math, Vec3, Sprite, SpriteFrame, ImageAsset, UIOpacity } from "cc";
+import { sp, dragonBones, Color, Vec2, Node, UITransform, math } from "cc";
 import { AlignType, LoaderFillType, ObjectPropID, PackageItemType, VertAlignType } from "./FieldTypes";
 import { GObject } from "./GObject";
 import { PackageItem } from "./PackageItem";
 import { UIConfig } from "./UIConfig";
 import { UIPackage } from "./UIPackage";
 import { ByteBuffer } from "./utils/ByteBuffer";
-import ResMgr from "../base/manager/ResMgr";
+import XDEBUGLOG from "../base/debug/XDEBUGLOG";
 
 /**
  * 动画完成回调；统一透出 `Spine` 与 `DragonBones` 的完成事件对象。
@@ -18,11 +18,39 @@ type CompleteEventCallback = (l3d: GLoader3D, eventObj: sp.spine.TrackEntry | dr
 type FramEventCallback = (l3d: GLoader3D, track: sp.spine.TrackEntry | dragonBones.EventObject, event?: sp.spine.Event) => void;
 
 /**
+ * DragonBones 骨架区域数据。
+ */
+type DragonBonesBounds = {
+    /** 区域宽度 */
+    width: number;
+    /** 区域高度 */
+    height: number;
+};
+
+/**
+ * DragonBones 骨架数据。
+ */
+type DragonBonesArmatureData = {
+    /** 骨架区域 */
+    aabb: DragonBonesBounds;
+};
+
+/**
+ * DragonBones 运行时数据。
+ */
+type DragonBonesRuntimeData = {
+    /** 骨架名称列表 */
+    armatureNames: string[];
+    /** 获取骨架数据 */
+    getArmature?: (name: string) => DragonBonesArmatureData;
+};
+
+/**
  * 骨骼/三维资源加载组件，负责装载 Spine、DragonBones 并同步 FairyGUI 布局属性。
  */
 export class GLoader3D extends GObject {
     /**
-     * 当前资源地址；支持 `ui://` 包内地址与外部骨骼资源路径。
+     * 当前资源地址；包内资源使用 `ui://`，外部骨骼由播放单元注入。
      */
     private _url: string;
     /**
@@ -74,7 +102,7 @@ export class GLoader3D extends GObject {
      */
     private _contentItem: PackageItem;
     /**
-     * 承载骨骼显示节点的容器；布局、对齐和裁剪都围绕它计算。
+     * 承载骨骼显示节点的容器。
      */
     private _container: Node;
     /**
@@ -82,12 +110,20 @@ export class GLoader3D extends GObject {
      */
     public _content: sp.Skeleton | dragonBones.ArmatureDisplay;
     /**
-     * 是否正在执行内部布局刷新，避免递归触发尺寸联动。
+     * 内部布局刷新状态。
      */
     private _updatingLayout: boolean;
+    /**
+     * Spine 显示横向偏移。
+     */
+    private _spineDisplayOffsetX: number = 0;
+    /**
+     * Spine 显示纵向偏移。
+     */
+    private _spineDisplayOffsetY: number = 0;
 
     /**
-     * 当前 `SpineUnit` 是否已创建完成；某些业务逻辑会依赖它判断资源可否复用。
+     * SpineUnit 创建完成状态。
      */
     public spineUnitCreated: boolean;
     /**
@@ -118,31 +154,19 @@ export class GLoader3D extends GObject {
         this._container.layer = UIConfig.defaultUILayer;
         this._container.addComponent(UITransform).setAnchorPoint(0, 1);
         this._node.addChild(this._container);
-
-        // let sp = this._node.addComponent(Sprite);
-        // sp.sizeMode = Sprite.SizeMode.CUSTOM;
-        // ResMgr.inst.loadRes("textures/tongyong_wuping_kuang_00/spriteFrame",SpriteFrame,(asset)=>{
-        //     sp.spriteFrame = asset;
-        // });
-
-        // let sp1 = this._container.addComponent(Sprite);
-        // sp1.sizeMode = Sprite.SizeMode.CUSTOM;
-        // ResMgr.inst.loadRes("textures/tongyong_wuping_kuang_01/spriteFrame",SpriteFrame,(asset)=>{
-        //     sp1.spriteFrame = asset;
-        // });
     }
 
     /**
      * 返回骨骼显示节点实际挂载的容器节点。
      */
-    public get container() {
+    public get container(): Node {
         return this._container;
     }
 
     /**
      * 获取骨骼容器节点上的 `UITransform`。
      */
-    public get containerUITrans() {
+    public get containerUITrans(): UITransform {
         return this._container.getComponent(UITransform);
     }
 
@@ -393,7 +417,44 @@ export class GLoader3D extends GObject {
     }
 
     /**
-     * 根据当前资源地址选择包内资源或外部资源加载流程。
+     * 设置 Spine 内容显示偏移。
+     * @param x 横向偏移
+     * @param y 纵向偏移
+     */
+    public setSpineDisplayOffset(x: number, y: number): void {
+        this._spineDisplayOffsetX = x;
+        this._spineDisplayOffsetY = y;
+        this.syncSpinePosition();
+    }
+
+    /**
+     * 同步 Spine 可见区域位置。
+     */
+    private syncSpinePosition(): void {
+        if (!(this._content instanceof sp.Skeleton)) {
+            return;
+        }
+        const skeletonData = this._content.skeletonData;
+        if (!skeletonData) {
+            throw new Error(`GLoader3D 缺少 Spine 数据: ${this._url}`);
+        }
+        const runtimeData = skeletonData.getRuntimeData();
+        if (!runtimeData) {
+            throw new Error(`GLoader3D 缺少 Spine 运行时数据: ${this._url}`);
+        }
+        if (!runtimeData.height || runtimeData.height <= 0) {
+            throw new Error(`GLoader3D Spine 高度无效: ${this._url}`);
+        }
+        const boundsX = runtimeData.x || 0;
+        const boundsY = runtimeData.y || 0;
+        this._content.node.setPosition(
+            -boundsX + this._spineDisplayOffsetX,
+            -(boundsY + runtimeData.height) + this._spineDisplayOffsetY,
+        );
+    }
+
+    /**
+     * 根据当前资源地址选择包内资源或外部骨骼提示流程。
      */
     protected loadContent(): void {
         this.clearContent();
@@ -411,7 +472,7 @@ export class GLoader3D extends GObject {
      * 从 UIPackage 中解析资源项，并构建可显示内容。
      * @param itemURL 包内资源地址，通常为 `ui://` 开头的完整 URL。
      */
-    protected loadFromPackage(itemURL: string) {
+    protected loadFromPackage(itemURL: string): void {
         this._contentItem = UIPackage.getItemByURL(itemURL);
         if (this._contentItem) {
             this._contentItem = this._contentItem.getBranch();
@@ -462,17 +523,34 @@ export class GLoader3D extends GObject {
         node.layer = UIConfig.defaultUILayer;
         node.setPosition(anchor.x, -anchor.y);
 
-        // 统一设置锚点，避免平台差异
         let uitrans = node.addComponent(UITransform);
-        uitrans.setAnchorPoint(0.5, 0); // 设置统一的锚点
+        uitrans.setAnchorPoint(0.5, 0);
 
         this._content = node.addComponent(sp.Skeleton);
         this._content.premultipliedAlpha = pma;
         this._content.skeletonData = asset;
         this._content.color = this._color;
+        this.syncSpineSize(asset, uitrans);
         this.onChangeSpine();
         this.updateLayout();
         this.onSpineCreateEvent && this.onSpineCreateEvent(this);
+    }
+
+    /**
+     * 设置外部 Spine 资源。
+     * @param url 资源路径。
+     * @param asset Spine 骨骼数据。
+     * @param pma 是否启用预乘 Alpha。
+     */
+    public setExternalSpine(url: string, asset: sp.SkeletonData, pma?: boolean): void {
+        this._url = url;
+        this.clearContent();
+        if (!asset) {
+            XDEBUGLOG.warn("GLoader3D 外部 Spine 资源为空", url);
+            return;
+        }
+        this.setSpine(asset, Vec2.ZERO, pma);
+        this.updateGear(7);
     }
     /**
      * Spine 创建完成后的回调；创建并挂载完成后立即触发。
@@ -482,7 +560,7 @@ export class GLoader3D extends GObject {
     /**
      * 释放当前 Spine 显示对象与相关监听。
      */
-    public freeSpine() {
+    public freeSpine(): void {
         if (this._content) {
             this._content.destroy();
         }
@@ -502,6 +580,7 @@ export class GLoader3D extends GObject {
         node.layer = UIConfig.defaultUILayer;
         this._container.addChild(node);
         node.setPosition(anchor.x, -anchor.y);
+        let uitrans = node.addComponent(UITransform);
 
         this._content = node.addComponent(dragonBones.ArmatureDisplay);
         this._content.premultipliedAlpha = pma;
@@ -510,12 +589,94 @@ export class GLoader3D extends GObject {
         this._content.color = this._color;
 
         let armatureKey = asset["init"](dragonBones.CCFactory.getInstance(), atlasAsset["_uuid"]);
-        let dragonBonesData = this._content["_factory"].getDragonBonesData(armatureKey);
+        let dragonBonesData = this._content["_factory"].getDragonBonesData(armatureKey) as DragonBonesRuntimeData;
+        if (!dragonBonesData.armatureNames || dragonBonesData.armatureNames.length <= 0) {
+            throw new Error(`GLoader3D 缺少 DragonBones 骨架名称: ${this._url}`);
+        }
         this._content.armatureName = dragonBonesData.armatureNames[0];
+        this.syncDragonBonesSize(dragonBonesData, this._content.armatureName, uitrans);
 
         this.onChangeDragonBones();
 
         this.updateLayout();
+    }
+
+    /**
+     * 设置外部 DragonBones 资源。
+     * @param url 资源路径。
+     * @param asset DragonBones 骨骼数据。
+     * @param atlasAsset DragonBones 图集资源。
+     * @param pma 是否启用预乘 Alpha。
+     */
+    public setExternalDragonBones(url: string, asset: dragonBones.DragonBonesAsset, atlasAsset: dragonBones.DragonBonesAtlasAsset, pma?: boolean): void {
+        this._url = url;
+        this.clearContent();
+        if (!asset || !atlasAsset) {
+            XDEBUGLOG.warn("GLoader3D 外部 DragonBones 资源为空", url);
+            return;
+        }
+        this.setDragonBones(asset, atlasAsset, Vec2.ZERO, pma);
+        this.updateGear(7);
+    }
+
+    /**
+     * 同步 Spine 可见区域尺寸。
+     * @param asset Spine 骨骼数据资源。
+     * @param uiTrans Spine 节点尺寸组件。
+     */
+    private syncSpineSize(asset: sp.SkeletonData, uiTrans: UITransform): void {
+        const runtimeData = asset.getRuntimeData();
+        if (!runtimeData) {
+            throw new Error(`GLoader3D 缺少 Spine 运行时数据: ${this._url}`);
+        }
+        if (!runtimeData.width || runtimeData.width <= 0) {
+            throw new Error(`GLoader3D Spine 宽度无效: ${this._url}`);
+        }
+        if (!runtimeData.height || runtimeData.height <= 0) {
+            throw new Error(`GLoader3D Spine 高度无效: ${this._url}`);
+        }
+        this.syncContentSize(runtimeData.width, runtimeData.height, uiTrans);
+    }
+
+    /**
+     * 同步 DragonBones 可见区域尺寸。
+     * @param runtimeData DragonBones 运行时数据。
+     * @param armatureName 骨架名称。
+     * @param uiTrans DragonBones 节点尺寸组件。
+     */
+    private syncDragonBonesSize(runtimeData: DragonBonesRuntimeData, armatureName: string, uiTrans: UITransform): void {
+        if (!runtimeData.getArmature) {
+            throw new Error(`GLoader3D 缺少 DragonBones 骨架读取接口: ${this._url}`);
+        }
+        const armatureData = runtimeData.getArmature(armatureName);
+        if (!armatureData) {
+            throw new Error(`GLoader3D 缺少 DragonBones 骨架数据: ${this._url}`);
+        }
+        if (!armatureData.aabb) {
+            throw new Error(`GLoader3D 缺少 DragonBones 区域数据: ${this._url}`);
+        }
+        if (!armatureData.aabb.width || armatureData.aabb.width <= 0) {
+            throw new Error(`GLoader3D DragonBones 宽度无效: ${this._url}`);
+        }
+        if (!armatureData.aabb.height || armatureData.aabb.height <= 0) {
+            throw new Error(`GLoader3D DragonBones 高度无效: ${this._url}`);
+        }
+        this.syncContentSize(armatureData.aabb.width, armatureData.aabb.height, uiTrans);
+    }
+
+    /**
+     * 同步骨骼内容尺寸。
+     * @param width 内容宽度。
+     * @param height 内容高度。
+     * @param uiTrans 骨骼节点尺寸组件。
+     */
+    private syncContentSize(width: number, height: number, uiTrans: UITransform): void {
+        this.sourceWidth = width;
+        this.sourceHeight = height;
+        uiTrans.setContentSize(this.sourceWidth, this.sourceHeight);
+        if (this._autoSize) {
+            this.setSize(this.sourceWidth, this.sourceHeight);
+        }
     }
 
     /**
@@ -596,15 +757,12 @@ export class GLoader3D extends GObject {
      * 在关键属性变化后统一刷新骨骼内容表现。
      */
     private onChange(): void {
-        // if (this._contentItem == null)
-        //     return;
-
-        // if (this._contentItem.type == PackageItemType.Spine) {
-        this.onChangeSpine();
-        // }
-        // if (this._contentItem.type == PackageItemType.DragonBones) {
-        this.onChangeDragonBones();
-        // }
+        if (this._content instanceof sp.Skeleton) {
+            this.onChangeSpine();
+        }
+        else if (this._content instanceof dragonBones.ArmatureDisplay) {
+            this.onChangeDragonBones();
+        }
     }
 
     /**
@@ -654,55 +812,10 @@ export class GLoader3D extends GObject {
     }
 
     /**
-     * 执行外部资源加载流程，并在回调中校验当前地址有效性。
+     * 提示外部骨骼资源入口。
      */
     protected loadExternal(): void {
-        // if (this._url.startsWith("http://")
-        //     || this._url.startsWith("https://")
-        //     || this._url.startsWith('/'))
-        //     assetManager.loadRemote(this._url, sp.SkeletonData, this.onLoaded2.bind(this));
-        // else
-        //     resources.load(this._url, sp.SkeletonData, this.onLoaded2.bind(this));
-
-        if (this._url.startsWith("dragonBones")) {
-            let asset: dragonBones.DragonBonesAsset = ResMgr.inst.getRes(this._url + "_ske", dragonBones.DragonBonesAsset);
-            let atlasAsset: dragonBones.DragonBonesAtlasAsset = ResMgr.inst.getRes(this._url + "_tex", dragonBones.DragonBonesAtlasAsset);
-            this.setDragonBones(asset, atlasAsset, Vec2.ZERO);
-        } else {
-            // 先屏蔽掉GLoader3D里的加载代码，强制要求所有spine必须通过spineUnit来播放.
-            let asset: sp.SkeletonData = resources.get(this._url, sp.SkeletonData);
-            this.onLoaded2(null, asset);
-        }
-    }
-
-    /**
-     * 处理外部骨骼资源加载回调，并校验当前 URL 是否仍然匹配。
-     * @param err 加载失败时的错误对象；为空表示加载成功。
-     * @param asset 已加载完成的外部资源对象。
-     */
-    private onLoaded2(err: Error, asset: Asset): void {
-        //因为是异步返回的，而这时可能url已经被改变，所以不能直接用返回的结果
-        if (!this._url || !isValid(this._node))
-            return;
-
-        if (err)
-            console.warn(err);
-
-        let sk: sp.SkeletonData = asset as sp.SkeletonData;
-        let runtimeData = sk.getRuntimeData();
-        if (!runtimeData) { }
-        else if (!runtimeData.width) { }
-        else if (runtimeData.width <= 0) { }
-        else if (!runtimeData.height) { }
-        else if (runtimeData.height <= 0) { }
-        else {
-            this.sourceWidth = runtimeData.width;
-            this.sourceHeight = runtimeData.height;
-            if (this._autoSize) {
-                this.setSize(this.sourceWidth, this.sourceHeight);
-            }
-        }
-        this.setSpine(sk, Vec2.ZERO, false);
+        XDEBUGLOG.warn("GLoader3D 外部骨骼资源必须通过 SpineUnit 或 DragonBonesUnit 加载", this._url);
     }
 
     /**
@@ -734,15 +847,8 @@ export class GLoader3D extends GObject {
             if (cw == this._width && ch == this._height) {
                 this._container.setScale(1, 1);
                 this._container.setPosition(pivotCorrectX, pivotCorrectY);
-                //TODO：测试代码，保证spine节点 和 Gloader3D节点的位置/大小一致
                 this.containerUITrans.setContentSize(this._width, this._height);
-                if (this._content instanceof sp.Skeleton) {
-                    // let uitrans = this._content.node.getComponent(UITransform);
-                    // let x = uitrans.width * 0.5;
-                    // let y = uitrans.height * (uitrans.anchorY);
-                    // this._content.node.setPosition(new Vec3(x, y, 0));
-                    this._content.node.setPosition(new Vec3(this._width * 0.5, -this._height * 0.5, 0));
-                }
+                this.syncSpinePosition();
                 return;
             }
         }
@@ -797,6 +903,7 @@ export class GLoader3D extends GObject {
             ny = this._height - ch;
         ny = -ny;
         this._container.setPosition(pivotCorrectX + nx, pivotCorrectY + ny);
+        this.syncSpinePosition();
     }
 
     /**
@@ -821,7 +928,7 @@ export class GLoader3D extends GObject {
     }
 
     /**
-     * 在锚点变化后重新计算骨骼容器布局，避免显示节点与 GLoader3D 偏移脱节。
+     * 在锚点变化后重新计算骨骼容器布局。
      */
     protected handleAnchorChanged(): void {
         super.handleAnchorChanged();

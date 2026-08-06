@@ -4,11 +4,9 @@
  */
 
 import { ProtoDataMap } from "../../app/define/ProtoDefine";
-import { UINAME } from "../../app/define/UIDefine";
 import XDEBUGLOG from "../debug/XDEBUGLOG";
 import { EVENTNAME } from "../../app/define/EventDefine";
 import EventMgr from "../manager/EventMgr";
-import UIMgr from "../manager/UIMgr";
 import NetWorkMgr from "./NetWorkMgr";
 import ProtoCodec, { ProtoName } from "./ProtoCodec";
 
@@ -30,7 +28,6 @@ export default class SocketMgr {
 
     /** 初始化 */
     public init(): void {
-        ProtoCodec.inst.init();
     }
 
     /**
@@ -46,7 +43,6 @@ export default class SocketMgr {
 
         this.ip = ip;
         this.port = port;
-        ProtoCodec.inst.init();
 
         if (this._socket) {
             return;
@@ -117,14 +113,12 @@ export default class SocketMgr {
             return false;
         }
 
-        UIMgr.inst.show(UINAME.NetLoadingView);
         try {
             this._socket.send(packet);
             const cost = Date.now() - startTime;
             this.netLog("发送", protoName, msg, packet.byteLength, cost);
             return true;
         } catch (err) {
-            UIMgr.inst.destroy(UINAME.NetLoadingView);
             XDEBUGLOG.error(`发送协议失败: ${protoName}`, err);
             return false;
         }

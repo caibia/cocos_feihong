@@ -46,6 +46,14 @@ export default class XScene extends GComponent {
 	}
 
 	/**
+	 * 准备场景异步资源。
+	 * @param _arg 场景参数
+	 */
+	public prepare(_arg?: unknown): Promise<boolean> {
+		return Promise.resolve(true);
+	}
+
+	/**
 	 * 刷新场景数据。
 	 * @param arg 刷新参数。
 	 */
@@ -169,8 +177,12 @@ export default class XScene extends GComponent {
 	}
 
 	/** 释放场景资源 */
-	public dispose() {
-		let uuid: string = this.node.uuid;
+	public dispose(): void {
+		const sceneNode = this.node;
+		if (!sceneNode) {
+			return;
+		}
+		const uuid: string = sceneNode.uuid;
 		if (this._timerUnit) {
 			this._timerUnit.dispose();
 			this._timerUnit = null;
@@ -208,5 +220,3 @@ export default class XScene extends GComponent {
 		}
 	}
 }
-
-window["XScene"] = XScene;

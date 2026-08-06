@@ -1,4 +1,6 @@
-import { AssetManager, Color, Font, Layers, resources } from "cc";
+import { Color, Font, Layers } from "cc";
+import XDEBUGLOG from "../base/debug/XDEBUGLOG";
+import ResMgr from "../base/manager/ResMgr";
 import { ScrollBarDisplayType } from "./FieldTypes";
 
 /**
@@ -158,16 +160,29 @@ let _fontRegistry: { [index: string]: Font } = {};
  * 注册字体到全局字体表；可直接传入 `Font` 实例，也可传入资源路径延迟加载。
  * @param name 字体注册名。
  * @param font `Font` 实例或字体资源路径。
- * @param bundle 可选资源包。
+ * @returns 字体加载结果。
  */
-export function registerFont(name: string, font?: Font | string, bundle?: AssetManager.Bundle): void {
-    if (font instanceof Font)
+export async function registerFont(name: string, font?: Font | string): Promise<Font> {
+    if (font instanceof Font) {
         _fontRegistry[name] = font;
-    else {
-        (bundle || resources).load(font || name, Font, (err: Error | null, asset: Font) => {
-            _fontRegistry[name] = asset;
-        });
+        XDEBUGLOG.debug("registerFont 直接注册字体实例", { name });
+        return font;
     }
+    const fontPath = font || name;
+    XDEBUGLOG.debug("registerFont 开始加载字体", { name, fontPath });
+    const asset = await ResMgr.inst.loadRes(fontPath, Font, "UIConfig.registerFont");
+    if (!asset) {
+        XDEBUGLOG.error("registerFont 加载失败", { name, fontPath });
+        throw new Error(`字体资源加载失败: ${fontPath}`);
+    }
+    _fontRegistry[name] = asset;
+    XDEBUGLOG.debug("registerFont 加载成功", {
+        name,
+        fontPath,
+        assetName: asset.name,
+        nativeUrl: (asset as Font & { nativeUrl?: string }).nativeUrl || "",
+    });
+    return asset;
 };
 
 /**

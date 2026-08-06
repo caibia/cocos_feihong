@@ -24,34 +24,33 @@
 
 | 类别 | 推荐形式 | 示例 |
 | --- | --- | --- |
-| 管理器 | `XxxMgr` | `SceneMgr`、`TimerMgr`、`ResMgr` |
+| 管理器 | `XxxMgr` | `SceneMgr`、`TimerMgr`、`NetWorkMgr` |
 | 数据库/数据单例 | `XxxDB` | `UserDB`、`RedPointDB` |
 | UI 基类 | `Xxx` 前缀 | `XWindow`、`XComponent`、`XButton` |
-| 场景类 | `XxxScene` | `GameMainScene` |
+| 场景类 | `XxxScene` | `LoginScene` |
 | 配置/常量定义 | `XxxDefine` / `XxxConst` | `UIObjectFactoryDefine`、`XConst` |
-| 枚举 | `PascalCase` 或项目既有常量风格 | `MATERIAL_TYPE`、`TIMERTYPE` |
+| 枚举 | `PascalCase` 或项目既有常量风格 | `OPEN_ANIMSTYLE`、`TIMERTYPE` |
 
-## 3. UI 结构绑定与业务类分层示例
+## 3. UI 与业务类分层示例
 
 推荐模式：
 
-1. `app/module/*/interfaces/I*View.ts` 是**手写**的结构绑定基类，只放字段声明、`UIPackage.createObject`、`initComponentByView` / `initControllerByView`、`Transition` 取值。
-2. 实际业务页面继承结构绑定基类或公共 UI 基类。
-3. 交互、状态、数据请求放在业务类，不写进结构绑定基类。
+1. 实际业务页面继承 `XWindow`、`XComponent` 或具体模块视图类。
+2. 涉及 UI 编辑器配置、页面结构或组件绑定专项时，按 `code-style` 主文使用时机分流。
+3. 交互、状态、数据请求放在业务类。
 
 适合的目录分工：
 
-1. `app/module/*/interfaces`：手写的结构绑定基类（字段名严格对齐 FGUI 组件结构）
-2. `app/module/*/*View.ts`：业务视图
-3. `base/ui/*`：可复用基础 UI 能力
+1. `app/module/*/*View.ts`：业务视图
+2. `base/ui/*`：可复用基础 UI 能力
 
-## 4. 生命周期与释放示例
+## 4. 管理器与枚举命名示例
 
-仓库中大量页面/单元类都实现了 `dispose`，说明这是当前项目的重要约束：
+仓库中管理器、数据单例和枚举命名已经形成固定风格：
 
-1. 持有 `timerUnit`、`observeUnit`、`networkUnit`、`tweenUnit`、`spineUnit` 等资源时，销毁时要成对释放。
-2. 页面、组件、场景关闭时，要同步释放内部引用。
-3. 新增资源型成员时，不要只在构造/初始化里分配，不在 `dispose` 中回收。
+1. 网络管理器沿用 `NetWorkMgr` 这类既有命名，不再新包一层转发工具。
+2. 计时类型沿用 `TIMERTYPE` 这类项目既有枚举风格。
+3. 新增同类能力时，先找现有 owner 和定义文件，不把同一概念拆成多套名字。
 
 ## 5. 常量与定义落点示例
 
@@ -59,9 +58,8 @@
 
 1. 事件名
 2. 场景名
-3. 存档键
-4. UI 层级
-5. 资源路径标识
+3. 业务键名
+4. 层级常量
 
 这样做的目的：
 
@@ -69,10 +67,10 @@
 2. 方便全局检索与统一修改
 3. 避免模块之间出现同义不同名
 
-## 6. 历史代码兼容说明
+## 6. 历史命名处理说明
 
 当前仓库存在少量历史命名与拼写不够统一的情况，处理原则如下：
 
-1. 编辑已有模块时，优先兼容现有导出名与调用链，不随意做破坏性改名。
+1. 编辑已有模块时，先确认现有导出名与调用链，不盲目改名。
 2. 新增代码时，不继续复制历史拼写问题或模糊命名。
-3. 若任务本身就是重构命名，应一次性同步更新引用与说明，不保留半套旧名。
+3. 若任务本身就是重构命名，应一次性同步更新引用与说明，避免半套旧名。

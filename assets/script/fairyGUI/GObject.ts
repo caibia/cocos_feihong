@@ -1147,8 +1147,9 @@ export class GObject {
 
     /**
      * 生命周期占位回调：对象每帧更新时由桥接组件触发，子类可覆写。
+     * @param deltaTime 本帧时间增量。
      */
-    protected onUpdate() {
+    protected onUpdate(deltaTime: number): void {
     }
 
     /**

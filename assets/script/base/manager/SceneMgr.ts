@@ -1,4 +1,4 @@
-
+﻿
 /**
 *Author  : XW
 *Desc    : 
@@ -12,7 +12,7 @@ import { EVENTNAME } from "../../app/define/EventDefine";
 import SceneDefine, { SceneArgMap, SceneDefineType, SceneName, SceneNameType } from "../../app/define/SceneDefine";
 import { UIArgMap, UINameType } from "../../app/define/UIDefine";
 import XScene from "../ui/XScene";
-import { XResourcesUrl } from "../define/XResourcesUrl";
+import { XResConst } from "../define/XResConst";
 import EventMgr from "./EventMgr";
 import ResMgr from "./ResMgr";
 import TimerMgr from "./TimerMgr";
@@ -24,6 +24,10 @@ type SceneCacheMap = Partial<Record<SceneNameType, XScene>>;
 type OpenSceneArg<T extends SceneNameType = SceneNameType> = { name: T, arg?: SceneArgMap[T] };
 type OpenUiArg<T extends UINameType = UINameType> = { name: T, arg?: UIArgMap[T] };
 type ReOpenUI = Partial<Record<SceneNameType, OpenUiArg[]>>;
+type SceneBackArg = {
+    /** 返回上一场景时是否丢弃参数 */
+    notSaveArg?: boolean;
+};
 
 export default class SceneMgr {
 
@@ -31,8 +35,12 @@ export default class SceneMgr {
     private _sceneRootCom: GComponent;
     /**当前场景 */
     private _curScene: XScene;
+    /** 当前场景的显示请求序号 */
+    private _curSceneRequestId: number = 0;
     /**当前加载中的场景名 */
     private _loadingSceneName: string;
+    /** 最新场景显示请求序号 */
+    private _sceneRequestId: number = 0;
     /**场景缓存，用于避免反复创建场景， 只有配置了cache=true的场景才会缓存 */
     private sceneCacheMap: SceneCacheMap;
     /** 切换场景时，记录要重新打开上次的界面。 一般仅用于战斗场景退出后，恢复之前的界面 */
@@ -57,6 +65,7 @@ export default class SceneMgr {
         this._sceneRootCom.name = "SceneRoot";
         GRoot.inst.addChildAt(this._sceneRootCom, 0);
         this.sceneCacheMap = {};
+        this.reopenUiMap = {};
         this.sceneStack = [];
     }
 
@@ -83,9 +92,18 @@ export default class SceneMgr {
         if (this.lastSceneArg) {
             this.sceneStack.push(this.lastSceneArg);
         }
+        this._curSceneRequestId = 0;
         if (this._curScene) {
             let sceneName = this._curScene.SCENENAME;
-            this._curScene.dispose();
+            let define = SceneDefine.ALL_SCENE[sceneName];
+            if (define?.isCache) {
+                this._curScene.removeFromParent();
+                this._curScene.node.active = false;
+                this.sceneCacheMap[sceneName] = this._curScene;
+            } else {
+                this._curScene.dispose();
+                delete this.sceneCacheMap[sceneName];
+            }
             this._curScene = null;
             return sceneName;
         }
@@ -94,10 +112,10 @@ export default class SceneMgr {
     public showPreScene(callback?: () => void) {
         let preScene = this.sceneStack.pop();
         if (!preScene) {
-            preScene = { name: SceneName.GameMainScene, arg: null };
+            preScene = { name: SceneName.LoginScene, arg: null };
         }
         //如果不保存参数就清空
-        if (preScene.arg && preScene.arg.notSaveArg) {
+        if ((preScene.arg as SceneBackArg | undefined)?.notSaveArg) {
             preScene.arg = null;
         }
         this.show(preScene.name, preScene.arg, callback, true);
@@ -111,6 +129,18 @@ export default class SceneMgr {
     }
 
     /**
+     * 释放未完成显示的场景。
+     * @param name 场景名
+     * @param sceneObj 场景实例
+     */
+    private disposePendingScene(name: SceneNameType, sceneObj: XScene): void {
+        if (this.sceneCacheMap[name] === sceneObj) {
+            delete this.sceneCacheMap[name];
+        }
+        sceneObj.dispose();
+    }
+
+    /**
      * 显示一个场景
      * @param name 场景名 在SceneDefine里配置
      * @param arg 参数
@@ -121,7 +151,7 @@ export default class SceneMgr {
      * let uiArgs = { [UINAME.CombatView]: { selfTeam: arg.selfTeam, enemyTeam: arg.enemyTeam } };
      * SceneMgr.inst.show(SceneName.CombatScene, null, null, false, uiArgs);
      */
-    public async show<T extends SceneNameType>(name: T, arg?: SceneArgMap[T], finishCb?: () => void, isPreScene?: boolean, uiArgs?: Partial<UIArgMap>) {
+    public async show<T extends SceneNameType>(name: T, arg?: SceneArgMap[T], finishCb?: () => void, isPreScene?: boolean, uiArgs?: Partial<UIArgMap>): Promise<void> {
         if (this._curScene && this._curScene.SCENENAME == name) {
             XDEBUGLOG.scene("禁止切换相同的scene", name);
             return;
@@ -135,28 +165,35 @@ export default class SceneMgr {
             XDEBUGLOG.warn("scene不存在", name);
             return;
         }
-        let ctrl: any = define.ctrl;
-        let sceneObj: XScene = new ctrl();
+        let sceneObj: XScene = define.isCache ? this.sceneCacheMap[name] : undefined;
+        const isCachedScene: boolean = !!sceneObj;
+        if (!sceneObj) {
+            let ctrl = define.ctrl;
+            sceneObj = new ctrl();
+        }
 
         if (!sceneObj || !(sceneObj instanceof XScene)) {
             XDEBUGLOG.warn("scene文件未继承XScene", name);
             return;
         }
 
+        if (isCachedScene) {
+            delete this.sceneCacheMap[name];
+        }
+        const requestId: number = ++this._sceneRequestId;
         sceneObj.SCENENAME = name;
         sceneObj.name = name;
         this.setGRootTouchable(false);
-        let olsSceneName = this._curScene ? this._curScene.SCENENAME : "";
-        EventMgr.inst.dispatchEvent(EVENTNAME.BEFORE_SCENE_CHANGE, { newSceneName: name, oldSceneName: olsSceneName })
-        XDEBUGLOG.scene("show  scene", name, define.isCache ? "使用缓存实例" : "创建新实例");
+        let oldSceneName = this._curScene ? this._curScene.SCENENAME : "";
+        XDEBUGLOG.scene("show  scene", name, isCachedScene ? "使用缓存实例" : "创建新实例");
         this._loadingSceneName = name;
-        if (!define.isCache) {
+        if (!isCachedScene) {
             //加载资源
             let preloadPackages: string[] = sceneObj.getFairyPackageArr();
             let promiseArr: Promise<void>[] = [];
             if (preloadPackages && preloadPackages.length > 0) {
                 for (let i = 0; i < preloadPackages.length; i++) {
-                    let pkgPath: string = XResourcesUrl.getUIPackageUrl(preloadPackages[i]);
+                    let pkgPath: string = XResConst.getUIPackageUrl(preloadPackages[i]);
                     let tpromise: Promise<void> = ResMgr.inst.loadFGUIPackage(pkgPath, sceneObj.node.uuid);
                     if (tpromise) {
                         promiseArr.push(tpromise);
@@ -172,9 +209,10 @@ export default class SceneMgr {
                     XDEBUGLOG.error(`load scene:${name} error`, overtime);
                 }
                 overtime = undefined;
-                if (this._loadingSceneName != name) {
+                if (this._sceneRequestId !== requestId) {
                     //await之后，可能已经切换到其他场景了，此时需要把旧场景后续的流程都终止掉
                     XDEBUGLOG.warn(`${name}在加载过程中切换到了${this._loadingSceneName}, 原场景取消显示`);
+                    this.disposePendingScene(name, sceneObj);
                     return;
                 }
             }
@@ -184,6 +222,25 @@ export default class SceneMgr {
             XDEBUGLOG.scene("use cache scene:", name);
         }
 
+        let isPrepared = false;
+        try {
+            isPrepared = await sceneObj.prepare(arg);
+        } catch (error: unknown) {
+            XDEBUGLOG.error(`prepare scene:${name} error`, error);
+        }
+        if (this._sceneRequestId !== requestId) {
+            this.disposePendingScene(name, sceneObj);
+            return;
+        }
+        if (!isPrepared) {
+            XDEBUGLOG.warn("scene准备失败", name);
+            this._loadingSceneName = null;
+            this.disposePendingScene(name, sceneObj);
+            this.setGRootTouchable(true);
+            return;
+        }
+
+        EventMgr.inst.dispatchEvent(EVENTNAME.BEFORE_SCENE_CHANGE, { newSceneName: name, oldSceneName });
         //需要打开的ui合集
         let uiArr: UINameType[] = define.uiArr || [];
         let exceptUiMap: { [key: string]: boolean } = {};
@@ -197,13 +254,11 @@ export default class SceneMgr {
         //销毁上一个场景
         this.destroyCurScene();
         this.lastSceneArg = { name: name, arg: arg };
-        if (name == SceneName.GameMainScene) {
-            //MainScene作为根节点，不允许再通过showPreScene返回到其他场景
-            this.sceneStack = [];
-        }
         // 不能上移, 因为删除 UiMgr.destroyAll 要获取当前场景的 reason
         this._curScene = sceneObj;
+        this._curSceneRequestId = requestId;
         this._sceneRootCom.addChild(sceneObj);
+        sceneObj.node.active = true;
         sceneObj.onCreate();
         sceneObj.onStageResize();
         sceneObj.onRefresh(arg);
@@ -219,23 +274,36 @@ export default class SceneMgr {
         }
         if (promiseArr.length > 0) {
             await Promise.all(promiseArr);
+            if (this._curScene !== sceneObj || this._curSceneRequestId !== requestId) {
+                return;
+            }
             XDEBUGLOG.scene("show ui finish have use UIMgr.inst.getUI :", uiArr);
         }
         sceneObj.onUIShow(uiArr);
-        UIMgr.inst.checkFullScreen();
+        void UIMgr.inst.checkFullScreen();
         XDEBUGLOG.scene("change scene success:", name);
-        EventMgr.inst.dispatchEvent(EVENTNAME.AFTER_SCENE_CHANGE, { sceneName: name, oldSceneName: olsSceneName });
+        EventMgr.inst.dispatchEvent(EVENTNAME.AFTER_SCENE_CHANGE, { sceneName: name, oldSceneName });
         finishCb && finishCb();
-        TimerMgr.inst.setTimeout(() => { this.setGRootTouchable(true); }, XConst.FPS_UTIME * 3, this);
+        TimerMgr.inst.setTimeout(() => {
+            if (this._sceneRequestId === requestId) {
+                this.setGRootTouchable(true);
+            }
+        }, XConst.FPS_UTIME * 3, this);
     }
 
-    /** 设置Groot点击 */
-    public setGRootTouchable(bool) {
-        GRoot.inst.touchable = bool;
+    /**
+     * 设置 GRoot 点击状态。
+     * @param isTouchable 是否允许点击
+     */
+    public setGRootTouchable(isTouchable: boolean): void {
+        GRoot.inst.touchable = isTouchable;
         //如果设置了不可点击，需要增加定时器设置成可点击
-        if (!bool) {
+        if (!isTouchable) {
+            const requestId: number = this._sceneRequestId;
             TimerMgr.inst.setTimeout(() => {
-                this.setGRootTouchable(true);
+                if (this._sceneRequestId === requestId) {
+                    this.setGRootTouchable(true);
+                }
             }, 2 * 1000, this);
         }
     }
@@ -244,5 +312,3 @@ export default class SceneMgr {
 
     }
 }
-
-window["SceneMgr"] = SceneMgr;

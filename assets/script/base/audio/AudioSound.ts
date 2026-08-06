@@ -4,13 +4,10 @@
 */
 
 import { AudioClip, AudioSource } from "cc";
-import ResMgr from "../manager/ResMgr";
 
 export default class AudioSound extends AudioSource {
     /** 音效开关 */
     public switch: boolean = true;
-    /** 当前正在请求或播放的音效资源地址 */
-    private _url: string = "";
     /** 播放完成回调 */
     public onComplete: (audio: AudioSound) => void | null = null;
 
@@ -20,17 +17,12 @@ export default class AudioSound extends AudioSource {
     }
 
     /**
-     * 播放音效。
-     * @param url 音效资源地址。
+     * 播放已加载的音效资源。
+     * @param audioClip 音效资源。
      */
-    public async playSound(url: string) {
-        this._url = url;
-        if (!this._url) return;
-        if (!this.switch) return;
-        let audioClip: AudioClip = await ResMgr.inst.loadRes(url, AudioClip);
+    public playAudioClip(audioClip: AudioClip): void {
         if (!audioClip) return;
-        //加载完成的 跟 播放的不是同一个
-        if (this._url != url) return;
+        if (!this.switch) return;
         this.playing && this.stop();
         this.release();
         this.loop = false;
@@ -39,20 +31,19 @@ export default class AudioSound extends AudioSource {
     }
 
     /** 停止当前音效播放 */
-    public stopSound() {
+    public stopSound(): void {
         this.switch && this.playing && this.stop();
     }
 
     /** 处理音效播放结束回调 */
-    private onAudioEnded() {
+    private onAudioEnded(): void {
         this.onComplete && this.onComplete(this);
     }
 
-    /** 释放当前已加载的音效资源 */
-    public release() {
+    /** 断开当前音效资源引用 */
+    public release(): void {
         if (this.clip) {
             this.stop();
-            this.clip.destroy();
             this.clip = null;
         }
     }

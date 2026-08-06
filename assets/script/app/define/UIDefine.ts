@@ -2,7 +2,6 @@ import { BlockView } from "../../app/module/alert/BlockView";
 // 0Common 公共包移除后暂不用：待 HotUpdateView / DialogView 源就绪后取消注释
 // import HotUpdateView from "../../app/module/hotUpdate/HotUpdateView";
 // import DialogView from "../module/dialog/DialogView";
-import LoginView from "../../app/module/login/LoginView";
 import NetLoadingView from "../../app/module/netLoading/NetLoadingView";
 import XComponent from "../../base/ui/XComponent";
 
@@ -18,7 +17,6 @@ export const enum LAYER_CONST {
 }
 
 export const UINAME = {
-    LoginView: "LoginView",
     // HotUpdateView: "HotUpdateView",
     // DialogView: "DialogView",
     NetLoadingView: "NetLoadingView",
@@ -46,7 +44,6 @@ export type UINameType = typeof UINAME[keyof typeof UINAME];
 export type UIDefineMap = { [name: string]: UIDefineType } & Record<UINameType, UIDefineType>;
 /** UI实例类型映射：用于 UIMgr.getUI(name) 按 name 推导具体返回类型 */
 export type UIInstanceMap = {
-    [UINAME.LoginView]: LoginView;
     // [UINAME.HotUpdateView]: HotUpdateView;
     // [UINAME.DialogView]: DialogView;
     [UINAME.NetLoadingView]: NetLoadingView;
@@ -79,7 +76,6 @@ export default class UIDefine {
 
     public static initUI() {
         let define: UIDefineMap = {} as UIDefineMap;
-        define[UINAME.LoginView] = { ctrl: LoginView, fullscreen: true, layer: LAYER_CONST.BOTTOM, cache: CACHETYPE_ENUM.TIME1, };
         // define[UINAME.HotUpdateView] = { ctrl: HotUpdateView, fullscreen: true, layer: LAYER_CONST.TOP, cache: CACHETYPE_ENUM.NONE, };
         // define[UINAME.DialogView] = { ctrl: DialogView, fullscreen: false, layer: LAYER_CONST.WINDOW, cache: CACHETYPE_ENUM.NONE, };
         define[UINAME.NetLoadingView] = { ctrl: NetLoadingView, fullscreen: false, layer: LAYER_CONST.TOP, cache: CACHETYPE_ENUM.NONE, };

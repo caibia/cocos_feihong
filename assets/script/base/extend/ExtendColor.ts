@@ -4,10 +4,13 @@
 *Desc    : 
 */
 
-import { CacheMode, Color, UIRenderer } from "cc";
+import { CacheMode, Color, Material, resources, UIRenderer } from "cc";
 import { GTextField } from "../../fairyGUI/GTextField";
 import XDEBUGLOG from "../debug/XDEBUGLOG";
 import Extend from "./Extend";
+
+/** 文本竖向渐变材质资源路径（编辑器据 text-gradient.effect 生成的 .mtl） */
+const TEXT_GRADIENT_MAT_PATH = "shaders/text-gradient";
 
 /**渐变色 */
 export const enum GRADUEBTCOLOR_ENUM {
@@ -74,6 +77,84 @@ export default class ExtendColor {
 	public static fromHEX(hex: string): Color {
 		let color: Color = new Color();
 		return color.fromHEX(hex);
+	}
+
+	/** 每个渐变预设缓存一个材质实例（预设固定、数量少，可跨 Label 共享同一预设的材质） */
+	private static _gradMatCache: { [presetKey: string]: Material } = {};
+	/** 渐变基础材质（懒加载，避免进 MaterialMgr 批量预加载导致整批失败） */
+	private static _gradBaseMat: Material = null;
+	private static _gradBaseLoading: boolean = false;
+
+	/** 懒加载渐变基础材质；未就绪返回 null 并触发一次异步加载，下次调用即可用 */
+	private static _getGradBaseMat(): Material {
+		if (ExtendColor._gradBaseMat) return ExtendColor._gradBaseMat;
+		let mat = resources.get(TEXT_GRADIENT_MAT_PATH, Material);
+		if (mat) {
+			ExtendColor._gradBaseMat = mat;
+			return mat;
+		}
+		if (!ExtendColor._gradBaseLoading) {
+			ExtendColor._gradBaseLoading = true;
+			resources.load(TEXT_GRADIENT_MAT_PATH, Material, (err, asset) => {
+				ExtendColor._gradBaseLoading = false;
+				if (err || !asset) {
+					XDEBUGLOG.warn("text-gradient 材质加载失败，请先在编辑器据 effect 生成 shaders/text-gradient.mtl", err);
+					return;
+				}
+				ExtendColor._gradBaseMat = asset;
+			});
+		}
+		return null;
+	}
+
+	/**
+	 * 给整段文本挂"竖向渐变材质"（纯材质实现，不依赖逐顶点色，原生/Web 一致）。
+	 * 仅适用于整段统一渐变（如 [color=@金渐变] 包裹全文）。多段不同纯色请用富文本。
+	 * @param tf 目标 GTextField
+	 * @param presetKey GradientColorMap 的预设 key，如 GRADUEBTCOLOR_ENUM.GOLDEN_WHITE
+	 * @param flipY 渐变方向翻转（不同字体/贴图 uv 原点可能上下相反时置 1）
+	 * @returns 是否成功挂上材质；失败（材质未创建/未加载）时返回 false，调用方可回退原逻辑
+	 */
+	public static applyGradientMaterial(tf: GTextField, presetKey: string, flipY: number = 0): boolean {
+		if (!tf || !tf.ccLabel) return false;
+		const colors = GradientColorMap[presetKey];
+		if (!colors) {
+			XDEBUGLOG.warn("未定义的渐变预设", presetKey);
+			return false;
+		}
+		// 预设顶点顺序：左下、右下、左上、右上 => top=colors[2], bottom=colors[0]
+		const top = colors[2];
+		const bottom = colors[0];
+
+		let mat = ExtendColor._gradMatCache[presetKey];
+		if (!mat) {
+			const base = ExtendColor._getGradBaseMat();
+			if (!base) {
+				// 材质尚未就绪（首次会触发异步加载），本次回退到调用方原逻辑
+				return false;
+			}
+			mat = new Material();
+			mat.copy(base);
+			mat.setProperty("topColor", top);
+			mat.setProperty("bottomColor", bottom);
+			mat.setProperty("flipY", flipY);
+			ExtendColor._gradMatCache[presetKey] = mat;
+		}
+
+		const label = tf.ccLabel;
+		// 整段一张贴图，uv.y 即上→下，作为渐变坐标
+		if (label.cacheMode != CacheMode.NONE) label.cacheMode = CacheMode.NONE;
+		// 渲染色交给材质：只把底层 label 渲染色置白避免二次叠乘，保留 GTextField._color 不变
+		label.color = Color.WHITE;
+		label.customMaterial = mat;
+		return true;
+	}
+
+	/** 清除文本上的渐变材质，恢复默认渲染 */
+	public static clearGradientMaterial(tf: GTextField) {
+		if (tf && tf.ccLabel && tf.ccLabel.customMaterial) {
+			tf.ccLabel.customMaterial = null;
+		}
 	}
 
 	/**

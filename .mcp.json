@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "fairygui-tools": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "mcp_fairygui.server"],
+      "cwd": "d:/work/LocalGames/cocos_feihong/tools/FairyGUI-MCP/src",
+      "env": {
+        "PROJECT_ROOT": "d:/work/LocalGames/cocos_feihong",
+        "UI_PROJECT_PATH": "d:/work/LocalGames/cocos_feihong/FGUIProject/UIProject"
+      }
+    }
+  }
+}

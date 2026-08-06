@@ -1,0 +1,158 @@
+import type { Ref } from 'property-graph';
+import { type Nullable, PropertyType } from '../constants.js';
+import { ExtensibleProperty, type IExtensibleProperty } from './extensible-property.js';
+import type { FairyBuffer } from './buffer.js';
+
+export interface PixelHitTestData {
+	pixelWidth: number;
+	scaleDenominator: number;
+	pixels: Uint8Array;
+}
+
+interface IImageResource extends IExtensibleProperty {
+	id: string;
+	fileName: string;
+	path: string;
+	branch: string;
+	branchItemIds: string[];
+	highResolutionItemIds: Array<string | null>;
+	width: number;
+	height: number;
+	exported: boolean;
+	favorite: boolean;
+	textureSetMode: string;
+	qualityOption: string;
+	quality: number;
+	smoothing: boolean;
+	duplicatePadding: boolean;
+	scaleOption: number;
+	scale9Grid: [number, number, number, number] | null;
+	tileGridIndice: number;
+	imageData: Ref<FairyBuffer>;
+	pixelHitTestPixelWidth: number;
+	pixelHitTestScaleDenominator: number;
+	pixelHitTestPixels: Uint8Array | null;
+}
+
+/**
+ * An image resource within a FairyGUI package.
+ * @category Properties
+ */
+export class ImageResource extends ExtensibleProperty<IImageResource> {
+	public declare propertyType: PropertyType.IMAGE_RESOURCE;
+
+	protected init(): void {
+		this.propertyType = PropertyType.IMAGE_RESOURCE;
+	}
+
+	protected getDefaults(): Nullable<IImageResource> {
+		return Object.assign(super.getDefaults(), {
+			id: '',
+			fileName: '',
+			path: '',
+			branch: '',
+			branchItemIds: [],
+			highResolutionItemIds: [],
+			width: 0,
+			height: 0,
+			exported: false,
+			favorite: false,
+			textureSetMode: '',
+			qualityOption: '',
+			quality: 80,
+			smoothing: true,
+			duplicatePadding: false,
+			scaleOption: 0,
+			scale9Grid: null,
+			tileGridIndice: 0,
+			imageData: null,
+			pixelHitTestPixelWidth: 0,
+			pixelHitTestScaleDenominator: 1,
+			pixelHitTestPixels: null,
+		});
+	}
+
+	public getId(): string { return this.get('id'); }
+	public setId(id: string): this { return this.set('id', id); }
+
+	public getFileName(): string { return this.get('fileName'); }
+	public setFileName(fileName: string): this { return this.set('fileName', fileName); }
+
+	public getPath(): string { return this.get('path'); }
+	public setPath(path: string): this { return this.set('path', path); }
+
+	public getBranch(): string { return this.get('branch'); }
+	public setBranch(branch: string): this { return this.set('branch', branch); }
+
+	public getBranchItemIds(): string[] { return [...this.get('branchItemIds')]; }
+	public setBranchItemIds(ids: string[]): this { return this.set('branchItemIds', [...ids]); }
+
+	public getHighResolutionItemIds(): Array<string | null> { return [...this.get('highResolutionItemIds')]; }
+	public setHighResolutionItemIds(ids: Array<string | null>): this { return this.set('highResolutionItemIds', [...ids]); }
+
+	public getWidth(): number { return this.get('width'); }
+	public setWidth(w: number): this { return this.set('width', w); }
+
+	public getHeight(): number { return this.get('height'); }
+	public setHeight(h: number): this { return this.set('height', h); }
+
+	public getExported(): boolean { return this.get('exported'); }
+	public setExported(v: boolean): this { return this.set('exported', v); }
+
+	public getFavorite(): boolean { return this.get('favorite'); }
+	public setFavorite(v: boolean): this { return this.set('favorite', v); }
+
+	public getTextureSetMode(): string { return this.get('textureSetMode'); }
+	public setTextureSetMode(v: string): this { return this.set('textureSetMode', v); }
+
+	public getQualityOption(): string { return this.get('qualityOption'); }
+	public setQualityOption(v: string): this { return this.set('qualityOption', v); }
+
+	public getQuality(): number { return this.get('quality'); }
+	public setQuality(v: number): this { return this.set('quality', v); }
+
+	public getSmoothing(): boolean { return this.get('smoothing'); }
+	public setSmoothing(v: boolean): this { return this.set('smoothing', v); }
+
+	public getDuplicatePadding(): boolean { return this.get('duplicatePadding'); }
+	public setDuplicatePadding(v: boolean): this { return this.set('duplicatePadding', v); }
+
+	public getScaleOption(): number { return this.get('scaleOption'); }
+	public setScaleOption(v: number): this { return this.set('scaleOption', v); }
+
+	public getScale9Grid(): [number, number, number, number] | null { return this.get('scale9Grid'); }
+	public setScale9Grid(v: [number, number, number, number] | null): this { return this.set('scale9Grid', v); }
+
+	public getTileGridIndice(): number { return this.get('tileGridIndice'); }
+	public setTileGridIndice(v: number): this { return this.set('tileGridIndice', v); }
+
+	public getImageData(): FairyBuffer | null { return this.getRef('imageData' as never) as FairyBuffer | null; }
+	public setImageData(buffer: FairyBuffer | null): this { return this.setRef('imageData' as never, buffer as never); }
+
+	/** Primary source-file bytes for this image resource. */
+	public getSourceData(): FairyBuffer | null { return this.getImageData(); }
+	public setSourceData(buffer: FairyBuffer | null): this { return this.setImageData(buffer); }
+
+	public getPixelHitTestData(): PixelHitTestData | null {
+		const pixelWidth = this.get('pixelHitTestPixelWidth');
+		const scaleDenominator = this.get('pixelHitTestScaleDenominator');
+		const pixels = this.get('pixelHitTestPixels');
+		if (pixelWidth <= 0 || scaleDenominator <= 0 || !(pixels instanceof Uint8Array)) return null;
+		return {
+			pixelWidth,
+			scaleDenominator,
+			pixels,
+		};
+	}
+
+	public setPixelHitTestData(data: PixelHitTestData | null): this {
+		if (!data) {
+			this.set('pixelHitTestPixelWidth', 0);
+			this.set('pixelHitTestScaleDenominator', 1);
+			return this.set('pixelHitTestPixels', null);
+		}
+		this.set('pixelHitTestPixelWidth', data.pixelWidth);
+		this.set('pixelHitTestScaleDenominator', data.scaleDenominator);
+		return this.set('pixelHitTestPixels', data.pixels);
+	}
+}
